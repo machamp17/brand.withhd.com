@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>会社概要 | 株式会社 WITH HOLDINGS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#0F3D34;
+    --green-2:#3E6B5C;
+    --green-deep:#0a2620;
+    --gold:#D4A24A;
+    --paper:#FAFAF7;
+    --cream:#F2F4F3;
+    --line:#e5e2db;
+    --ink:#111815;
+    --sub:#6a7670;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Sans JP',system-ui,sans-serif;font-weight:400;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .serif{font-family:'Noto Serif JP',serif;font-weight:500;letter-spacing:.02em}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  .container{max-width:1320px;margin:0 auto;padding:0 48px}
+  @media (max-width:768px){.container{padding:0 22px}}
+
+  /* ===== NAV ===== */
+  nav.gnav{position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(250,250,247,.82);backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    border-bottom:1px solid rgba(229,226,219,.6);transition:all .4s ease}
+  nav.gnav.over-hero{background:rgba(15,61,52,0);backdrop-filter:none;
+    -webkit-backdrop-filter:none;border-bottom-color:transparent;color:#fff}
+  nav.gnav .row{display:flex;align-items:center;justify-content:space-between;
+    height:72px}
+  nav.gnav .brand{display:flex;align-items:center;gap:12px}
+  nav.gnav .brand .mark{width:44px;height:auto}
+  nav.gnav .brand .name{font-family:'Noto Serif JP',serif;font-size:14px;
+    font-weight:500;letter-spacing:.18em}
+  nav.gnav ul{display:flex;gap:36px;list-style:none;margin:0;padding:0}
+  nav.gnav ul a{font-size:12px;letter-spacing:.18em;font-weight:500}
+  nav.gnav ul a:hover{color:var(--gold)}
+  nav.gnav ul a.current{color:var(--gold)}
+  nav.gnav .cta{font-size:11px;letter-spacing:.18em;padding:10px 18px;
+    border:1px solid currentColor;border-radius:999px;display:inline-flex;
+    align-items:center;gap:8px}
+  nav.gnav .burger{display:none;flex-direction:column;gap:5px}
+  nav.gnav .burger span{width:22px;height:1.5px;background:currentColor;display:block}
+  @media (max-width:900px){
+    nav.gnav ul,nav.gnav .cta{display:none}
+    nav.gnav .burger{display:flex}
+    nav.gnav .row{height:60px}
+  }
+
+  /* ===== HERO (compact, 墨流し) ===== */
+  .page-hero{position:relative;min-height:62vh;display:flex;align-items:flex-end;
+    overflow:hidden;color:#fff}
+  .page-hero .bg{position:absolute;inset:0;z-index:0}
+  .page-hero .bg img{width:100%;height:100%;object-fit:cover}
+  .page-hero .bg::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,
+      rgba(10,38,32,.5) 0%,
+      rgba(10,38,32,.15) 35%,
+      rgba(10,38,32,.55) 75%,
+      rgba(10,38,32,.85) 100%)}
+  .page-hero .inner{position:relative;z-index:1;width:100%;padding-bottom:88px;padding-top:160px}
+  .page-hero .crumb{display:flex;align-items:center;gap:14px;font-size:11px;
+    letter-spacing:.32em;font-weight:500;color:rgba(255,255,255,.78);margin-bottom:32px}
+  .page-hero .crumb::before{content:'';width:36px;height:1px;background:var(--gold)}
+  .page-hero .crumb a{color:inherit;opacity:.78}
+  .page-hero .crumb .sep{opacity:.45}
+  .page-hero h1{font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:clamp(38px,6vw,76px);line-height:1.18;letter-spacing:.02em;
+    margin:0 0 18px;text-shadow:0 1px 30px rgba(0,0,0,.3)}
+  .page-hero h1 em{font-style:normal;color:var(--gold)}
+  .page-hero .en{font-family:'Noto Serif JP',serif;font-weight:300;font-style:italic;
+    font-size:clamp(14px,1.4vw,18px);letter-spacing:.18em;
+    color:rgba(255,255,255,.65)}
+
+  /* ===== Section base ===== */
+  section{padding:140px 0;position:relative}
+  section.alt{background:var(--cream)}
+  @media (max-width:768px){section{padding:88px 0}}
+
+  /* ===== Section head ===== */
+  .sec-head{margin-bottom:64px;display:flex;flex-direction:column;gap:18px}
+  .sec-head .num{display:flex;align-items:center;gap:14px;font-size:11px;
+    letter-spacing:.32em;font-weight:500;color:var(--green)}
+  .sec-head .num span:first-child{color:var(--gold);font-weight:600}
+  .sec-head .num em{font-style:normal;width:32px;height:1px;background:var(--gold);display:block}
+  .sec-head h2{font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:clamp(28px,3.6vw,46px);line-height:1.32;letter-spacing:.02em;
+    margin:0;color:var(--green)}
+  .sec-head .lede{font-size:13.5px;line-height:2;color:var(--ink);opacity:.78;
+    max-width:640px;margin-top:6px}
+
+  /* ===== MESSAGE (代表メッセージ) ===== */
+  .message-wrap{display:grid;grid-template-columns:.92fr 1.08fr;gap:88px;
+    align-items:start}
+  @media (max-width:900px){.message-wrap{grid-template-columns:1fr;gap:48px}}
+  .message-portrait{position:relative}
+  .message-portrait .frame{aspect-ratio:4/5;overflow:hidden;
+    background:#222;position:relative;
+    box-shadow:0 38px 80px -40px rgba(15,61,52,.45)}
+  .message-portrait .frame img{width:100%;height:100%;object-fit:cover}
+  .message-portrait .gold-line{position:absolute;left:-22px;top:32px;
+    width:1px;height:120px;background:var(--gold);opacity:.7}
+  .message-portrait .meta{margin-top:22px;display:flex;align-items:flex-end;
+    justify-content:space-between;gap:18px}
+  .message-portrait .meta .role{font-size:10px;letter-spacing:.32em;
+    color:var(--gold);font-weight:600}
+  .message-portrait .meta .name{font-family:'Noto Serif JP',serif;font-size:22px;
+    font-weight:500;color:var(--green);margin-top:6px;letter-spacing:.04em}
+  .message-portrait .meta .name .en{font-size:11px;letter-spacing:.2em;
+    color:var(--sub);font-weight:500;margin-top:6px;display:block;font-style:italic}
+  .message-portrait .meta .signature{font-family:'Noto Serif JP',serif;
+    font-size:13px;color:var(--sub);letter-spacing:.18em;writing-mode:vertical-rl;
+    opacity:.6}
+
+  .message-body .pull{font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:clamp(28px,3.4vw,42px);line-height:1.5;letter-spacing:.04em;
+    color:var(--green);margin:0 0 44px}
+  .message-body .pull em{font-style:normal;color:var(--gold);font-weight:600}
+  .message-body .pull::before{content:'';display:block;width:42px;height:1px;
+    background:var(--gold);margin-bottom:24px}
+  .message-body p{font-size:14px;line-height:2.1;color:var(--ink);opacity:.86;
+    margin:0 0 22px;letter-spacing:.04em}
+  .message-body p:last-child{margin-bottom:0}
+
+  /* ===== PHILOSOPHY ===== */
+  .philosophy-hero{position:relative;height:50vh;min-height:420px;
+    overflow:hidden;margin-bottom:96px}
+  .philosophy-hero img{width:100%;height:100%;object-fit:cover}
+  .philosophy-hero::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,
+      rgba(10,38,32,.1) 0%,
+      rgba(10,38,32,.35) 60%,
+      rgba(242,244,243,.85) 100%)}
+  .philosophy-hero .caption{position:absolute;left:0;right:0;bottom:60px;
+    text-align:center;z-index:1;color:#fff}
+  .philosophy-hero .caption .kicker{font-size:11px;letter-spacing:.36em;
+    color:var(--gold);font-weight:600;margin-bottom:24px;display:flex;
+    align-items:center;justify-content:center;gap:14px}
+  .philosophy-hero .caption .kicker::before,
+  .philosophy-hero .caption .kicker::after{content:'';width:36px;height:1px;
+    background:var(--gold)}
+  .philosophy-hero .caption h3{font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:clamp(34px,5vw,64px);line-height:1.4;letter-spacing:.06em;
+    margin:0;text-shadow:0 1px 30px rgba(0,0,0,.3)}
+  .philosophy-hero .caption h3 em{font-style:normal;color:var(--gold)}
+
+  .mvb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  @media (max-width:900px){.mvb-grid{grid-template-columns:1fr;gap:24px}}
+  .mvb-card{background:var(--paper);border:1px solid var(--line);
+    padding:48px 36px;position:relative;display:flex;flex-direction:column;
+    gap:18px;transition:all .35s ease}
+  .mvb-card::before{content:'';position:absolute;top:0;left:0;width:42px;
+    height:1px;background:var(--gold)}
+  .mvb-card:hover{border-color:rgba(212,162,74,.4);
+    box-shadow:0 24px 60px -32px rgba(15,61,52,.25)}
+  .mvb-card .label{display:flex;flex-direction:column;gap:6px;
+    font-family:'Noto Serif JP',serif}
+  .mvb-card .label .top{display:flex;align-items:baseline;gap:14px}
+  .mvb-card .label .num{font-size:14px;color:var(--gold);font-weight:500;
+    letter-spacing:.06em}
+  .mvb-card .label .en{font-size:24px;color:var(--green);font-weight:500;
+    letter-spacing:.04em}
+  .mvb-card .label .jp{font-size:10px;color:var(--sub);letter-spacing:.32em;
+    font-weight:500;white-space:nowrap;padding-left:34px}
+  .mvb-card h4{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:500;
+    color:var(--green);line-height:1.55;letter-spacing:.04em;margin:0}
+  .mvb-card p{font-size:13px;line-height:2;color:var(--ink);opacity:.78;
+    margin:0;letter-spacing:.04em}
+
+  /* ===== COMPANY INFO ===== */
+  .info-wrap{max-width:920px;margin:0 auto}
+  .info-table{width:100%;border-collapse:collapse}
+  .info-table tr{border-bottom:1px solid var(--line)}
+  .info-table tr:first-child{border-top:1px solid var(--line)}
+  .info-table th,.info-table td{padding:26px 12px;vertical-align:top;
+    text-align:left}
+  .info-table th{width:200px;font-family:'Noto Serif JP',serif;
+    font-size:13px;font-weight:500;color:var(--green);letter-spacing:.18em;
+    position:relative;padding-left:22px}
+  .info-table th::before{content:'';position:absolute;left:0;top:32px;
+    width:8px;height:1px;background:var(--gold)}
+  .info-table td{font-size:14px;line-height:1.95;color:var(--ink);
+    letter-spacing:.04em}
+  .info-table td .en{display:block;font-family:'Noto Serif JP',serif;
+    font-size:11px;color:var(--sub);letter-spacing:.18em;margin-top:6px;
+    font-style:italic}
+  .info-table td ul{margin:0;padding:0;list-style:none;
+    display:flex;flex-direction:column;gap:8px}
+  .info-table td ul li{padding-left:18px;position:relative}
+  .info-table td ul li::before{content:'';position:absolute;left:0;top:13px;
+    width:6px;height:1px;background:var(--gold)}
+  .info-table td .lic-num{font-family:'Noto Serif JP',serif;font-size:12px;
+    color:var(--sub);margin-left:10px;letter-spacing:.08em}
+  @media (max-width:768px){
+    .info-table th,.info-table td{display:block;width:100%;padding:18px 0}
+    .info-table th{padding-bottom:6px}
+    .info-table td{padding-top:0;padding-bottom:24px}
+  }
+
+  /* ===== CTA band (夜明け前の森) ===== */
+  .cta-band{position:relative;padding:140px 0;overflow:hidden;color:#fff}
+  .cta-band .bg{position:absolute;inset:0;z-index:0}
+  .cta-band .bg img{width:100%;height:100%;object-fit:cover}
+  .cta-band .bg::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,
+      rgba(10,38,32,.65) 0%,
+      rgba(10,38,32,.85) 100%)}
+  .cta-band .inner{position:relative;z-index:1;text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:32px}
+  .cta-band .kicker{font-size:11px;letter-spacing:.36em;color:var(--gold);
+    font-weight:600;display:flex;align-items:center;gap:14px}
+  .cta-band .kicker::before,.cta-band .kicker::after{content:'';width:36px;
+    height:1px;background:var(--gold)}
+  .cta-band h2{font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:clamp(28px,4vw,48px);line-height:1.4;margin:0;letter-spacing:.04em}
+  .cta-band h2 em{font-style:normal;color:var(--gold)}
+  .cta-band .actions{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;
+    margin-top:8px}
+  .cta-band .btn{display:inline-flex;align-items:center;gap:14px;
+    padding:22px 38px;border:1px solid rgba(255,255,255,.4);
+    transition:all .35s ease;cursor:pointer}
+  .cta-band .btn:hover{background:rgba(212,162,74,.12);border-color:var(--gold)}
+  .cta-band .btn .lbl{display:flex;flex-direction:column;gap:4px;text-align:left}
+  .cta-band .btn .lbl .en{font-family:'Noto Serif JP',serif;font-size:16px;
+    font-weight:500;letter-spacing:.04em}
+  .cta-band .btn .lbl .jp{font-size:11px;letter-spacing:.18em;opacity:.7}
+  .cta-band .btn .arr{font-family:'Noto Serif JP',serif;font-size:18px;
+    color:var(--gold);transition:transform .35s ease}
+  .cta-band .btn:hover .arr{transform:translateX(6px)}
+  .cta-band .btn.primary{background:var(--gold);border-color:var(--gold);color:var(--green-deep)}
+  .cta-band .btn.primary .arr{color:var(--green-deep)}
+  .cta-band .btn.primary:hover{background:#c9962f;border-color:#c9962f}
+
+  /* ===== FOOTER ===== */
+  footer.foot{background:var(--green-deep);color:rgba(255,255,255,.78);padding:80px 0 32px}
+  footer.foot .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.3fr;gap:48px;
+    margin-bottom:64px}
+  footer.foot .brand .mark{width:64px;height:auto;margin-bottom:16px}
+  footer.foot .brand .name{font-family:'Noto Serif JP',serif;font-size:15px;
+    font-weight:500;letter-spacing:.16em;color:#fff;margin-bottom:14px}
+  footer.foot .brand .stmt{font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.5);
+    line-height:1.8}
+  footer.foot h4{font-size:11px;letter-spacing:.28em;color:var(--gold);
+    font-weight:600;margin:0 0 18px;text-transform:uppercase}
+  footer.foot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  footer.foot ul a{font-size:12px;color:rgba(255,255,255,.78);transition:color .25s}
+  footer.foot ul a:hover{color:var(--gold)}
+  footer.foot .meta{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.45)}
+  @media (max-width:1100px){footer.foot .grid{grid-template-columns:1.5fr 1fr 1fr;gap:40px}}
+  @media (max-width:900px){footer.foot .grid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media (max-width:600px){footer.foot .grid{grid-template-columns:1fr}}
+
+  /* ===== Mobile drawer ===== */
+  .drawer{position:fixed;inset:0;z-index:200;background:rgba(10,26,22,.96);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    opacity:0;pointer-events:none;transition:opacity .4s ease}
+  .drawer.open{opacity:1;pointer-events:auto}
+  .drawer-inner{height:100%;display:flex;flex-direction:column;justify-content:center;
+    align-items:flex-start;padding:80px 32px 40px;gap:36px;color:#fff}
+  .drawer-close{position:absolute;top:22px;right:22px;width:44px;height:44px;
+    border:1px solid rgba(255,255,255,.3);border-radius:50%;background:transparent;
+    color:#fff;font-size:22px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center}
+  .drawer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;
+    gap:24px;width:100%}
+  .drawer ul a{font-family:'Noto Serif JP',serif;font-size:30px;font-weight:500;
+    color:#fff;text-decoration:none;letter-spacing:.04em;display:flex;
+    align-items:baseline;gap:18px}
+  .drawer ul a .num{font-size:11px;letter-spacing:.32em;color:var(--gold);font-weight:500}
+  .drawer .drawer-cta{margin-top:8px;display:inline-flex;align-items:center;gap:10px;
+    padding:14px 26px;border:1px solid var(--gold);border-radius:999px;color:var(--gold);
+    font-size:12px;letter-spacing:.24em;text-decoration:none;font-weight:500}
+  .drawer .drawer-foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;
+    font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.45)}
+
+  /* ===== Mobile fine-tuning (≤600px) ===== */
+  @media (max-width:600px){
+    .page-hero{min-height:46vh}
+    .page-hero .inner{padding-top:120px;padding-bottom:56px}
+    .page-hero h1{font-size:clamp(32px,9vw,46px);line-height:1.22;margin-bottom:14px}
+    .page-hero .crumb{margin-bottom:22px;font-size:10px;letter-spacing:.22em;flex-wrap:wrap}
+    .page-hero .crumb::before{width:20px}
+    .page-hero .en{font-size:12px;letter-spacing:.14em}
+
+    .sec-head{margin-bottom:36px;gap:18px}
+
+    .message-wrap{gap:36px}
+    .message-portrait .gold-line{display:none}
+    .message-portrait .meta .signature{display:none}
+    .message-body p{font-size:13.5px;line-height:1.95}
+
+    .mvb-card{padding:32px 24px}
+    .mvb-card h4{font-size:17px;line-height:1.6}
+    .mvb-card p{font-size:12.5px;line-height:1.95}
+    .mvb-card .label .en{font-size:21px}
+    .mvb-card .label .jp{padding-left:0;font-size:9.5px}
+
+    .info-table th{font-size:12px;padding-left:14px}
+    .info-table th::before{top:24px;width:6px}
+    .info-table td{font-size:13px;line-height:1.85}
+
+    footer.foot{padding:64px 0 32px}
+    footer.foot .grid{gap:32px}
+    footer.foot a,footer.foot li{font-size:12.5px}
+  }
+</style>
+  <script src="assets/whd-cursor.js" defer></script>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+</head>
+<body data-screen-label="Company Page">
+<!-- ============ NAV ============ -->
+<nav class="gnav over-hero" id="gnav">
+  <div class="container row">
+    <a href="index.html" class="brand">
+      <img class="mark" src="assets/with-holdings-mark.png" alt="WITH HOLDINGS" style="width:auto;height:36px;display:block"/>
+      <span class="name">WITH HOLDINGS</span>
+    </a>
+    <ul>
+      <li><a href="index.html">TOP</a></li>
+      <li><a href="index.html#business">BUSINESS</a></li>
+      <li><a href="company.html" class="current">COMPANY</a></li>
+      <li><a href="#">NEWS</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+    <a href="#" class="cta">JP / EN</a>
+    <button class="burger" aria-label="menu" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ MOBILE DRAWER ============ -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="drawer-close" aria-label="close" id="drawerClose">×</button>
+  <div class="drawer-inner">
+    <ul>
+      <li><a href="index.html#top" data-drawer-link><span class="num">01</span>TOP</a></li>
+      <li><a href="index.html#business" data-drawer-link><span class="num">02</span>BUSINESS</a></li>
+      <li><a href="company.html" data-drawer-link><span class="num">03</span>COMPANY</a></li>
+      <li><a href="company.html" data-drawer-link><span class="num">04</span>CONTACT</a></li>
+    </ul>
+    <a href="company.html" class="drawer-cta" data-drawer-link>CONTACT <span>→</span></a>
+    <div class="drawer-foot">
+      <div>株式会社 WITH HOLDINGS</div>
+      <div>© 2026 WITH HOLDINGS, Inc.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero" data-screen-label="01 Page Hero">
+  <div class="bg">
+    <img src="assets/sumi-marble.png" alt=""/>
+  </div>
+  <div class="container inner">
+    <div class="crumb">
+      <a href="index.html">TOP</a>
+      <span class="sep">/</span>
+      <span>COMPANY</span>
+    </div>
+    <h1>会社<em>概要</em></h1>
+    <div class="en">Company Overview</div>
+  </div>
+</section>
+
+<!-- ============ MESSAGE ============ -->
+<section data-screen-label="02 Message">
+  <div class="container">
+    <div class="sec-head">
+      <div class="num"><span>01</span><em></em><span>MESSAGE</span></div>
+      <h2>代表メッセージ</h2>
+    </div>
+
+    <div class="message-wrap">
+      <div class="message-portrait">
+        <div class="frame">
+          <img src="assets/ceo-portrait.png" alt="代表取締役"/>
+        </div>
+        <div class="gold-line"></div>
+        <div class="meta">
+          <div>
+            <div class="role">REPRESENTATIVE DIRECTOR</div>
+            <div class="name">○○ ○○
+              <span class="en">Keita ◯◯ — Founder & CEO</span>
+            </div>
+          </div>
+          <div class="signature">けいた</div>
+        </div>
+      </div>
+
+      <div class="message-body">
+        <p class="pull">
+          人と人の<em>間</em>に、<br/>
+          信頼を編んでいく。
+        </p>
+        <p>
+          〔代表メッセージ本文・プレースホルダー〕私たちは、金融、リユース、福祉、ブランディングという
+          一見離れた領域に身を置いています。けれど、いずれの現場にも共通しているのは、
+          目の前のひとりに、丁寧に向き合うことから始まる、ということでした。
+        </p>
+        <p>
+          〔本文〕誰かの「困った」を解きほぐし、暮らしや事業を、もう一段やわらかいかたちに整える。
+          そのために必要なのは、派手な技術ではなく、向き合い続ける態度なのだと、現場で教わってきました。
+          だから私たちは、流れる時間の中で、ひとつずつ、信頼を編んでいきたいと思います。
+        </p>
+        <p>
+          〔本文〕WITH HOLDINGSは、その小さな約束の積み重ねを、グループの軸に据えています。
+          人生の隣にいる存在として、これからも、ひとつひとつの仕事を大切にしてまいります。
+        </p>
+        <p style="margin-top:32px;font-size:12px;color:var(--sub);letter-spacing:.18em">
+          ※ 本文はプレースホルダーです。差し替え時にご指示ください。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<section class="alt" data-screen-label="03 Philosophy">
+  <div class="philosophy-hero">
+    <img src="assets/philosophy-water.jpg" alt=""/>
+    <div class="caption">
+      <div class="kicker">PHILOSOPHY</div>
+      <h3>人生の、<em>隣</em>へ。</h3>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="sec-head" style="text-align:center;align-items:center">
+      <div class="num" style="justify-content:center"><span>02</span><em></em><span>MISSION / VISION / VALUES</span></div>
+      <h2>私たちの、根っこ</h2>
+      <p class="lede" style="margin:0 auto;text-align:center">
+        水面に落ちた一滴が、静かに広がっていくように。<br/>
+        私たちが大切にしているのは、目の前のひとりに、深く、長く寄り添うこと。
+      </p>
+    </div>
+
+    <div class="mvb-grid">
+      <div class="mvb-card">
+        <div class="label">
+          <div class="top">
+            <span class="num">01</span>
+            <span class="en">Mission</span>
+          </div>
+          <span class="jp">使命</span>
+        </div>
+        <h4>人生の節目に、<br/>そっと隣に立つ。</h4>
+        <p>
+          〔Mission本文・プレースホルダー〕お金、住まい、暮らし、事業。
+          人生の大きな節目に、押しつけではなく、寄り添うかたちで関わり続けます。
+        </p>
+      </div>
+
+      <div class="mvb-card">
+        <div class="label">
+          <div class="top">
+            <span class="num">02</span>
+            <span class="en">Vision</span>
+          </div>
+          <span class="jp">目指す姿</span>
+        </div>
+        <h4>四つの灯を、<br/>一つの森に。</h4>
+        <p>
+          〔Vision本文・プレースホルダー〕金融・リユース・福祉・ブランディング。
+          四つの事業を束ね、一人ひとりの人生を支える「森」のような存在になります。
+        </p>
+      </div>
+
+      <div class="mvb-card">
+        <div class="label">
+          <div class="top">
+            <span class="num">03</span>
+            <span class="en">Values</span>
+          </div>
+          <span class="jp">大切にすること</span>
+        </div>
+        <h4>誠実に、丁寧に、<br/>長く。</h4>
+        <p>
+          〔Values本文・プレースホルダー〕短期の成果より、長期の信頼。
+          一度関わった方とは、人生の長い時間軸で、関係を編み続けます。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPANY INFO ============ -->
+<section data-screen-label="04 Company Info">
+  <div class="container">
+    <div class="sec-head" style="text-align:center;align-items:center">
+      <div class="num" style="justify-content:center"><span>03</span><em></em><span>COMPANY DATA</span></div>
+      <h2>会社情報</h2>
+    </div>
+
+    <div class="info-wrap">
+      <table class="info-table">
+        <tbody>
+          <tr>
+            <th>商号 <span class="en" style="display:block;font-style:italic;font-size:9px;letter-spacing:.18em;color:var(--sub);margin-top:4px">Company Name</span></th>
+            <td>株式会社 WITH HOLDINGS
+              <span class="en">WITH HOLDINGS, Inc.</span>
+            </td>
+          </tr>
+          <tr>
+            <th>所在地 <span class="en" style="display:block;font-style:italic;font-size:9px;letter-spacing:.18em;color:var(--sub);margin-top:4px">Address</span></th>
+            <td>〔所在地・プレースホルダー〕<br/>東京都◯◯区◯◯ ◯-◯-◯</td>
+          </tr>
+          <tr>
+            <th>代表者 <span class="en" style="display:block;font-style:italic;font-size:9px;letter-spacing:.18em;color:var(--sub);margin-top:4px">Representative</span></th>
+            <td>代表取締役 ○○ ○○</td>
+          </tr>
+          <tr>
+            <th>設立 <span class="en" style="display:block;font-style:italic;font-size:9px;letter-spacing:.18em;color:var(--sub);margin-top:4px">Established</span></th>
+            <td>〔設立年月・プレースホルダー〕</td>
+          </tr>
+          <tr>
+            <th>資本金 <span class="en" style="display:block;font-style:italic;font-size:9px;letter-spacing:.18em;color:var(--sub);margin-top:4px">Capital</span></th>
+            <td>〔資本金・プレースホルダー〕</td>
+          </tr>
+          <tr>
+            <th>事業内容 <span class="en" style="display:block;font-style:italic;font-size:9px;letter-spacing:.18em;color:var(--sub);margin-top:4px">Business</span></th>
+            <td>
+              <ul>
+                <li>金融事業（Asset With）</li>
+                <li>リユース事業（Lion買取）</li>
+                <li>福祉事業（WITHハピネス）</li>
+                <li>ブランディング事業（Play Branding）</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>許認可 <span class="en" style="display:block;font-style:italic;font-size:9px;letter-spacing:.18em;color:var(--sub);margin-top:4px">Licenses</span></th>
+            <td>
+              <ul>
+                <li>古物商許可 <span class="lic-num">第○○○○○○○○○○○○号</span></li>
+                <li>〔その他許認可・プレースホルダー〕<span class="lic-num">第○○○号</span></li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BAND ============ -->
+<section class="cta-band" data-screen-label="05 CTA">
+  <div class="bg">
+    <img src="assets/dawn-forest.png" alt=""/>
+  </div>
+  <div class="container inner">
+    <div class="kicker">GET IN TOUCH</div>
+    <h2>人生の節目に、<br/><em>WITH HOLDINGS</em>を。</h2>
+    <div class="actions">
+      <a class="btn primary" href="contact.html">
+        <span class="lbl">
+          <span class="en">Contact Us</span>
+          <span class="jp">お問い合わせ</span>
+        </span>
+        <span class="arr">→</span>
+      </a>
+      <a class="btn" href="index.html">
+        <span class="lbl">
+          <span class="en">Back to Top</span>
+          <span class="jp">トップへ戻る</span>
+        </span>
+        <span class="arr">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="container">
+    <div class="grid">
+      <div class="brand">
+        <img class="mark" src="assets/with-holdings-mark-white.png" alt="WITH HOLDINGS" style="width:auto;height:48px;display:block;margin-bottom:16px"/>
+        <div class="name">株式会社 WITH HOLDINGS</div>
+        <div class="stmt">CONNECTING PEOPLE,<br/>BUSINESSES AND<br/>THE FUTURE.</div>
+      </div>
+      <div>
+        <h4>ABOUT</h4>
+        <ul>
+          <li><a href="index.html#top">TOP</a></li>
+          <li><a href="#">PHILOSOPHY</a></li>
+          <li><a href="index.html#company">COMPANY</a></li>
+          <li><a href="#">代表メッセージ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>BUSINESS</h4>
+        <ul>
+          <li><a href="https://asset.with.withhd.com" target="_blank" rel="noopener">Finance ↗</a></li>
+          <li><a href="https://www.kaitori.lion-trading.co.jp/" target="_blank" rel="noopener">Reuse ↗</a></li>
+          <li><a href="https://gh.withhappiness.withhd.com" target="_blank" rel="noopener">Welfare ↗</a></li>
+          <li><a href="https://playbranding.withhd.com" target="_blank" rel="noopener">Branding ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MORE</h4>
+        <ul>
+          <li><a href="#">採用情報</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="#">IR（準備中）</a></li>
+          <li><a href="#">News（準備中）</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>POLICIES</h4>
+        <ul>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="cookie.html">Cookieポリシー</a></li>
+          <li><a href="terms.html">サイト利用規約</a></li>
+          <li><a href="terms.html">サイトポリシー</a></li>
+          <li><a href="security.html">情報セキュリティ基本方針</a></li>
+          <li><a href="anti-social.html">反社会的勢力排除に関する基本方針</a></li>
+          <li><a href="accessibility.html">アクセシビリティ方針</a></li>
+          <li><a href="social-media.html">ソーシャルメディアポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta">
+      <span>© 2026 WITH HOLDINGS, Inc.</span>
+      <span>JP / EN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Toggle nav style based on hero visibility
+  const gnav = document.getElementById('gnav');
+  const hero = document.querySelector('.page-hero');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio > 0.2) gnav.classList.add('over-hero');
+      else gnav.classList.remove('over-hero');
+    });
+  }, { threshold: [0, 0.2, 0.5] });
+  io.observe(hero);
+
+  // Mobile drawer
+  const drawer = document.getElementById('drawer');
+  const burger = document.getElementById('burger');
+  const drawerClose = document.getElementById('drawerClose');
+  const openDrawer = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; };
+  const closeDrawer = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+  if (burger) burger.addEventListener('click', openDrawer);
+  if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+  document.querySelectorAll('[data-drawer-link]').forEach(a => a.addEventListener('click', closeDrawer));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+</script>
+</body>
+</html>

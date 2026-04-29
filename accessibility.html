@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ウェブアクセシビリティ方針 | WITH HOLDINGS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#0F3D34;
+    --green-deep:#0a2a24;
+    --green-mist:#e8efe9;
+    --gold:#D4A24A;
+    --gold-soft:#E8C988;
+    --paper:#F7F4ED;
+    --paper-2:#fbfaf6;
+    --ink:#1a2421;
+    --sub:#5a665f;
+    --line:#dfd9cb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
+  body{
+    font-family:'Noto Sans JP','Hiragino Sans',sans-serif;
+    color:var(--ink);background:var(--paper);
+    -webkit-font-smoothing:antialiased;font-feature-settings:"palt";
+    line-height:1.85;
+  }
+  .serif{font-family:'Noto Serif JP',serif}
+  .container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+  a{color:inherit;text-decoration:none}
+
+  /* ===== NAV (paper variant — no hero) ===== */
+  nav.gnav{position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(247,244,237,.88);backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    border-bottom:1px solid rgba(223,217,203,.7);transition:all .3s ease}
+  nav.gnav .row{display:flex;align-items:center;justify-content:space-between;
+    height:72px;gap:32px}
+  nav.gnav .brand{display:flex;align-items:center;gap:14px;color:var(--ink)}
+  nav.gnav .brand .name{font-family:'Noto Serif JP',serif;font-size:14px;
+    font-weight:500;letter-spacing:.2em}
+  nav.gnav ul{list-style:none;display:flex;gap:40px;margin-left:auto}
+  nav.gnav ul a{font-size:11px;letter-spacing:.32em;font-weight:500;color:var(--ink);
+    transition:color .25s;position:relative;padding:8px 0}
+  nav.gnav ul a:hover{color:var(--gold)}
+  nav.gnav .cta{display:inline-flex;align-items:center;gap:10px;
+    padding:10px 20px;border:1px solid var(--green);color:var(--green);
+    font-size:11px;letter-spacing:.28em;font-weight:600;border-radius:2px;
+    transition:all .3s ease}
+  nav.gnav .cta:hover{background:var(--green);color:#fff}
+  nav.gnav .burger{display:none;background:none;border:none;cursor:pointer;
+    flex-direction:column;gap:5px;padding:8px}
+  nav.gnav .burger span{width:22px;height:1.5px;background:var(--ink);
+    border-radius:1px;transition:all .3s}
+  @media (max-width:900px){
+    nav.gnav ul,nav.gnav .cta{display:none}
+    nav.gnav .burger{display:flex}
+  }
+
+  /* ===== PAGE HEAD ===== */
+  .page-head{
+    position:relative;padding:140px 0 64px;color:#fff;
+    background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
+    overflow:hidden;
+  }
+  .page-head::before{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 78% 18%,rgba(212,162,74,.15) 0%,transparent 50%),
+      radial-gradient(ellipse at 12% 90%,rgba(212,162,74,.08) 0%,transparent 50%);
+    pointer-events:none;
+  }
+  .page-head .crumbs{position:relative;z-index:1;display:flex;align-items:center;
+    gap:10px;font-size:10px;letter-spacing:.3em;color:rgba(232,201,136,.85);
+    margin-bottom:28px}
+  .page-head .crumbs span{opacity:.5}
+  .page-head .crumbs a:hover{color:var(--gold)}
+  .page-head h1{position:relative;z-index:1;font-family:'Noto Serif JP',serif;
+    font-weight:500;font-size:clamp(34px,5vw,56px);line-height:1.3;letter-spacing:.04em;
+    margin:0 0 18px}
+  .page-head .en{position:relative;z-index:1;font-size:11px;letter-spacing:.42em;
+    color:var(--gold);font-weight:500}
+  .page-head .meta-row{position:relative;z-index:1;display:flex;gap:32px;
+    margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.12);
+    flex-wrap:wrap;font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.6)}
+  .page-head .meta-row strong{color:#fff;font-weight:500;margin-right:8px}
+
+  /* ===== LAYOUT ===== */
+  .doc{padding:96px 0 120px;position:relative}
+  .doc::before{
+    content:'';position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);
+    opacity:.5;
+  }
+  .doc-grid{
+    display:grid;grid-template-columns:240px 1fr;gap:72px;
+    align-items:start;
+  }
+  @media (max-width:900px){
+    .doc-grid{grid-template-columns:1fr;gap:32px}
+  }
+
+  /* ===== TOC (sticky) ===== */
+  .toc{
+    position:sticky;top:104px;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .toc h3{font-size:10px;letter-spacing:.36em;color:var(--gold);
+    font-weight:600;margin:0 0 18px}
+  .toc ol{list-style:none;counter-reset:toc;display:flex;flex-direction:column;gap:8px}
+  .toc ol li{counter-increment:toc;position:relative;padding-left:32px;
+    font-size:12px;line-height:1.55}
+  .toc ol li::before{
+    content:counter(toc,decimal-leading-zero);
+    position:absolute;left:0;top:1px;
+    font-family:'Noto Serif JP',serif;font-size:10px;
+    letter-spacing:.1em;color:var(--gold);
+  }
+  .toc a{color:var(--sub);transition:color .2s}
+  .toc a:hover,.toc a.is-active{color:var(--green);font-weight:500}
+  @media (max-width:900px){
+    .toc{position:static;display:none}
+  }
+
+  /* ===== ARTICLE ===== */
+  article{max-width:780px}
+  article .lead{
+    font-family:'Noto Serif JP',serif;font-weight:300;
+    font-size:16px;line-height:2.05;color:var(--ink);
+    padding-bottom:48px;border-bottom:1px solid var(--line);margin-bottom:56px;
+  }
+  article .lead strong{color:var(--green);font-weight:500}
+
+  article h2{
+    font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:22px;line-height:1.5;letter-spacing:.04em;
+    color:var(--green);
+    margin:64px 0 24px;padding-top:32px;
+    display:flex;align-items:baseline;gap:18px;
+    border-top:1px solid var(--line);
+  }
+  article h2:first-of-type{margin-top:0;border-top:none;padding-top:0}
+  article h2 .num{
+    font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:.3em;
+    color:var(--gold);font-weight:500;flex-shrink:0;
+  }
+  article h3{
+    font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:15px;color:var(--green);
+    margin:32px 0 12px;
+  }
+  article p{font-size:14px;line-height:2;color:var(--ink);margin:0 0 16px}
+  article ol,article ul{padding-left:24px;margin:0 0 20px;font-size:14px;line-height:2}
+  article ol li,article ul li{margin-bottom:6px;padding-left:6px}
+  article ol li::marker{color:var(--gold);font-family:'Noto Serif JP',serif}
+  article ul li::marker{color:var(--gold)}
+  article strong{color:var(--green);font-weight:600}
+
+  article table{
+    width:100%;border-collapse:collapse;
+    margin:8px 0 24px;font-size:13px;
+    border:1px solid var(--line);
+  }
+  article table th,article table td{
+    padding:14px 18px;text-align:left;
+    border-bottom:1px solid var(--line);vertical-align:top;
+  }
+  article table th{
+    background:var(--paper-2);color:var(--green);font-weight:500;
+    font-family:'Noto Serif JP',serif;letter-spacing:.04em;
+    width:30%;border-right:1px solid var(--line);
+  }
+  article table tr:last-child th,article table tr:last-child td{border-bottom:none}
+
+  /* nested numbered (4.1 4.2) within sections */
+  article .sub-list{counter-reset:sub;list-style:none;padding:0}
+  article .sub-list li{counter-increment:sub;position:relative;padding-left:32px;margin-bottom:6px}
+  article .sub-list li::before{
+    content:counter(sub) ".";
+    position:absolute;left:0;top:0;
+    color:var(--gold);font-family:'Noto Serif JP',serif;font-weight:500;
+  }
+
+  article hr{border:none;height:1px;background:var(--line);margin:48px 0}
+
+  /* signature block */
+  .sign{
+    margin-top:72px;padding:32px 32px;
+    background:var(--paper-2);border-left:2px solid var(--gold);
+    font-family:'Noto Serif JP',serif;
+  }
+  .sign .co{font-size:14px;letter-spacing:.06em;color:var(--green);margin-bottom:6px}
+  .sign .ceo{font-size:13px;color:var(--sub)}
+
+  /* back link */
+  .back{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:48px;font-size:12px;letter-spacing:.28em;font-weight:500;
+    color:var(--green);transition:gap .25s;
+  }
+  .back::before{content:'←';font-size:14px;transition:transform .25s}
+  .back:hover{color:var(--gold)}
+  .back:hover::before{transform:translateX(-4px)}
+
+  /* ===== FOOTER ===== */
+  footer.foot{background:var(--green-deep);color:rgba(255,255,255,.78);padding:80px 0 32px}
+  footer.foot .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.3fr;gap:48px;
+    margin-bottom:64px}
+  footer.foot .brand .mark{width:64px;height:auto;margin-bottom:16px}
+  footer.foot .brand .name{font-family:'Noto Serif JP',serif;font-size:15px;
+    font-weight:500;letter-spacing:.16em;color:#fff;margin-bottom:14px}
+  footer.foot .brand .stmt{font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.5);
+    line-height:1.8}
+  footer.foot h4{font-size:11px;letter-spacing:.28em;color:var(--gold);
+    font-weight:600;margin:0 0 18px;text-transform:uppercase}
+  footer.foot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  footer.foot ul a{font-size:12px;color:rgba(255,255,255,.78);transition:color .25s}
+  footer.foot ul a:hover{color:var(--gold)}
+  footer.foot .meta{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.45)}
+  @media (max-width:1100px){footer.foot .grid{grid-template-columns:1.5fr 1fr 1fr;gap:40px}}
+  @media (max-width:900px){footer.foot .grid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media (max-width:600px){footer.foot .grid{grid-template-columns:1fr}}
+
+  @media print{
+    nav.gnav,footer.foot,.toc,.back,.page-head .meta-row{display:none}
+    .page-head{background:none;color:#000;padding:0 0 32px}
+    .page-head .crumbs,.page-head .en{color:#666}
+    .page-head h1{color:#000}
+    .doc-grid{grid-template-columns:1fr}
+    body{background:#fff}
+    article{max-width:none}
+    article h2{break-after:avoid}
+  }
+</style>
+  <script src="assets/whd-cursor.js" defer></script>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="gnav" id="gnav">
+  <div class="container row">
+    <a href="index.html" class="brand">
+      <img src="assets/with-holdings-mark.png" alt="WITH HOLDINGS" style="width:auto;height:36px;display:block"/>
+      <span class="name">WITH HOLDINGS</span>
+    </a>
+    <ul>
+      <li><a href="index.html#top">TOP</a></li>
+      <li><a href="index.html#business">BUSINESS</a></li>
+      <li><a href="index.html#company">COMPANY</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+    <a href="index.html#contact" class="cta">CONTACT <span>→</span></a>
+    <button class="burger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ PAGE HEAD ============ -->
+<header class="page-head" data-screen-label="Accessibility Policy Header">
+  <div class="container">
+    <div class="crumbs">
+      <a href="index.html">HOME</a>
+      <span>/</span>
+      <span>ACCESSIBILITY POLICY</span>
+    </div>
+    <div class="en">ACCESSIBILITY POLICY</div>
+    <h1>ウェブアクセシビリティ方針</h1>
+    <div class="meta-row">
+      <span><strong>制定日</strong>2020年5月25日</span>
+      <span><strong>最終改訂</strong>2026年5月1日</span>
+      <span><strong>事業者</strong>株式会社WITH HOLDINGS</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DOC ============ -->
+<section class="doc">
+  <div class="container doc-grid">
+
+    <!-- TOC -->
+    <aside class="toc" aria-label="目次">
+      <h3>CONTENTS</h3>
+      <ol>
+        <li><a href="#s1">基本理念</a></li>
+        <li><a href="#s2">対象範囲</a></li>
+        <li><a href="#s3">目標とする達成等級</a></li>
+        <li><a href="#s4">取り組み内容</a></li>
+        <li><a href="#s5">除外事項</a></li>
+        <li><a href="#s6">お問い合わせ窓口</a></li>
+      </ol>
+    </aside>
+
+    <!-- ARTICLE -->
+    <article>
+      <p class="lead">
+        株式会社WITH HOLDINGS（以下「<strong>当社</strong>」といいます。）は、年齢、障害の有無、利用環境にかかわらず、当社のウェブサイトをすべての方にご利用いただけるよう、ウェブアクセシビリティの向上に取り組みます。
+      </p>
+
+      <h2 id="s1"><span class="num">第 1 条</span><span>基本理念</span></h2>
+      <p>当社は、ウェブサイトを通じて、誰もが必要な情報やサービスにアクセスできる環境を提供することは、社会的責任の一つであると考えます。お客様の多様性を尊重し、ウェブアクセシビリティの確保および向上に継続的に取り組みます。</p>
+
+      <h2 id="s2"><span class="num">第 2 条</span><span>対象範囲</span></h2>
+      <p>本方針の対象となるウェブサイトは、以下のとおりです。</p>
+      <ul>
+        <li>URL：https://withhd.com/</li>
+        <li>対象：当社が直接運営する公式ウェブサイトおよびその下位階層に存在するすべてのウェブページ</li>
+      </ul>
+      <p>ただし、当社が運営するウェブサイトに掲載されている第三者提供のコンテンツ（外部サービスの埋め込み等）は、本方針の対象外とします。</p>
+
+      <h2 id="s3"><span class="num">第 3 条</span><span>目標とする達成等級</span></h2>
+      <p>当社は、ウェブアクセシビリティの達成等級として、以下を目標とします。</p>
+      <table>
+        <tr><th>適合規格</th><td>JIS X 8341-3:2016（高齢者・障害者等配慮設計指針）</td></tr>
+        <tr><th>目標等級</th><td>適合レベル AA</td></tr>
+        <tr><th>国際規格</th><td>WCAG 2.1 レベル AA に準拠</td></tr>
+      </table>
+
+      <h2 id="s4"><span class="num">第 4 条</span><span>取り組み内容</span></h2>
+      <p>当社は、目標とする達成等級の実現に向けて、以下の取り組みを継続的に行います。</p>
+
+      <h3>1. コンテンツ設計</h3>
+      <ul>
+        <li>適切な見出し構造による情報の整理</li>
+        <li>画像への代替テキスト（alt属性）の付与</li>
+        <li>動画コンテンツへの字幕またはテキスト情報の提供</li>
+        <li>色彩のコントラスト比の確保</li>
+      </ul>
+
+      <h3>2. 操作性</h3>
+      <ul>
+        <li>キーボードのみで操作可能な設計</li>
+        <li>フォーカスの可視化</li>
+        <li>十分なクリック領域の確保</li>
+      </ul>
+
+      <h3>3. 読みやすさ</h3>
+      <ul>
+        <li>読みやすいフォントサイズおよび行間の設定</li>
+        <li>平易な日本語の使用に努める</li>
+        <li>略語、専門用語には可能な限り解説を併記</li>
+      </ul>
+
+      <h3>4. デバイス対応</h3>
+      <ul>
+        <li>スマートフォン、タブレット、PCなど、各デバイスでの最適な表示</li>
+        <li>スクリーンリーダー等の支援技術への対応</li>
+      </ul>
+
+      <h3>5. 継続的な改善</h3>
+      <ul>
+        <li>定期的なアクセシビリティチェックの実施</li>
+        <li>お客様からのフィードバックを反映した改善</li>
+      </ul>
+
+      <h2 id="s5"><span class="num">第 5 条</span><span>除外事項</span></h2>
+      <p>以下のコンテンツは、技術的または運用上の理由により、本方針の達成等級から除外する場合があります。</p>
+      <ol>
+        <li>外部サービス（地図、動画埋め込み、SNS埋め込み等）が提供するコンテンツ</li>
+        <li>過去に作成され、現在編集を行っていないPDFその他のファイル</li>
+        <li>その他、技術的に対応が困難なコンテンツ</li>
+      </ol>
+
+      <h2 id="s6"><span class="num">第 6 条</span><span>お問い合わせ窓口</span></h2>
+      <p>ウェブアクセシビリティに関するご意見、ご要望、お問い合わせは、下記までご連絡ください。お客様からのご意見を、サイトの改善に役立ててまいります。</p>
+      <table>
+        <tr><th>窓口名称</th><td>株式会社WITH HOLDINGS お問い合わせ窓口</td></tr>
+        <tr><th>所在地</th><td>〒160-0022 東京都新宿区新宿1-36-2 新宿第七葉山ビル3F</td></tr>
+        <tr><th>メールアドレス</th><td><a href="mailto:support@withhd.com" style="color:var(--green);text-decoration:underline">support@withhd.com</a></td></tr>
+        <tr><th>受付時間</th><td>平日 9時〜18時（土日祝日および年末年始を除く）</td></tr>
+      </table>
+
+      <hr/>
+
+      <h3 style="margin-top:0">改訂履歴</h3>
+      <table>
+        <tr><th style="width:35%">制定・改訂日</th><th style="width:auto;border-right:none">内容</th></tr>
+        <tr><td>2020年5月25日</td><td>制定</td></tr>
+        <tr><td>2026年5月1日</td><td>株式会社WITH HOLDINGSへの体制変更にともなう全面改訂</td></tr>
+      </table>
+
+      <div class="sign">
+        <div class="co">株式会社WITH HOLDINGS</div>
+        <div class="ceo">代表取締役 遠藤 啓太</div>
+      </div>
+
+      <a href="index.html" class="back">BACK TO HOME</a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="container">
+    <div class="grid">
+      <div class="brand">
+        <img class="mark" src="assets/with-holdings-mark-white.png" alt="WITH HOLDINGS" style="width:auto;height:48px;display:block;margin-bottom:16px"/>
+        <div class="name">株式会社 WITH HOLDINGS</div>
+        <div class="stmt">CONNECTING PEOPLE,<br/>BUSINESSES AND<br/>THE FUTURE.</div>
+      </div>
+      <div>
+        <h4>ABOUT</h4>
+        <ul>
+          <li><a href="index.html#top">TOP</a></li>
+          <li><a href="#">PHILOSOPHY</a></li>
+          <li><a href="index.html#company">COMPANY</a></li>
+          <li><a href="#">代表メッセージ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>BUSINESS</h4>
+        <ul>
+          <li><a href="https://asset.with.withhd.com" target="_blank" rel="noopener">Finance ↗</a></li>
+          <li><a href="https://www.kaitori.lion-trading.co.jp/" target="_blank" rel="noopener">Reuse ↗</a></li>
+          <li><a href="https://gh.withhappiness.withhd.com" target="_blank" rel="noopener">Welfare ↗</a></li>
+          <li><a href="https://playbranding.withhd.com" target="_blank" rel="noopener">Branding ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MORE</h4>
+        <ul>
+          <li><a href="#">採用情報</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="#">IR（準備中）</a></li>
+          <li><a href="#">News（準備中）</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>POLICIES</h4>
+        <ul>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="cookie.html">Cookieポリシー</a></li>
+          <li><a href="terms.html">サイト利用規約</a></li>
+          <li><a href="terms.html">サイトポリシー</a></li>
+          <li><a href="security.html">情報セキュリティ基本方針</a></li>
+          <li><a href="anti-social.html">反社会的勢力排除に関する基本方針</a></li>
+          <li><a href="accessibility.html">アクセシビリティ方針</a></li>
+          <li><a href="social-media.html">ソーシャルメディアポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta">
+      <span>© 2026 WITH HOLDINGS, Inc.</span>
+      <span>JP / EN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // TOC active-section highlight
+  const links = document.querySelectorAll('.toc a');
+  const sections = [...document.querySelectorAll('article h2[id]')];
+  const byId = Object.fromEntries([...links].map(a => [a.getAttribute('href').slice(1), a]));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const id = e.target.id;
+      if(!byId[id]) return;
+      if(e.isIntersecting && e.intersectionRatio > 0){
+        links.forEach(a=>a.classList.remove('is-active'));
+        byId[id].classList.add('is-active');
+      }
+    });
+  },{rootMargin:'-104px 0px -70% 0px',threshold:[0,1]});
+  sections.forEach(s=>io.observe(s));
+</script>
+
+</body>
+</html>

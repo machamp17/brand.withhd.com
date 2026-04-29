@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WITH HOLDINGS — TOP（ミドルファイ）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --green:#0F3D34;
+    --green-2:#3E6B5C;
+    --green-deep:#0a2620;
+    --gold:#D4A24A;
+    --paper:#FAFAF7;
+    --cream:#F2F4F3;
+    --line:#e5e2db;
+    --ink:#111815;
+    --sub:#6a7670;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Sans JP',system-ui,sans-serif;font-weight:400;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .serif{font-family:'Noto Serif JP',serif;font-weight:500;letter-spacing:.02em}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  .container{max-width:1320px;margin:0 auto;padding:0 48px}
+  @media (max-width:768px){.container{padding:0 22px}}
+
+  /* ===== NAV ===== */
+  nav.gnav{position:fixed;top:0;left:0;right:0;z-index:50;
+    background:transparent;backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    border-bottom:1px solid transparent;transition:all .4s ease;color:#fff}
+  /* once scrolled past hero, nav gets a paper backdrop */
+  nav.gnav.scrolled{background:rgba(250,250,247,.92);backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    border-bottom-color:rgba(229,226,219,.6);color:var(--ink)}
+  nav.gnav.scrolled a,nav.gnav.scrolled .name{color:var(--ink)}
+  nav.gnav.over-hero{color:#fff}
+  nav.gnav .row{display:flex;align-items:center;justify-content:space-between;
+    height:72px}
+  nav.gnav .brand{display:flex;align-items:center;gap:12px}
+  nav.gnav .brand .mark{width:44px;height:auto}
+  nav.gnav .brand .name{font-family:'Noto Serif JP',serif;font-size:14px;
+    font-weight:500;letter-spacing:.18em}
+  nav.gnav ul{display:flex;gap:36px;list-style:none;margin:0;padding:0}
+  nav.gnav ul a{font-size:12px;letter-spacing:.18em;font-weight:500}
+  nav.gnav ul a:hover{color:var(--gold)}
+  nav.gnav .cta{font-size:11px;letter-spacing:.18em;padding:10px 18px;
+    border:1px solid currentColor;border-radius:999px;display:inline-flex;
+    align-items:center;gap:8px}
+  nav.gnav .burger{display:none;flex-direction:column;gap:5px}
+  nav.gnav .burger span{width:22px;height:1.5px;background:currentColor;display:block}
+  @media (max-width:900px){
+    nav.gnav ul,nav.gnav .cta{display:none}
+    nav.gnav .burger{display:flex}
+    nav.gnav .row{height:60px}
+  }
+
+  /* ===== HERO ===== */
+  .hero{position:relative;min-height:100svh;height:100svh;color:#fff;overflow:hidden;
+    display:flex;align-items:flex-end;
+    --scrim-top:.25;--scrim-mid:.05;--scrim-bot:.7;--scrim-tint:.18;
+    --hero-pad-y:96px}
+  .hero .bg{position:absolute;inset:0;z-index:0;background-color:#0a1a16;
+    background-position:center 70%;background-size:cover;background-repeat:no-repeat;
+    transition:background-image .9s ease,filter .9s ease}
+  .hero .scrim{position:absolute;inset:0;z-index:1;transition:background .9s ease;
+    background:
+      linear-gradient(180deg,transparent 0%,transparent 50%,rgba(10,26,22,calc(var(--scrim-bot) - .25)) 80%,rgba(10,26,22,var(--scrim-bot)) 100%),
+      linear-gradient(95deg,rgba(15,61,52,var(--scrim-tint)) 0%,rgba(15,61,52,0) 60%)}
+  .hero .content{position:relative;z-index:2;padding:var(--hero-pad-y) 0 calc(var(--hero-pad-y) - 40px);width:100%;
+    padding-left:calc(48px + 6vw);
+    transition:padding .5s ease}
+  /* mood variants */
+  body[data-mood="dawn"] .hero .bg{background-image:url('assets/dawn-forest.png')}
+  body[data-mood="night"] .hero .bg{background-image:url('assets/hero-forest.jpg')}
+  body[data-mood="night"] .hero{--scrim-top:.35;--scrim-bot:.78;--scrim-tint:.25}
+  body[data-mood="nature"] .hero .bg{background-image:url('assets/hero-forest.jpg')}
+  body[data-mood="nature"] .hero{--scrim-top:.18;--scrim-bot:.62;--scrim-tint:.28}
+  .hero .kicker{font-size:11px;letter-spacing:.32em;font-weight:500;
+    color:var(--gold);margin-bottom:32px;display:flex;align-items:center;gap:14px}
+  .hero .kicker::before{content:'';width:36px;height:1px;background:var(--gold)}
+  .hero h1{font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:clamp(32px,5vw,68px);line-height:1.22;letter-spacing:.01em;
+    margin:0 0 24px;text-shadow:0 1px 30px rgba(0,0,0,.2)}
+  .hero h1 em{font-style:normal;color:var(--gold)}
+  .hero .lede{font-family:'Noto Serif JP',serif;font-weight:300;
+    font-size:clamp(15px,1.4vw,19px);line-height:1.95;letter-spacing:.05em;
+    max-width:560px;opacity:.92}
+  .hero .scroll-ind{position:absolute;left:50%;bottom:36px;z-index:3;
+    transform:translateX(-50%);display:flex;flex-direction:column;
+    align-items:center;gap:10px;color:rgba(255,255,255,.7);font-size:10px;
+    letter-spacing:.32em}
+  .hero .scroll-ind .bar{width:1px;height:40px;background:linear-gradient(
+    180deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);
+    animation:scrollPulse 2.6s ease-in-out infinite}
+  @keyframes scrollPulse{0%,100%{opacity:.4;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+  .hero .corner-mark{position:absolute;right:48px;top:140px;z-index:2;
+    display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+  .hero .corner-mark .w{width:88px;height:auto}
+  .hero .corner-mark .label{font-family:'Noto Serif JP',serif;font-size:11px;
+    letter-spacing:.32em;color:rgba(255,255,255,.7)}
+  @media (max-width:900px){
+    .hero .corner-mark{display:none}
+    .hero .content{padding:84px 0 80px;padding-left:22px}
+  }
+
+  /* gold-arc divider used between sections */
+  .arc-div{padding:0 48px;margin:0 auto;max-width:1320px}
+  .arc-div svg{width:100%;height:60px;display:block}
+
+  /* ===== Section base ===== */
+  section{padding:var(--sec-pad-y,140px) 0;position:relative;
+    transition:padding .4s ease}
+  section.alt{background:var(--cream)}
+  @media (max-width:768px){section{padding:88px 0}}
+  body[data-density="generous"]{--sec-pad-y:140px}
+  body[data-density="generous"] .biz-card .body{padding:24px 22px 26px}
+  body[data-density="editorial"] .biz-card .body{padding:18px 18px 20px}
+  body[data-density="editorial"] .biz-card .en{font-size:19px}
+  body[data-density="editorial"] .biz-card .desc{font-size:12px;line-height:1.7}
+  body[data-density="generous"] .hero{--hero-pad-y:96px}
+  body[data-density="generous"] .sec-head{margin-bottom:64px}
+  body[data-density="editorial"]{--sec-pad-y:96px}
+  body[data-density="editorial"] .hero{--hero-pad-y:72px}
+  body[data-density="editorial"] .hero h1{font-size:clamp(28px,4.4vw,56px);line-height:1.18}
+  body[data-density="editorial"] .hero .lede{font-size:clamp(13px,1.15vw,16px);line-height:1.85}
+  body[data-density="editorial"] .sec-head{margin-bottom:40px}
+  body[data-density="editorial"] .sec-head h2{font-size:clamp(24px,2.8vw,36px)}
+  body[data-density="editorial"] .group-finish{margin-top:64px;aspect-ratio:24/9}
+  body[data-density="editorial"] .contact{padding:96px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;
+    gap:40px;margin-bottom:64px;flex-wrap:wrap;transition:margin .4s ease}
+  .sec-head .left{display:flex;flex-direction:column;gap:16px;max-width:680px}
+  .sec-head .num{display:flex;align-items:center;gap:14px;font-size:11px;
+    letter-spacing:.32em;font-weight:500;color:var(--green)}
+  .sec-head .num span:first-child{color:var(--gold);font-weight:600}
+  .sec-head .num em{font-style:normal;width:32px;height:1px;background:var(--gold);display:block}
+  .sec-head h2{font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:clamp(28px,3.6vw,46px);line-height:1.32;letter-spacing:.02em;
+    margin:0;color:var(--green)}
+  .sec-head .right{font-size:13px;line-height:1.95;color:var(--sub);max-width:420px}
+
+  /* ===== BUSINESS cards ===== */
+  .biz-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  @media (max-width:1100px){.biz-grid{grid-template-columns:repeat(2,1fr);gap:20px}}
+  @media (max-width:600px){.biz-grid{grid-template-columns:1fr;gap:18px}}
+  .biz-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden;text-decoration:none;color:inherit;
+    transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease;cursor:pointer;
+    position:relative}
+  .biz-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(15,61,52,.25);
+    border-color:rgba(212,162,74,.5)}
+  .biz-card:hover .biz-img{transform:scale(1.06)}
+  .biz-card:hover .biz-arrow{transform:translateX(6px);background:var(--gold);color:#fff;
+    border-color:var(--gold)}
+  .biz-card .img-wrap{aspect-ratio:4/3;overflow:hidden;background:#ddd}
+  .biz-card .biz-img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+  .biz-card .body{padding:24px 22px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .biz-card .num{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:400;
+    color:var(--gold);letter-spacing:.06em;line-height:1}
+  .biz-card .en{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:500;
+    color:var(--green);letter-spacing:.03em;line-height:1.25;margin-top:2px}
+  .biz-card .jp{font-size:11px;letter-spacing:.22em;color:var(--sub);font-weight:500}
+  .biz-card .desc{font-size:12.5px;line-height:1.85;color:var(--ink);
+    opacity:.82;margin-top:8px;flex:1}
+  .biz-card .foot{display:flex;align-items:center;justify-content:space-between;
+    margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+  .biz-card .site{display:flex;flex-direction:column;gap:2px}
+  .biz-card .site .lbl{font-size:9px;letter-spacing:.24em;color:var(--sub);font-weight:500}
+  .biz-card .site .nm{font-family:'Noto Serif JP',serif;font-size:12px;
+    font-weight:500;color:var(--green);letter-spacing:.02em}
+  .biz-card .biz-arrow{width:34px;height:34px;border-radius:50%;
+    border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+    font-family:'Noto Serif JP',serif;font-size:14px;color:var(--green);
+    transition:all .35s ease}
+
+  /* ===== GROUP chart ===== */
+  .group-wrap{display:flex;flex-direction:column;align-items:center;
+    padding:24px 0 32px;position:relative}
+  .group-wrap::before{content:'';position:absolute;inset:-60px -10% -20px;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 38%, rgba(255,255,255,.7), transparent 70%),
+      url('assets/sumi-marble.png')
+        center/cover no-repeat;
+    opacity:.42;filter:saturate(.6) brightness(1.05);
+    pointer-events:none;z-index:0;
+    mask-image:radial-gradient(ellipse 70% 65% at 50% 50%, #000 40%, transparent 80%);
+    -webkit-mask-image:radial-gradient(ellipse 70% 65% at 50% 50%, #000 40%, transparent 80%)}
+  .group-wrap > *{position:relative;z-index:1}
+
+  .group-parent{padding:14px 64px 24px;background:var(--green);color:#fff;
+    border-radius:3px;text-align:center;position:relative;min-width:440px;
+    box-shadow:0 30px 60px -30px rgba(15,61,52,.45),
+      inset 0 0 0 1px rgba(212,162,74,.3)}
+  .group-parent::before{content:'HOLDINGS';position:absolute;top:-8px;left:50%;
+    transform:translateX(-50%);background:var(--green);padding:0 14px;
+    font-size:10px;letter-spacing:.36em;color:var(--gold);font-weight:600;
+    line-height:1}
+  .group-parent .name{font-family:'Noto Serif JP',serif;font-size:24px;
+    font-weight:500;letter-spacing:.06em;margin-top:6px}
+
+  .group-trunk{width:1px;background:var(--gold);height:48px;position:relative}
+  .group-trunk::after{content:'';position:absolute;bottom:-4px;left:50%;
+    transform:translateX(-50%);width:8px;height:8px;border-radius:50%;
+    background:var(--gold)}
+  .group-bar{height:1px;background:var(--gold);width:88%;max-width:980px;position:relative}
+
+  .group-children{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+    width:88%;max-width:980px}
+  .group-child{display:flex;flex-direction:column;align-items:center;gap:0;
+    position:relative}
+  .group-child .stem{width:1px;height:24px;background:var(--gold)}
+  .group-icon{width:56px;height:56px;border-radius:50%;background:var(--green);
+    display:flex;align-items:center;justify-content:center;color:var(--gold);
+    box-shadow:0 14px 30px -14px rgba(15,61,52,.5),
+      inset 0 0 0 1px rgba(212,162,74,.3);
+    transition:transform .35s ease}
+  .group-icon svg{width:24px;height:24px;stroke:currentColor;fill:none;
+    stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+  .group-card{width:100%;padding:48px 18px 22px;margin-top:-28px;background:#fff;
+    border:1px solid var(--line);border-radius:3px;text-align:center;
+    display:flex;flex-direction:column;gap:8px;
+    transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
+    cursor:pointer;text-decoration:none;color:inherit}
+  .group-card:hover{transform:translateY(-4px);border-color:rgba(212,162,74,.5);
+    box-shadow:0 24px 48px -24px rgba(15,61,52,.22)}
+  .group-card:hover ~ .group-icon,
+  .group-child:hover .group-icon{transform:translateY(-2px)}
+  .group-card .tag{font-size:10px;letter-spacing:.28em;color:var(--gold);
+    font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
+  .group-card .tag::before,.group-card .tag::after{content:'';width:14px;height:1px;
+    background:var(--gold);opacity:.6}
+  .group-card .co{font-family:'Noto Serif JP',serif;font-size:16px;font-weight:500;
+    color:var(--green);line-height:1.35;letter-spacing:.02em}
+  .group-card .role{font-size:11px;color:var(--sub);letter-spacing:.12em}
+
+  /* Stack icon ABOVE card */
+  .group-child{display:flex;flex-direction:column;align-items:center}
+
+  .group-finish-dot{margin-top:32px;display:flex;align-items:center;
+    justify-content:center;gap:8px;color:var(--gold)}
+  .group-finish-dot::before,.group-finish-dot::after{content:'';width:36px;height:1px;
+    background:var(--gold);opacity:.5}
+  .group-finish-dot span{width:6px;height:6px;background:var(--gold);
+    transform:rotate(45deg)}
+
+  @media (max-width:768px){
+    .group-children{grid-template-columns:repeat(2,1fr);gap:18px}
+    .group-bar{display:none}
+    .group-trunk{height:32px}
+    .group-child .stem{height:18px}
+    .group-card{padding:42px 12px 18px}
+    .group-parent{min-width:0;padding:14px 32px 22px}
+    .group-parent .name{font-size:18px}
+  }
+
+  .group-finish{margin-top:96px;aspect-ratio:21/9;overflow:hidden;border-radius:2px;
+    background:#ddd}
+  .group-finish img{width:100%;height:100%;object-fit:cover}
+  .group-finish-cap{margin-top:18px;text-align:center;font-family:'Noto Serif JP',serif;
+    font-size:13px;color:var(--sub);letter-spacing:.18em}
+
+  /* ===== COMPANY link card ===== */
+  .link-card{display:grid;grid-template-columns:1fr auto;align-items:center;
+    padding:48px 56px;background:#fff;border:1px solid var(--line);border-radius:2px;
+    gap:32px;transition:all .35s ease;cursor:pointer;position:relative;overflow:hidden}
+  .link-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--gold);transform:scaleY(0);transform-origin:bottom;
+    transition:transform .4s ease}
+  .link-card:hover::before{transform:scaleY(1);transform-origin:top}
+  .link-card:hover .link-arrow{transform:translateX(8px);color:var(--gold)}
+  .link-card .title{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:500;
+    color:var(--green);margin-bottom:12px}
+  .link-card .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12px;color:var(--sub)}
+  .link-card .meta span{display:inline-flex;align-items:center;gap:6px}
+  .link-card .meta span::before{content:'';width:3px;height:3px;background:var(--gold);
+    border-radius:50%}
+  .link-arrow{font-size:24px;color:var(--green);transition:all .35s ease;
+    font-family:'Noto Serif JP',serif}
+  @media (max-width:600px){.link-card{padding:28px 24px}.link-card .title{font-size:18px}}
+
+  /* ===== CONTACT ===== */
+  .contact{background:var(--green);color:#fff;padding:140px 0;position:relative;
+    overflow:hidden}
+  .contact::after{content:'';position:absolute;inset:0;z-index:0;
+    background-image:url('assets/dawn-forest.png');
+    background-size:cover;background-position:center;
+    opacity:.45;mix-blend-mode:screen;filter:saturate(.7) contrast(.95)}
+  .contact::before{content:'';position:absolute;inset:0;z-index:1;
+    background:
+      linear-gradient(180deg,rgba(15,61,52,.55) 0%,rgba(15,61,52,.85) 100%),
+      radial-gradient(ellipse at 80% 20%,rgba(212,162,74,.22) 0%,transparent 50%)}
+  .contact .inner{position:relative;z-index:2;display:grid;
+    grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .contact h2{font-family:'Noto Serif JP',serif;font-size:clamp(32px,4vw,52px);
+    font-weight:500;margin:0 0 24px;line-height:1.32}
+  .contact p{font-size:14px;line-height:2;opacity:.85;max-width:440px;margin:0}
+  .contact .ctas{display:flex;flex-direction:column;gap:14px}
+  .contact .cta{display:flex;align-items:center;justify-content:space-between;
+    padding:28px 32px;border:1px solid rgba(255,255,255,.25);border-radius:2px;
+    background:rgba(255,255,255,.03);transition:all .35s ease;cursor:pointer}
+  .contact .cta:hover{background:rgba(212,162,74,.1);border-color:var(--gold)}
+  .contact .cta:hover .arr{transform:translateX(8px);color:var(--gold)}
+  .contact .cta .label{display:flex;flex-direction:column;gap:6px}
+  .contact .cta .label .en{font-family:'Noto Serif JP',serif;font-size:18px;
+    font-weight:500;letter-spacing:.04em}
+  .contact .cta .label .jp{font-size:11px;letter-spacing:.18em;opacity:.65}
+  .contact .cta .arr{font-size:22px;transition:all .35s ease}
+  @media (max-width:900px){.contact .inner{grid-template-columns:1fr;gap:48px}}
+
+  /* ===== FOOTER ===== */
+  footer.foot{background:var(--green-deep);color:rgba(255,255,255,.78);padding:80px 0 32px}
+  footer.foot .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.3fr;gap:48px;
+    margin-bottom:64px}
+  footer.foot .brand .mark{width:64px;height:auto;margin-bottom:16px}
+  footer.foot .brand .name{font-family:'Noto Serif JP',serif;font-size:15px;
+    font-weight:500;letter-spacing:.16em;color:#fff;margin-bottom:14px}
+  footer.foot .brand .stmt{font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.5);
+    line-height:1.8}
+  footer.foot h4{font-size:11px;letter-spacing:.28em;color:var(--gold);
+    font-weight:600;margin:0 0 18px;text-transform:uppercase}
+  footer.foot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  footer.foot ul a{font-size:12px;color:rgba(255,255,255,.78);transition:color .25s}
+  footer.foot ul a:hover{color:var(--gold)}
+  footer.foot .meta{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.45)}
+  @media (max-width:1100px){footer.foot .grid{grid-template-columns:1.5fr 1fr 1fr;gap:40px}}
+  @media (max-width:900px){footer.foot .grid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media (max-width:600px){footer.foot .grid{grid-template-columns:1fr}}
+
+  /* ===== W mark (brand logo) =====
+     Two solid dark-green W blades (outer→V) with a gold arc bridging across.
+     viewBox 0 0 200 140 — keep aspect ratio when sizing. */
+  .w-mark{display:block}
+  .w-mark .blade{fill:currentColor}
+  .w-mark .arc{fill:none;stroke:#D4A24A;stroke-width:11;stroke-linecap:round}
+  .w-mark .arc-tail{fill:none;stroke:#0F3D34;stroke-width:11;stroke-linecap:round}
+
+  /* ===== Mobile drawer (hamburger menu) ===== */
+  .drawer{position:fixed;inset:0;z-index:200;background:rgba(10,26,22,.96);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    opacity:0;pointer-events:none;transition:opacity .4s ease}
+  .drawer.open{opacity:1;pointer-events:auto}
+  .drawer-inner{height:100%;display:flex;flex-direction:column;justify-content:center;
+    align-items:flex-start;padding:80px 32px 40px;gap:36px;color:#fff}
+  .drawer-close{position:absolute;top:22px;right:22px;width:44px;height:44px;
+    border:1px solid rgba(255,255,255,.3);border-radius:50%;background:transparent;
+    color:#fff;font-size:22px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center}
+  .drawer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;
+    gap:24px;width:100%}
+  .drawer ul a{font-family:'Noto Serif JP',serif;font-size:30px;font-weight:500;
+    color:#fff;text-decoration:none;letter-spacing:.04em;display:flex;
+    align-items:baseline;gap:18px}
+  .drawer ul a .num{font-size:11px;letter-spacing:.32em;color:var(--gold);font-weight:500}
+  .drawer .drawer-cta{margin-top:8px;display:inline-flex;align-items:center;gap:10px;
+    padding:14px 26px;border:1px solid var(--gold);border-radius:999px;color:var(--gold);
+    font-size:12px;letter-spacing:.24em;text-decoration:none;font-weight:500}
+  .drawer .drawer-foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;
+    font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.45)}
+
+  /* ===== Mobile fine-tuning (≤600px) ===== */
+  @media (max-width:600px){
+    .hero{--hero-pad-y:72px}
+    .hero .content{padding-left:22px}
+    .hero h1{font-size:clamp(34px,9vw,48px);line-height:1.22;margin-bottom:18px}
+    .hero .lede{font-size:14px;line-height:1.9}
+    .hero .kicker{font-size:10px;margin-bottom:22px}
+    .hero .kicker::before{width:24px}
+    .hero .scroll-ind{font-size:9px;bottom:24px}
+    .hero .scroll-ind .bar{height:28px}
+
+    .sec-head{margin-bottom:40px;gap:20px}
+    .sec-head h2{font-size:clamp(24px,7.2vw,32px);line-height:1.34}
+    .sec-head .right{font-size:12.5px;line-height:1.85}
+
+    .arc-div{padding:0 22px}
+    .arc-div svg{height:36px}
+
+    .biz-card .body{padding:20px 18px 22px}
+    .biz-card .en{font-size:20px}
+    .biz-card .desc{font-size:12.5px;line-height:1.85}
+
+    /* Group chart — single column for clarity */
+    .group-children{grid-template-columns:1fr;gap:14px}
+    .group-card{padding:36px 16px 18px;text-align:left;
+      display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px}
+    .group-card .num{position:static}
+    .group-child .stem{display:none}
+    .group-trunk{height:24px}
+    .group-finish{margin-top:64px;aspect-ratio:16/10}
+    .group-finish-cap{font-size:11px;letter-spacing:.14em;line-height:1.7;padding:0 8px}
+
+    .link-card{padding:28px 22px;grid-template-columns:1fr;gap:16px}
+    .link-card .title{font-size:19px;margin-bottom:8px}
+    .link-card .meta{font-size:11px;gap:6px 14px}
+    .link-arrow{justify-self:flex-end}
+
+    .contact .inner{gap:36px}
+    .contact h2{font-size:clamp(26px,7.6vw,34px)}
+    .contact .lede{font-size:13px;line-height:1.9}
+    .contact .cta{padding:20px 22px}
+    .contact .cta .label .en{font-size:16px}
+    .contact .cta .label .jp{font-size:10px}
+
+    footer.foot{padding:64px 0 32px}
+    footer.foot .grid{gap:32px}
+    footer.foot h4{font-size:11px}
+    footer.foot a,footer.foot li{font-size:12.5px}
+    footer.foot .bottom{font-size:10px;letter-spacing:.12em}
+  }
+</style>
+  <script src="assets/whd-cursor.js" defer></script>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+</head>
+<body data-mood="night" data-density="generous">
+<!-- ============ NAV ============ -->
+<nav class="gnav over-hero" id="gnav">
+  <div class="container row">
+    <a href="#" class="brand">
+      <img class="mark" src="assets/with-holdings-mark.png" alt="WITH HOLDINGS" style="width:auto;height:36px;display:block"/>
+      <span class="name">WITH HOLDINGS</span>
+    </a>
+    <ul>
+      <li><a href="#top">TOP</a></li>
+      <li><a href="#business">BUSINESS</a></li>
+      <li><a href="#company">COMPANY</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+    <a href="#contact" class="cta">CONTACT <span>→</span></a>
+    <button class="burger" aria-label="menu" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ MOBILE DRAWER ============ -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="drawer-close" aria-label="close" id="drawerClose">×</button>
+  <div class="drawer-inner">
+    <ul>
+      <li><a href="#top" data-drawer-link><span class="num">01</span>TOP</a></li>
+      <li><a href="#business" data-drawer-link><span class="num">02</span>BUSINESS</a></li>
+      <li><a href="#company" data-drawer-link><span class="num">03</span>COMPANY</a></li>
+      <li><a href="#contact" data-drawer-link><span class="num">04</span>CONTACT</a></li>
+    </ul>
+    <a href="#contact" class="drawer-cta" data-drawer-link>CONTACT <span>→</span></a>
+    <div class="drawer-foot">
+      <div>株式会社 WITH HOLDINGS</div>
+      <div>© 2026 WITH HOLDINGS, Inc.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="scrim" aria-hidden="true"></div>
+
+
+
+  <div class="container content">
+    <h1 class="serif" id="hero-h1">人と事業をつなぎ、<br/><em style="color: rgb(230, 198, 67)">未来に伴走する。</em></h1>
+    <p class="lede" id="hero-lede">
+      私たちは、金融・リユース・福祉・ブランディングの力を掛け合わせ、人と社会の持続的な成長に貢献するホールディングスです。
+    </p>
+  </div>
+
+  <div class="scroll-ind">
+    <span>SCROLL</span>
+    <div class="bar"></div>
+  </div>
+</section>
+
+<!-- gold arc divider -->
+<div class="arc-div" aria-hidden="true">
+  <svg viewBox="0 0 1320 60" preserveAspectRatio="none">
+    <path d="M 0 50 Q 660 -10 1320 50" fill="none" stroke="#D4A24A" stroke-width="1.2" opacity=".7"/>
+    <circle cx="0" cy="50" r="3" fill="#D4A24A"/>
+    <circle cx="1320" cy="50" r="3" fill="#D4A24A"/>
+  </svg>
+</div>
+
+<!-- ============ BUSINESS ============ -->
+<section id="business">
+  <div class="container">
+    <div class="sec-head">
+      <div class="left">
+        <div class="num"><span>01</span><em></em><span>BUSINESS</span></div>
+        <h2>4つの事業領域。<br/>それぞれが、未来をつくる。</h2>
+      </div>
+      <p class="right">
+        WITH HOLDINGS は、独立した4つの事業ブランドを束ねるホールディングス。
+        各事業の詳細はそれぞれのブランドサイトをご覧ください。
+      </p>
+    </div>
+
+    <div class="biz-grid">
+      <a class="biz-card" href="https://asset.with.withhd.com" target="_blank" rel="noopener">
+        <div class="img-wrap">
+          <img class="biz-img" alt=""
+            src="assets/biz-book.png" />
+        </div>
+        <div class="body">
+          <span class="num">01</span>
+          <span class="en">Asset With</span>
+          <span class="jp">ファイナンス事業</span>
+          <p class="desc">資産形成・法人財務健全化・保険のパートナーとして、企業と個人の未来設計に伴走する。</p>
+          <div class="foot">
+            <div class="site">
+              <span class="lbl">BRAND SITE</span>
+              <span class="nm">Asset With ↗</span>
+            </div>
+            <span class="biz-arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="biz-card" href="https://www.kaitori.lion-trading.co.jp/" target="_blank" rel="noopener">
+        <div class="img-wrap">
+          <img class="biz-img" alt=""
+            src="assets/biz-watch.png" />
+        </div>
+        <div class="body">
+          <span class="num">02</span>
+          <span class="en">Lion買取</span>
+          <span class="jp">リユース・古物事業</span>
+          <p class="desc">価値あるものを、次の手へ。買取・販売の循環で新しい関係を編む。</p>
+          <div class="foot">
+            <div class="site">
+              <span class="lbl">BRAND SITE</span>
+              <span class="nm">Lion買取 ↗</span>
+            </div>
+            <span class="biz-arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="biz-card" href="https://gh.withhappiness.withhd.com" target="_blank" rel="noopener">
+        <div class="img-wrap">
+          <img class="biz-img" alt=""
+            src="assets/biz-chairs.png" />
+        </div>
+        <div class="body">
+          <span class="num">03</span>
+          <span class="en">WITHハピネス</span>
+          <span class="jp">福祉事業</span>
+          <p class="desc">働く人の幸せから、社会の幸せへ。支える人を支える仕組みをつくる。</p>
+          <div class="foot">
+            <div class="site">
+              <span class="lbl">BRAND SITE</span>
+              <span class="nm">WITHハピネス ↗</span>
+            </div>
+            <span class="biz-arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="biz-card" href="https://playbranding.withhd.com" target="_blank" rel="noopener">
+        <div class="img-wrap">
+          <img class="biz-img" alt=""
+            src="assets/biz-cup.png" />
+        </div>
+        <div class="body">
+          <span class="num">04</span>
+          <span class="en">Play Branding</span>
+          <span class="jp">ブランディング事業</span>
+          <p class="desc">事業の魅力を翻訳し、未来の顧客に届ける。物語と設計の両輪で。</p>
+          <div class="foot">
+            <div class="site">
+              <span class="lbl">BRAND SITE</span>
+              <span class="nm">Play Branding ↗</span>
+            </div>
+            <span class="biz-arrow">→</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPANY ============ -->
+<section id="company">
+  <div class="container">
+    <div class="sec-head">
+      <div class="left">
+        <div class="num"><span>02</span><em></em><span>COMPANY</span></div>
+        <h2>会社概要・代表メッセージ</h2>
+      </div>
+      <p class="right">
+        商号・所在地などの基本情報、代表メッセージ、これまでの歩みは
+        会社概要ページにまとめています。
+      </p>
+    </div>
+
+    <a class="link-card" href="company.html">
+      <div>
+        <div class="title">会社概要ページへ</div>
+        <div class="meta">
+          <span>商号</span>
+          <span>設立</span>
+          <span>所在地</span>
+          <span>資本金</span>
+          <span>代表者</span>
+          <span>代表メッセージ</span>
+          <span>沿革</span>
+        </div>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="container inner">
+    <div>
+      <div class="num" style="color:#D4A24A;font-size:11px;letter-spacing:.32em;margin-bottom:24px;display:flex;align-items:center;gap:14px">
+        <span style="font-weight:600">03</span>
+        <em style="font-style:normal;width:32px;height:1px;background:#D4A24A;display:block"></em>
+        <span style="font-weight:500">CONTACT</span>
+      </div>
+      <h2>未来に向けた、<br/>はじまりの一歩を。</h2>
+      <p>
+        お見積もり、取材、採用に関するお問い合わせは
+        以下のフォームよりお気軽にお寄せください。
+      </p>
+    </div>
+    <div class="ctas">
+      <a class="cta" href="contact.html?type=general">
+        <div class="label">
+          <span class="en">General Inquiry</span>
+          <span class="jp">一般的なお問い合わせ</span>
+        </div>
+        <span class="arr">→</span>
+      </a>
+      <a class="cta" href="contact.html?type=press">
+        <div class="label">
+          <span class="en">Press / Media</span>
+          <span class="jp">取材・メディア</span>
+        </div>
+        <span class="arr">→</span>
+      </a>
+      <a class="cta" href="contact.html?type=career">
+        <div class="label">
+          <span class="en">Career</span>
+          <span class="jp">採用に関するお問い合わせ</span>
+        </div>
+        <span class="arr">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="container">
+    <div class="grid">
+      <div class="brand">
+        <img class="mark" src="assets/with-holdings-mark-white.png" alt="WITH HOLDINGS" style="width:auto;height:48px;display:block;margin-bottom:16px"/>
+        <div class="name">株式会社 WITH HOLDINGS</div>
+        <div class="stmt">CONNECTING PEOPLE,<br/>BUSINESSES AND<br/>THE FUTURE.</div>
+      </div>
+      <div>
+        <h4>ABOUT</h4>
+        <ul>
+          <li><a href="#top">TOP</a></li>
+          <li><a href="#">PHILOSOPHY</a></li>
+          <li><a href="#company">COMPANY</a></li>
+          <li><a href="#">代表メッセージ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>BUSINESS</h4>
+        <ul>
+          <li><a href="https://asset.with.withhd.com" target="_blank" rel="noopener">Finance ↗</a></li>
+          <li><a href="https://www.kaitori.lion-trading.co.jp/" target="_blank" rel="noopener">Reuse ↗</a></li>
+          <li><a href="https://gh.withhappiness.withhd.com" target="_blank" rel="noopener">Welfare ↗</a></li>
+          <li><a href="https://playbranding.withhd.com" target="_blank" rel="noopener">Branding ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MORE</h4>
+        <ul>
+          <li><a href="#">採用情報</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="#">IR（準備中）</a></li>
+          <li><a href="#">News（準備中）</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>POLICIES</h4>
+        <ul>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="cookie.html">Cookieポリシー</a></li>
+          <li><a href="terms.html">サイト利用規約</a></li>
+          <li><a href="terms.html">サイトポリシー</a></li>
+          <li><a href="security.html">情報セキュリティ基本方針</a></li>
+          <li><a href="anti-social.html">反社会的勢力排除に関する基本方針</a></li>
+          <li><a href="accessibility.html">アクセシビリティ方針</a></li>
+          <li><a href="social-media.html">ソーシャルメディアポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta">
+      <span>© 2026 WITH HOLDINGS, Inc.</span>
+      <span>JP / EN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Toggle nav style based on scroll position (more reliable than IntersectionObserver here)
+  const gnav = document.getElementById('gnav');
+  const hero = document.querySelector('.hero');
+  const updateNav = () => {
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    if (heroBottom > 80) {
+      gnav.classList.add('over-hero');
+      gnav.classList.remove('scrolled');
+    } else {
+      gnav.classList.remove('over-hero');
+      gnav.classList.add('scrolled');
+    }
+  };
+  updateNav();
+  window.addEventListener('scroll', updateNav, { passive: true });
+  window.addEventListener('resize', updateNav);
+
+  // Mobile drawer
+  const drawer = document.getElementById('drawer');
+  const burger = document.getElementById('burger');
+  const drawerClose = document.getElementById('drawerClose');
+  const openDrawer = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; };
+  const closeDrawer = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+  if (burger) burger.addEventListener('click', openDrawer);
+  if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+  document.querySelectorAll('[data-drawer-link]').forEach(a => a.addEventListener('click', closeDrawer));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+</script>
+
+<!-- ============ HERO COPY (static for production) ============ -->
+<script>
+  // Hero copy is fixed in production. The TWEAKS scaffold has been removed for the public site.
+  // To change the headline, edit #hero-h1 / #hero-lede directly above.
+</script>
+
+<!-- ============ COOKIE CONSENT BANNER ============ -->
+<style>
+  .cc-banner{
+    position:fixed;left:24px;right:24px;bottom:24px;z-index:120;
+    max-width:560px;margin-left:auto;
+    background:#0a2a24;color:#fff;
+    border:1px solid rgba(212,162,74,.35);
+    border-radius:4px;
+    box-shadow:0 24px 60px -16px rgba(0,0,0,.55);
+    padding:24px 26px 22px;
+    font-family:'Noto Sans JP','Hiragino Sans',sans-serif;
+    transform:translateY(20px);opacity:0;pointer-events:none;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .5s ease;
+  }
+  .cc-banner.is-on{transform:translateY(0);opacity:1;pointer-events:auto}
+  .cc-banner .cc-eyebrow{font-size:10px;letter-spacing:.4em;color:#D4A24A;
+    font-weight:600;margin-bottom:10px}
+  .cc-banner .cc-title{font-family:'Noto Serif JP',serif;font-size:15px;
+    letter-spacing:.04em;font-weight:500;margin-bottom:10px;color:#fff}
+  .cc-banner .cc-body{font-size:12px;line-height:1.85;color:rgba(255,255,255,.78);
+    margin-bottom:18px}
+  .cc-banner .cc-body a{color:#E8C988;text-decoration:underline;text-underline-offset:2px}
+  .cc-banner .cc-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .cc-banner .cc-btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:10px 20px;border-radius:2px;
+    font-size:11px;letter-spacing:.24em;font-weight:600;
+    border:1px solid transparent;cursor:pointer;background:none;color:#fff;
+    transition:all .25s ease;
+  }
+  .cc-banner .cc-btn-primary{background:#D4A24A;color:#0a2a24}
+  .cc-banner .cc-btn-primary:hover{background:#E8C988}
+  .cc-banner .cc-btn-ghost{border-color:rgba(255,255,255,.3)}
+  .cc-banner .cc-btn-ghost:hover{border-color:#D4A24A;color:#D4A24A}
+  .cc-banner .cc-btn-link{padding:10px 4px;color:rgba(255,255,255,.6);font-size:11px;
+    letter-spacing:.18em;font-weight:500;margin-left:auto}
+  .cc-banner .cc-btn-link:hover{color:#D4A24A}
+
+  /* settings panel */
+  .cc-modal{
+    position:fixed;inset:0;z-index:130;display:none;
+    background:rgba(10,42,36,.72);backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    align-items:center;justify-content:center;padding:24px;
+  }
+  .cc-modal.is-on{display:flex}
+  .cc-modal-inner{
+    background:#F7F4ED;color:#1a2421;
+    width:min(520px,100%);max-height:90vh;overflow:auto;
+    border:1px solid #dfd9cb;border-radius:4px;
+    padding:36px 36px 28px;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,.4);
+    font-family:'Noto Sans JP','Hiragino Sans',sans-serif;
+  }
+  .cc-modal h3{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:500;
+    color:#0F3D34;margin-bottom:8px;letter-spacing:.04em}
+  .cc-modal .cc-modal-eyebrow{font-size:10px;letter-spacing:.4em;color:#D4A24A;
+    font-weight:600;margin-bottom:8px}
+  .cc-modal .cc-row{
+    border-top:1px solid #dfd9cb;padding:18px 0;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:18px;
+  }
+  .cc-modal .cc-row:first-of-type{margin-top:24px}
+  .cc-modal .cc-row h4{font-family:'Noto Serif JP',serif;font-size:14px;
+    color:#0F3D34;font-weight:500;margin-bottom:4px}
+  .cc-modal .cc-row p{font-size:12px;line-height:1.8;color:#5a665f;margin:0}
+  .cc-modal .cc-row-required{font-size:10px;letter-spacing:.2em;color:#5a665f;
+    flex-shrink:0;padding-top:2px}
+  /* toggle */
+  .cc-toggle{position:relative;display:inline-block;width:42px;height:24px;flex-shrink:0;cursor:pointer}
+  .cc-toggle input{display:none}
+  .cc-toggle .cc-track{position:absolute;inset:0;background:#cfc8b5;border-radius:12px;
+    transition:background .25s ease}
+  .cc-toggle .cc-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;
+    background:#fff;border-radius:50%;transition:transform .25s ease;
+    box-shadow:0 1px 2px rgba(0,0,0,.2)}
+  .cc-toggle input:checked + .cc-track{background:#0F3D34}
+  .cc-toggle input:checked + .cc-track .cc-thumb{transform:translateX(18px)}
+  .cc-modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px;
+    padding-top:20px;border-top:1px solid #dfd9cb}
+  .cc-modal-actions button{
+    padding:11px 22px;font-size:11px;letter-spacing:.24em;font-weight:600;
+    border-radius:2px;cursor:pointer;border:1px solid transparent;
+    transition:all .25s ease;
+  }
+  .cc-modal-actions .cc-save{background:#0F3D34;color:#fff;border-color:#0F3D34}
+  .cc-modal-actions .cc-save:hover{background:#D4A24A;border-color:#D4A24A;color:#0a2a24}
+  .cc-modal-actions .cc-cancel{background:none;color:#5a665f;border-color:#dfd9cb}
+  .cc-modal-actions .cc-cancel:hover{border-color:#0F3D34;color:#0F3D34}
+
+  @media (max-width:560px){
+    .cc-banner{left:16px;right:16px;bottom:16px;padding:20px 22px 18px}
+    .cc-banner .cc-actions{gap:8px}
+    .cc-banner .cc-btn-link{margin-left:0;width:100%;text-align:center;
+      padding-top:6px;border-top:1px solid rgba(255,255,255,.12);margin-top:4px}
+    .cc-modal-inner{padding:28px 24px 20px}
+  }
+</style>
+
+<div class="cc-banner" id="ccBanner" role="dialog" aria-live="polite" aria-label="Cookie同意">
+  <div class="cc-eyebrow">COOKIE NOTICE</div>
+  <div class="cc-title">Cookieの使用について</div>
+  <div class="cc-body">
+    当サイトでは、サービスの向上のためCookieを使用しています。<br/>
+    詳細は<a href="cookie.html">Cookieポリシー</a>および<a href="privacy.html">プライバシーポリシー</a>をご確認ください。
+  </div>
+  <div class="cc-actions">
+    <button class="cc-btn cc-btn-primary" id="ccAcceptAll">すべて受け入れる</button>
+    <button class="cc-btn cc-btn-ghost" id="ccAcceptRequired">必須のみ</button>
+    <button class="cc-btn cc-btn-link" id="ccOpenSettings">設定 →</button>
+  </div>
+</div>
+
+<div class="cc-modal" id="ccModal" role="dialog" aria-modal="true" aria-labelledby="ccModalTitle">
+  <div class="cc-modal-inner">
+    <div class="cc-modal-eyebrow">COOKIE SETTINGS</div>
+    <h3 id="ccModalTitle">Cookieの設定</h3>
+    <p style="font-size:12px;line-height:1.85;color:#5a665f;margin-top:8px">
+      お客様の利用状況に応じて、Cookieの種別ごとに使用を選択いただけます。
+    </p>
+
+    <div class="cc-row">
+      <div>
+        <h4>必須Cookie</h4>
+        <p>本サイトの基本機能（ページ遷移、フォーム送信、セッション管理等）の提供に必要です。</p>
+      </div>
+      <div class="cc-row-required">REQUIRED</div>
+    </div>
+
+    <div class="cc-row">
+      <div>
+        <h4>機能性Cookie</h4>
+        <p>言語設定、表示設定等、お客様の利便性向上のために使用します。</p>
+      </div>
+      <label class="cc-toggle">
+        <input type="checkbox" id="ccToggleFunc" checked/>
+        <span class="cc-track"><span class="cc-thumb"></span></span>
+      </label>
+    </div>
+
+    <div class="cc-row">
+      <div>
+        <h4>分析Cookie</h4>
+        <p>Google Analytics等を使用し、本サイトのご利用状況を分析することで、サービスの改善に役立てます。</p>
+      </div>
+      <label class="cc-toggle">
+        <input type="checkbox" id="ccToggleAnal" checked/>
+        <span class="cc-track"><span class="cc-thumb"></span></span>
+      </label>
+    </div>
+
+    <div class="cc-modal-actions">
+      <button class="cc-cancel" id="ccCancel">キャンセル</button>
+      <button class="cc-save" id="ccSave">設定を保存する</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const KEY = 'withhd_cookie_consent_v1';
+  const banner = document.getElementById('ccBanner');
+  const modal = document.getElementById('ccModal');
+  const tFunc = document.getElementById('ccToggleFunc');
+  const tAnal = document.getElementById('ccToggleAnal');
+
+  function load(){
+    try{ return JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){ return null; }
+  }
+  function save(state){
+    state.savedAt = new Date().toISOString();
+    state.version = 1;
+    localStorage.setItem(KEY, JSON.stringify(state));
+  }
+  function hide(){ banner.classList.remove('is-on'); }
+  function show(){ requestAnimationFrame(() => banner.classList.add('is-on')); }
+
+  // Initial state
+  const existing = load();
+  if (!existing){
+    setTimeout(show, 800);
+  }
+
+  document.getElementById('ccAcceptAll').addEventListener('click', () => {
+    save({ required:true, functional:true, analytics:true });
+    hide();
+  });
+  document.getElementById('ccAcceptRequired').addEventListener('click', () => {
+    save({ required:true, functional:false, analytics:false });
+    hide();
+  });
+  document.getElementById('ccOpenSettings').addEventListener('click', () => {
+    if (existing){ tFunc.checked = !!existing.functional; tAnal.checked = !!existing.analytics; }
+    modal.classList.add('is-on');
+  });
+  document.getElementById('ccCancel').addEventListener('click', () => {
+    modal.classList.remove('is-on');
+  });
+  document.getElementById('ccSave').addEventListener('click', () => {
+    save({ required:true, functional:tFunc.checked, analytics:tAnal.checked });
+    modal.classList.remove('is-on');
+    hide();
+  });
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('is-on');
+  });
+})();
+</script>
+
+</body>
+</html>

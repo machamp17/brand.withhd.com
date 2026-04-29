@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>反社会的勢力排除に関する基本方針 | WITH HOLDINGS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#0F3D34;
+    --green-deep:#0a2a24;
+    --green-mist:#e8efe9;
+    --gold:#D4A24A;
+    --gold-soft:#E8C988;
+    --paper:#F7F4ED;
+    --paper-2:#fbfaf6;
+    --ink:#1a2421;
+    --sub:#5a665f;
+    --line:#dfd9cb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
+  body{
+    font-family:'Noto Sans JP','Hiragino Sans',sans-serif;
+    color:var(--ink);background:var(--paper);
+    -webkit-font-smoothing:antialiased;font-feature-settings:"palt";
+    line-height:1.85;
+  }
+  .serif{font-family:'Noto Serif JP',serif}
+  .container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+  a{color:inherit;text-decoration:none}
+
+  /* ===== NAV (paper variant — no hero) ===== */
+  nav.gnav{position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(247,244,237,.88);backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    border-bottom:1px solid rgba(223,217,203,.7);transition:all .3s ease}
+  nav.gnav .row{display:flex;align-items:center;justify-content:space-between;
+    height:72px;gap:32px}
+  nav.gnav .brand{display:flex;align-items:center;gap:14px;color:var(--ink)}
+  nav.gnav .brand .name{font-family:'Noto Serif JP',serif;font-size:14px;
+    font-weight:500;letter-spacing:.2em}
+  nav.gnav ul{list-style:none;display:flex;gap:40px;margin-left:auto}
+  nav.gnav ul a{font-size:11px;letter-spacing:.32em;font-weight:500;color:var(--ink);
+    transition:color .25s;position:relative;padding:8px 0}
+  nav.gnav ul a:hover{color:var(--gold)}
+  nav.gnav .cta{display:inline-flex;align-items:center;gap:10px;
+    padding:10px 20px;border:1px solid var(--green);color:var(--green);
+    font-size:11px;letter-spacing:.28em;font-weight:600;border-radius:2px;
+    transition:all .3s ease}
+  nav.gnav .cta:hover{background:var(--green);color:#fff}
+  nav.gnav .burger{display:none;background:none;border:none;cursor:pointer;
+    flex-direction:column;gap:5px;padding:8px}
+  nav.gnav .burger span{width:22px;height:1.5px;background:var(--ink);
+    border-radius:1px;transition:all .3s}
+  @media (max-width:900px){
+    nav.gnav ul,nav.gnav .cta{display:none}
+    nav.gnav .burger{display:flex}
+  }
+
+  /* ===== PAGE HEAD ===== */
+  .page-head{
+    position:relative;padding:140px 0 64px;color:#fff;
+    background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
+    overflow:hidden;
+  }
+  .page-head::before{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 78% 18%,rgba(212,162,74,.15) 0%,transparent 50%),
+      radial-gradient(ellipse at 12% 90%,rgba(212,162,74,.08) 0%,transparent 50%);
+    pointer-events:none;
+  }
+  .page-head .crumbs{position:relative;z-index:1;display:flex;align-items:center;
+    gap:10px;font-size:10px;letter-spacing:.3em;color:rgba(232,201,136,.85);
+    margin-bottom:28px}
+  .page-head .crumbs span{opacity:.5}
+  .page-head .crumbs a:hover{color:var(--gold)}
+  .page-head h1{position:relative;z-index:1;font-family:'Noto Serif JP',serif;
+    font-weight:500;font-size:clamp(34px,5vw,56px);line-height:1.3;letter-spacing:.04em;
+    margin:0 0 18px}
+  .page-head .en{position:relative;z-index:1;font-size:11px;letter-spacing:.42em;
+    color:var(--gold);font-weight:500}
+  .page-head .meta-row{position:relative;z-index:1;display:flex;gap:32px;
+    margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.12);
+    flex-wrap:wrap;font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.6)}
+  .page-head .meta-row strong{color:#fff;font-weight:500;margin-right:8px}
+
+  /* ===== LAYOUT ===== */
+  .doc{padding:96px 0 120px;position:relative}
+  .doc::before{
+    content:'';position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);
+    opacity:.5;
+  }
+  .doc-grid{
+    display:grid;grid-template-columns:240px 1fr;gap:72px;
+    align-items:start;
+  }
+  @media (max-width:900px){
+    .doc-grid{grid-template-columns:1fr;gap:32px}
+  }
+
+  /* ===== TOC (sticky) ===== */
+  .toc{
+    position:sticky;top:104px;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .toc h3{font-size:10px;letter-spacing:.36em;color:var(--gold);
+    font-weight:600;margin:0 0 18px}
+  .toc ol{list-style:none;counter-reset:toc;display:flex;flex-direction:column;gap:8px}
+  .toc ol li{counter-increment:toc;position:relative;padding-left:32px;
+    font-size:12px;line-height:1.55}
+  .toc ol li::before{
+    content:counter(toc,decimal-leading-zero);
+    position:absolute;left:0;top:1px;
+    font-family:'Noto Serif JP',serif;font-size:10px;
+    letter-spacing:.1em;color:var(--gold);
+  }
+  .toc a{color:var(--sub);transition:color .2s}
+  .toc a:hover,.toc a.is-active{color:var(--green);font-weight:500}
+  @media (max-width:900px){
+    .toc{position:static;display:none}
+  }
+
+  /* ===== ARTICLE ===== */
+  article{max-width:780px}
+  article .lead{
+    font-family:'Noto Serif JP',serif;font-weight:300;
+    font-size:16px;line-height:2.05;color:var(--ink);
+    padding-bottom:48px;border-bottom:1px solid var(--line);margin-bottom:56px;
+  }
+  article .lead strong{color:var(--green);font-weight:500}
+
+  article h2{
+    font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:22px;line-height:1.5;letter-spacing:.04em;
+    color:var(--green);
+    margin:64px 0 24px;padding-top:32px;
+    display:flex;align-items:baseline;gap:18px;
+    border-top:1px solid var(--line);
+  }
+  article h2:first-of-type{margin-top:0;border-top:none;padding-top:0}
+  article h2 .num{
+    font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:.3em;
+    color:var(--gold);font-weight:500;flex-shrink:0;
+  }
+  article h3{
+    font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:15px;color:var(--green);
+    margin:32px 0 12px;
+  }
+  article p{font-size:14px;line-height:2;color:var(--ink);margin:0 0 16px}
+  article ol,article ul{padding-left:24px;margin:0 0 20px;font-size:14px;line-height:2}
+  article ol li,article ul li{margin-bottom:6px;padding-left:6px}
+  article ol li::marker{color:var(--gold);font-family:'Noto Serif JP',serif}
+  article ul li::marker{color:var(--gold)}
+  article strong{color:var(--green);font-weight:600}
+
+  article table{
+    width:100%;border-collapse:collapse;
+    margin:8px 0 24px;font-size:13px;
+    border:1px solid var(--line);
+  }
+  article table th,article table td{
+    padding:14px 18px;text-align:left;
+    border-bottom:1px solid var(--line);vertical-align:top;
+  }
+  article table th{
+    background:var(--paper-2);color:var(--green);font-weight:500;
+    font-family:'Noto Serif JP',serif;letter-spacing:.04em;
+    width:30%;border-right:1px solid var(--line);
+  }
+  article table tr:last-child th,article table tr:last-child td{border-bottom:none}
+
+  /* nested numbered (4.1 4.2) within sections */
+  article .sub-list{counter-reset:sub;list-style:none;padding:0}
+  article .sub-list li{counter-increment:sub;position:relative;padding-left:32px;margin-bottom:6px}
+  article .sub-list li::before{
+    content:counter(sub) ".";
+    position:absolute;left:0;top:0;
+    color:var(--gold);font-family:'Noto Serif JP',serif;font-weight:500;
+  }
+
+  article hr{border:none;height:1px;background:var(--line);margin:48px 0}
+
+  /* signature block */
+  .sign{
+    margin-top:72px;padding:32px 32px;
+    background:var(--paper-2);border-left:2px solid var(--gold);
+    font-family:'Noto Serif JP',serif;
+  }
+  .sign .co{font-size:14px;letter-spacing:.06em;color:var(--green);margin-bottom:6px}
+  .sign .ceo{font-size:13px;color:var(--sub)}
+
+  /* back link */
+  .back{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:48px;font-size:12px;letter-spacing:.28em;font-weight:500;
+    color:var(--green);transition:gap .25s;
+  }
+  .back::before{content:'←';font-size:14px;transition:transform .25s}
+  .back:hover{color:var(--gold)}
+  .back:hover::before{transform:translateX(-4px)}
+
+  /* ===== FOOTER ===== */
+  footer.foot{background:var(--green-deep);color:rgba(255,255,255,.78);padding:80px 0 32px}
+  footer.foot .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.3fr;gap:48px;
+    margin-bottom:64px}
+  footer.foot .brand .mark{width:64px;height:auto;margin-bottom:16px}
+  footer.foot .brand .name{font-family:'Noto Serif JP',serif;font-size:15px;
+    font-weight:500;letter-spacing:.16em;color:#fff;margin-bottom:14px}
+  footer.foot .brand .stmt{font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.5);
+    line-height:1.8}
+  footer.foot h4{font-size:11px;letter-spacing:.28em;color:var(--gold);
+    font-weight:600;margin:0 0 18px;text-transform:uppercase}
+  footer.foot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  footer.foot ul a{font-size:12px;color:rgba(255,255,255,.78);transition:color .25s}
+  footer.foot ul a:hover{color:var(--gold)}
+  footer.foot .meta{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.45)}
+  @media (max-width:1100px){footer.foot .grid{grid-template-columns:1.5fr 1fr 1fr;gap:40px}}
+  @media (max-width:900px){footer.foot .grid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media (max-width:600px){footer.foot .grid{grid-template-columns:1fr}}
+
+  @media print{
+    nav.gnav,footer.foot,.toc,.back,.page-head .meta-row{display:none}
+    .page-head{background:none;color:#000;padding:0 0 32px}
+    .page-head .crumbs,.page-head .en{color:#666}
+    .page-head h1{color:#000}
+    .doc-grid{grid-template-columns:1fr}
+    body{background:#fff}
+    article{max-width:none}
+    article h2{break-after:avoid}
+  }
+</style>
+  <script src="assets/whd-cursor.js" defer></script>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+</head>
+<body>
+<!-- ============ NAV ============ -->
+<nav class="gnav" id="gnav">
+  <div class="container row">
+    <a href="index.html" class="brand">
+      <img src="assets/with-holdings-mark.png" alt="WITH HOLDINGS" style="width:auto;height:36px;display:block"/>
+      <span class="name">WITH HOLDINGS</span>
+    </a>
+    <ul>
+      <li><a href="index.html#top">TOP</a></li>
+      <li><a href="index.html#business">BUSINESS</a></li>
+      <li><a href="index.html#company">COMPANY</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+    <a href="index.html#contact" class="cta">CONTACT <span>→</span></a>
+    <button class="burger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ PAGE HEAD ============ -->
+<header class="page-head" data-screen-label="Anti-Social Forces Policy Header">
+  <div class="container">
+    <div class="crumbs">
+      <a href="index.html">HOME</a>
+      <span>/</span>
+      <span>ANTI-SOCIAL FORCES POLICY</span>
+    </div>
+    <div class="en">ANTI-SOCIAL FORCES POLICY</div>
+    <h1>反社会的勢力排除に関する基本方針</h1>
+    <div class="meta-row">
+      <span><strong>制定日</strong>2020年5月25日</span>
+      <span><strong>最終改訂</strong>2026年5月1日</span>
+      <span><strong>事業者</strong>株式会社WITH HOLDINGS</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DOC ============ -->
+<section class="doc">
+  <div class="container doc-grid">
+
+    <!-- TOC -->
+    <aside class="toc" aria-label="目次">
+      <h3>CONTENTS</h3>
+      <ol>
+        <li><a href="#s1">基本理念</a></li>
+        <li><a href="#s2">組織としての対応</a></li>
+        <li><a href="#s3">取引を含む関係の遮断</a></li>
+        <li><a href="#s4">不当要求への対応</a></li>
+        <li><a href="#s5">裏取引および資金提供の禁止</a></li>
+        <li><a href="#s6">反社会的勢力の定義</a></li>
+        <li><a href="#s7">社内体制の整備</a></li>
+      </ol>
+    </aside>
+
+    <!-- ARTICLE -->
+    <article>
+      <p class="lead">
+        株式会社WITH HOLDINGS（以下「<strong>当社</strong>」といいます。）は、市民社会の秩序や安全に脅威を与える反社会的勢力に対して毅然とした態度で臨み、一切の関係を遮断するとともに、不当な要求に対しては断固として拒絶するため、以下の基本方針を定め、これを遵守します。
+      </p>
+
+      <h2 id="s1"><span class="num">第 1 条</span><span>基本理念</span></h2>
+      <p>当社は、社会の秩序や安全に脅威を与える反社会的勢力との関係を遮断し、これらの勢力による不当な要求を拒絶することは、企業の社会的責任の観点から必要不可欠であると認識します。当社は、暴力、威力、詐欺的手法を用いて経済的利益を追求する反社会的勢力を排除し、健全な事業活動を行うことを宣言します。</p>
+
+      <h2 id="s2"><span class="num">第 2 条</span><span>組織としての対応</span></h2>
+      <ol>
+        <li>当社は、反社会的勢力による不当要求に対して、組織として対応します。役員および従業員の安全を確保するとともに、業務に支障が生じないよう、組織全体で対応する体制を整備します。</li>
+        <li>当社は、反社会的勢力との取引を含む一切の関係を遮断し、不当要求の被害防止のため、平素から警察、暴力追放運動推進センター、弁護士等の外部専門機関との緊密な連携関係を構築します。</li>
+      </ol>
+
+      <h2 id="s3"><span class="num">第 3 条</span><span>取引を含む関係の遮断</span></h2>
+      <ol>
+        <li>当社は、反社会的勢力とは、取引関係を含めて一切の関係を持ちません。</li>
+        <li>当社は、新たに取引を開始する際には、取引相手が反社会的勢力でないことを確認します。万が一、取引開始後に取引相手が反社会的勢力であることが判明した場合、または反社会的勢力との関係が判明した場合は、速やかに取引を解消します。</li>
+        <li>当社は、契約書および取引基本約款等に「反社会的勢力排除条項（暴排条項）」を盛り込むことを基本とし、反社会的勢力との取引を未然に防止します。</li>
+      </ol>
+
+      <h2 id="s4"><span class="num">第 4 条</span><span>不当要求への対応</span></h2>
+      <ol>
+        <li>当社は、反社会的勢力による不当要求に対して、断固として拒絶します。</li>
+        <li>当社は、不当要求への対応にあたり、民事および刑事の両面から法的対抗措置を講じます。</li>
+        <li>当社は、反社会的勢力による不当要求が、表面上は事業活動を装っていても、その実態が反社会的勢力による要求であると判明した場合、これを拒絶します。</li>
+      </ol>
+
+      <h2 id="s5"><span class="num">第 5 条</span><span>裏取引および資金提供の禁止</span></h2>
+      <ol>
+        <li>当社は、反社会的勢力からの不当要求が事案を隠蔽するためのものであっても、裏取引による解決は一切行いません。</li>
+        <li>当社は、反社会的勢力に対し、いかなる名目においても、資金提供その他の便宜供与を行いません。</li>
+      </ol>
+
+      <h2 id="s6"><span class="num">第 6 条</span><span>反社会的勢力の定義</span></h2>
+      <p>本方針における「反社会的勢力」とは、以下のいずれかに該当する個人、団体、組織をいいます。</p>
+      <ol>
+        <li>暴力団</li>
+        <li>暴力団員</li>
+        <li>暴力団準構成員</li>
+        <li>暴力団関係企業</li>
+        <li>総会屋等</li>
+        <li>社会運動等標榜ゴロ</li>
+        <li>特殊知能暴力集団</li>
+        <li>その他、暴力、威力または詐欺的手法を駆使して経済的利益を追求する個人または団体</li>
+      </ol>
+
+      <h2 id="s7"><span class="num">第 7 条</span><span>社内体制の整備</span></h2>
+      <ol>
+        <li>当社は、反社会的勢力への対応を統括する責任者を定め、社内体制を整備します。</li>
+        <li>当社は、役員および従業員に対して、本方針の周知徹底を図るとともに、反社会的勢力への対応に関する教育・研修を継続的に実施します。</li>
+      </ol>
+
+      <hr/>
+
+      <h3 style="margin-top:0">改訂履歴</h3>
+      <table>
+        <tr><th style="width:35%">制定・改訂日</th><th style="width:auto;border-right:none">内容</th></tr>
+        <tr><td>2020年5月25日</td><td>制定</td></tr>
+        <tr><td>2026年5月1日</td><td>株式会社WITH HOLDINGSへの体制変更にともなう全面改訂</td></tr>
+      </table>
+
+      <div class="sign">
+        <div class="co">株式会社WITH HOLDINGS</div>
+        <div class="ceo">代表取締役 遠藤 啓太</div>
+      </div>
+
+      <a href="index.html" class="back">BACK TO HOME</a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="container">
+    <div class="grid">
+      <div class="brand">
+        <img class="mark" src="assets/with-holdings-mark-white.png" alt="WITH HOLDINGS" style="width:auto;height:48px;display:block;margin-bottom:16px"/>
+        <div class="name">株式会社 WITH HOLDINGS</div>
+        <div class="stmt">CONNECTING PEOPLE,<br/>BUSINESSES AND<br/>THE FUTURE.</div>
+      </div>
+      <div>
+        <h4>ABOUT</h4>
+        <ul>
+          <li><a href="index.html#top">TOP</a></li>
+          <li><a href="#">PHILOSOPHY</a></li>
+          <li><a href="index.html#company">COMPANY</a></li>
+          <li><a href="#">代表メッセージ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>BUSINESS</h4>
+        <ul>
+          <li><a href="https://asset.with.withhd.com" target="_blank" rel="noopener">Finance ↗</a></li>
+          <li><a href="https://www.kaitori.lion-trading.co.jp/" target="_blank" rel="noopener">Reuse ↗</a></li>
+          <li><a href="https://gh.withhappiness.withhd.com" target="_blank" rel="noopener">Welfare ↗</a></li>
+          <li><a href="https://playbranding.withhd.com" target="_blank" rel="noopener">Branding ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MORE</h4>
+        <ul>
+          <li><a href="#">採用情報</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="#">IR（準備中）</a></li>
+          <li><a href="#">News（準備中）</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>POLICIES</h4>
+        <ul>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="cookie.html">Cookieポリシー</a></li>
+          <li><a href="terms.html">サイト利用規約</a></li>
+          <li><a href="terms.html">サイトポリシー</a></li>
+          <li><a href="security.html">情報セキュリティ基本方針</a></li>
+          <li><a href="anti-social.html">反社会的勢力排除に関する基本方針</a></li>
+          <li><a href="accessibility.html">アクセシビリティ方針</a></li>
+          <li><a href="social-media.html">ソーシャルメディアポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta">
+      <span>© 2026 WITH HOLDINGS, Inc.</span>
+      <span>JP / EN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // TOC active-section highlight
+  const links = document.querySelectorAll('.toc a');
+  const sections = [...document.querySelectorAll('article h2[id]')];
+  const byId = Object.fromEntries([...links].map(a => [a.getAttribute('href').slice(1), a]));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const id = e.target.id;
+      if(!byId[id]) return;
+      if(e.isIntersecting && e.intersectionRatio > 0){
+        links.forEach(a=>a.classList.remove('is-active'));
+        byId[id].classList.add('is-active');
+      }
+    });
+  },{rootMargin:'-104px 0px -70% 0px',threshold:[0,1]});
+  sections.forEach(s=>io.observe(s));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>お問い合わせ | WITH HOLDINGS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#0F3D34;
+    --green-deep:#0a2a24;
+    --green-mist:#e8efe9;
+    --gold:#D4A24A;
+    --gold-soft:#E8C988;
+    --paper:#F7F4ED;
+    --paper-2:#fbfaf6;
+    --ink:#1a2421;
+    --sub:#5a665f;
+    --line:#dfd9cb;
+    --error:#b8463a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
+  body{
+    font-family:'Noto Sans JP','Hiragino Sans',sans-serif;
+    color:var(--ink);background:var(--paper);
+    -webkit-font-smoothing:antialiased;font-feature-settings:"palt";
+    line-height:1.85;
+  }
+  .serif{font-family:'Noto Serif JP',serif}
+  .container{max-width:1200px;margin:0 auto;padding:0 32px}
+  a{color:inherit;text-decoration:none}
+
+  /* ===== NAV ===== */
+  nav.gnav{position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(247,244,237,.88);backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    border-bottom:1px solid rgba(223,217,203,.7);transition:all .3s ease}
+  nav.gnav .row{display:flex;align-items:center;justify-content:space-between;
+    height:72px;gap:32px}
+  nav.gnav .brand{display:flex;align-items:center;gap:14px;color:var(--ink)}
+  nav.gnav .brand .name{font-family:'Noto Serif JP',serif;font-size:14px;
+    font-weight:500;letter-spacing:.2em}
+  nav.gnav ul{list-style:none;display:flex;gap:40px;margin-left:auto}
+  nav.gnav ul a{font-size:11px;letter-spacing:.32em;font-weight:500;color:var(--ink);
+    transition:color .25s;padding:8px 0}
+  nav.gnav ul a:hover{color:var(--gold)}
+  nav.gnav ul a.is-current{color:var(--gold)}
+  nav.gnav .cta{display:inline-flex;align-items:center;gap:10px;
+    padding:10px 20px;border:1px solid var(--green);color:var(--green);
+    font-size:11px;letter-spacing:.28em;font-weight:600;border-radius:2px;
+    transition:all .3s ease}
+  nav.gnav .cta:hover{background:var(--green);color:#fff}
+  nav.gnav .burger{display:none;background:none;border:none;cursor:pointer;
+    flex-direction:column;gap:5px;padding:8px}
+  nav.gnav .burger span{width:22px;height:1.5px;background:var(--ink);border-radius:1px}
+  @media (max-width:900px){
+    nav.gnav ul,nav.gnav .cta{display:none}
+    nav.gnav .burger{display:flex}
+  }
+
+  /* ===== PAGE HEAD ===== */
+  .page-head{
+    position:relative;padding:140px 0 64px;color:#fff;
+    background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
+    overflow:hidden;
+  }
+  .page-head::before{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 78% 18%,rgba(212,162,74,.18) 0%,transparent 50%),
+      radial-gradient(ellipse at 12% 90%,rgba(212,162,74,.08) 0%,transparent 50%);
+    pointer-events:none;
+  }
+  .page-head .crumbs{position:relative;z-index:1;display:flex;align-items:center;
+    gap:10px;font-size:10px;letter-spacing:.3em;color:rgba(232,201,136,.85);
+    margin-bottom:28px}
+  .page-head .crumbs span{opacity:.5}
+  .page-head .en{position:relative;z-index:1;font-size:11px;letter-spacing:.42em;
+    color:var(--gold);font-weight:500}
+  .page-head h1{position:relative;z-index:1;font-family:'Noto Serif JP',serif;
+    font-weight:500;font-size:clamp(34px,5vw,56px);line-height:1.3;letter-spacing:.04em;
+    margin:18px 0 24px}
+  .page-head .lead{position:relative;z-index:1;font-family:'Noto Serif JP',serif;
+    font-weight:300;font-size:15px;line-height:2;color:rgba(255,255,255,.78);
+    max-width:640px}
+
+  /* ===== LAYOUT ===== */
+  .body{padding:96px 0 120px;position:relative}
+  .body::before{
+    content:'';position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);
+    opacity:.5;
+  }
+  .grid{
+    display:grid;grid-template-columns:1fr 320px;gap:80px;align-items:start;
+  }
+  @media (max-width:1000px){
+    .grid{grid-template-columns:1fr;gap:48px}
+  }
+
+  /* ===== INTRO INSIDE FORM ===== */
+  .intro{
+    background:var(--paper-2);border:1px solid var(--line);
+    padding:28px 32px;margin-bottom:40px;border-left:2px solid var(--gold);
+  }
+  .intro p{font-size:13px;line-height:2;color:var(--ink);margin:0}
+  .intro p + p{margin-top:10px}
+
+  /* ===== FORM ===== */
+  form{display:flex;flex-direction:column;gap:28px}
+  .field{display:flex;flex-direction:column;gap:8px}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media (max-width:600px){.field-row{grid-template-columns:1fr;gap:24px}}
+
+  label{
+    display:flex;align-items:center;gap:10px;
+    font-size:11px;letter-spacing:.28em;font-weight:600;
+    color:var(--green);text-transform:uppercase;
+  }
+  label .jp{font-family:'Noto Serif JP',serif;font-size:13px;letter-spacing:.06em;
+    font-weight:500;color:var(--ink);text-transform:none}
+  label .req{
+    font-size:9px;letter-spacing:.2em;background:var(--gold);color:#fff;
+    padding:2px 7px;border-radius:1px;font-weight:600;
+  }
+  label .opt{
+    font-size:9px;letter-spacing:.2em;background:transparent;color:var(--sub);
+    border:1px solid var(--line);padding:2px 7px;border-radius:1px;font-weight:500;
+  }
+
+  input[type="text"],input[type="email"],input[type="tel"],select,textarea{
+    width:100%;padding:14px 16px;
+    font-family:inherit;font-size:14px;line-height:1.6;color:var(--ink);
+    background:#fff;border:1px solid var(--line);border-radius:2px;
+    transition:border-color .25s,box-shadow .25s,background .25s;
+  }
+  textarea{min-height:180px;resize:vertical;font-family:inherit}
+  input:focus,select:focus,textarea:focus{
+    outline:none;border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(212,162,74,.15);
+  }
+  input[aria-invalid="true"],select[aria-invalid="true"],textarea[aria-invalid="true"]{
+    border-color:var(--error);box-shadow:0 0 0 3px rgba(184,70,58,.12);
+  }
+  .help{font-size:11px;color:var(--sub);letter-spacing:.04em}
+  .err{font-size:11px;color:var(--error);letter-spacing:.04em;display:none}
+  .field.has-error .err{display:block}
+
+  select{
+    appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='none' stroke='%230F3D34' stroke-width='1.5' d='M1 1.5l5 5 5-5'/></svg>");
+    background-repeat:no-repeat;background-position:right 16px center;
+    padding-right:42px;cursor:pointer;
+  }
+
+  /* radio cards for kind */
+  .kind-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;
+  }
+  .kind-card{
+    position:relative;display:flex;align-items:flex-start;gap:12px;
+    padding:16px 18px;background:#fff;border:1px solid var(--line);border-radius:2px;
+    cursor:pointer;transition:all .25s;
+  }
+  .kind-card:hover{border-color:var(--gold);background:var(--paper-2)}
+  .kind-card input{position:absolute;opacity:0;pointer-events:none}
+  .kind-card .dot{
+    flex-shrink:0;width:14px;height:14px;border-radius:50%;
+    border:1px solid var(--sub);margin-top:2px;transition:all .25s;position:relative;
+  }
+  .kind-card input:checked + .dot{border-color:var(--gold)}
+  .kind-card input:checked + .dot::after{
+    content:'';position:absolute;inset:3px;border-radius:50%;background:var(--gold);
+  }
+  .kind-card input:checked ~ .lbl{color:var(--green)}
+  .kind-card input:checked{}
+  .kind-card:has(input:checked){border-color:var(--gold);background:var(--paper-2);
+    box-shadow:0 6px 20px -12px rgba(15,61,52,.25)}
+  .kind-card .lbl{
+    display:flex;flex-direction:column;gap:3px;
+    font-family:'Noto Serif JP',serif;font-size:13px;font-weight:500;
+    color:var(--ink);line-height:1.5;
+  }
+  .kind-card .lbl small{font-family:'Noto Sans JP',sans-serif;
+    font-size:10px;letter-spacing:.18em;color:var(--sub);font-weight:400}
+
+  /* ===== DETAILS (privacy notice fold) ===== */
+  details.privacy{
+    border:1px solid var(--line);border-radius:2px;background:#fff;
+    transition:border-color .25s;
+  }
+  details.privacy[open]{border-color:var(--gold)}
+  details.privacy summary{
+    list-style:none;cursor:pointer;padding:18px 22px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    font-size:12px;letter-spacing:.16em;font-weight:500;color:var(--green);
+  }
+  details.privacy summary::-webkit-details-marker{display:none}
+  details.privacy summary .arr{
+    width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;
+    color:var(--gold);transition:transform .3s;
+  }
+  details.privacy[open] summary .arr{transform:rotate(180deg)}
+  details.privacy .body-in{
+    padding:8px 22px 26px;border-top:1px solid var(--line);
+  }
+  details.privacy h4{
+    font-family:'Noto Serif JP',serif;font-size:13px;color:var(--green);
+    margin:18px 0 8px;letter-spacing:.04em;font-weight:500;
+  }
+  details.privacy h4:first-child{margin-top:14px}
+  details.privacy p{font-size:12px;line-height:1.95;color:var(--ink);margin:0 0 8px}
+  details.privacy ul{font-size:12px;line-height:1.95;padding-left:20px;margin:0 0 8px}
+  details.privacy ul li::marker{color:var(--gold)}
+  details.privacy a{color:var(--green);text-decoration:underline}
+
+  /* consent checkbox */
+  .consent{
+    display:flex;align-items:flex-start;gap:14px;padding:18px 0;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .consent input{
+    flex-shrink:0;appearance:none;-webkit-appearance:none;
+    width:20px;height:20px;border:1.5px solid var(--sub);border-radius:2px;
+    cursor:pointer;position:relative;margin-top:2px;background:#fff;transition:all .2s;
+  }
+  .consent input:checked{background:var(--green);border-color:var(--green)}
+  .consent input:checked::after{
+    content:'';position:absolute;left:5px;top:1px;width:6px;height:11px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  .consent label{
+    flex:1;display:block;font-size:13px;line-height:1.85;color:var(--ink);
+    letter-spacing:0;font-weight:400;text-transform:none;cursor:pointer;
+  }
+  .consent label .req{margin-left:6px}
+  .consent label a{color:var(--green);text-decoration:underline;font-weight:500}
+
+  .submit-row{display:flex;flex-direction:column;align-items:center;gap:18px;margin-top:8px}
+  button.submit{
+    appearance:none;-webkit-appearance:none;border:none;cursor:pointer;
+    display:inline-flex;align-items:center;gap:14px;
+    padding:20px 56px;background:var(--green);color:#fff;
+    font-family:'Noto Serif JP',serif;font-size:14px;letter-spacing:.32em;font-weight:500;
+    border-radius:2px;transition:all .3s ease;position:relative;overflow:hidden;
+  }
+  button.submit:hover:not(:disabled){background:var(--gold);transform:translateY(-1px);
+    box-shadow:0 14px 28px -14px rgba(212,162,74,.55)}
+  button.submit:disabled{background:#b6bdb8;cursor:not-allowed;opacity:.7}
+  button.submit .arr{font-size:18px;transition:transform .3s}
+  button.submit:hover:not(:disabled) .arr{transform:translateX(6px)}
+  .submit-note{font-size:11px;color:var(--sub);text-align:center;line-height:1.85;max-width:520px}
+
+  /* ===== SUCCESS ===== */
+  .success{
+    display:none;
+    text-align:center;padding:48px 32px 32px;
+    background:#fff;border:1px solid var(--line);border-top:2px solid var(--gold);
+    border-radius:2px;
+  }
+  .success.is-on{display:block;animation:fadeIn .45s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .success .check{
+    width:64px;height:64px;border-radius:50%;background:var(--green);color:#fff;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 24px;
+    font-size:28px;
+  }
+  .success h2{
+    font-family:'Noto Serif JP',serif;font-size:24px;font-weight:500;
+    color:var(--green);margin:0 0 14px;letter-spacing:.06em;
+  }
+  .success .en{font-size:10px;letter-spacing:.42em;color:var(--gold);margin-bottom:8px}
+  .success p{font-size:13px;line-height:2;color:var(--ink);margin:0 auto 14px;max-width:540px}
+  .success .info-box{
+    margin:28px auto 0;max-width:540px;padding:20px 24px;background:var(--paper-2);
+    border-left:2px solid var(--gold);text-align:left;
+  }
+  .success .info-box dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;
+    font-size:12px;line-height:1.85}
+  .success .info-box dt{color:var(--sub);letter-spacing:.06em}
+  .success .info-box dd{color:var(--ink)}
+  .success .back{
+    display:inline-flex;align-items:center;gap:10px;margin-top:36px;
+    padding:14px 30px;border:1px solid var(--green);color:var(--green);
+    font-size:11px;letter-spacing:.28em;font-weight:600;border-radius:2px;
+    transition:all .25s;
+  }
+  .success .back:hover{background:var(--green);color:#fff}
+
+  /* ===== SIDE PANEL ===== */
+  aside.side{position:sticky;top:104px;display:flex;flex-direction:column;gap:24px}
+  @media (max-width:1000px){aside.side{position:static}}
+  aside.side .panel{
+    background:#fff;border:1px solid var(--line);padding:28px 28px;
+  }
+  aside.side .panel h3{
+    font-size:10px;letter-spacing:.36em;color:var(--gold);
+    font-weight:600;margin:0 0 16px;
+  }
+  aside.side .panel .jp{
+    font-family:'Noto Serif JP',serif;font-size:16px;font-weight:500;color:var(--green);
+    margin-bottom:14px;line-height:1.55;
+  }
+  aside.side .panel p,aside.side .panel li{
+    font-size:12px;line-height:1.95;color:var(--sub);margin:0;
+  }
+  aside.side .panel ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;
+    margin-top:10px}
+  aside.side .panel li{padding-left:14px;position:relative}
+  aside.side .panel li::before{
+    content:'';position:absolute;left:0;top:11px;width:6px;height:1px;background:var(--gold);
+  }
+  aside.side .panel a.mail{
+    display:inline-block;font-family:'Noto Serif JP',serif;font-size:14px;
+    color:var(--green);font-weight:500;letter-spacing:.04em;
+    border-bottom:1px solid var(--gold);padding-bottom:2px;margin-top:6px;
+    transition:color .2s;
+  }
+  aside.side .panel a.mail:hover{color:var(--gold)}
+  aside.side .panel .row-meta{
+    display:flex;flex-direction:column;gap:14px;
+  }
+  aside.side .panel .row-meta div span:first-child{
+    display:block;font-size:9px;letter-spacing:.3em;color:var(--gold);
+    font-weight:600;margin-bottom:4px;
+  }
+  aside.side .panel .row-meta div span:last-child{
+    display:block;font-size:13px;color:var(--ink);line-height:1.7;
+  }
+
+  /* ===== FOOTER ===== */
+  footer.foot{background:var(--green-deep);color:rgba(255,255,255,.78);padding:80px 0 32px}
+  footer.foot .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.3fr;gap:48px;
+    margin-bottom:64px}
+  footer.foot .brand .mark{width:64px;height:auto;margin-bottom:16px}
+  footer.foot .brand .name{font-family:'Noto Serif JP',serif;font-size:15px;
+    font-weight:500;letter-spacing:.16em;color:#fff;margin-bottom:14px}
+  footer.foot .brand .stmt{font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.5);
+    line-height:1.8}
+  footer.foot h4{font-size:11px;letter-spacing:.28em;color:var(--gold);
+    font-weight:600;margin:0 0 18px;text-transform:uppercase}
+  footer.foot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  footer.foot ul a{font-size:12px;color:rgba(255,255,255,.78);transition:color .25s}
+  footer.foot ul a:hover{color:var(--gold)}
+  footer.foot .meta{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.45)}
+  @media (max-width:1100px){footer.foot .grid{grid-template-columns:1.5fr 1fr 1fr;gap:40px}}
+  @media (max-width:900px){footer.foot .grid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media (max-width:600px){footer.foot .grid{grid-template-columns:1fr}}
+
+  /* ===== Mobile drawer ===== */
+  .drawer{position:fixed;inset:0;z-index:200;background:rgba(10,26,22,.96);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    opacity:0;pointer-events:none;transition:opacity .4s ease}
+  .drawer.open{opacity:1;pointer-events:auto}
+  .drawer-inner{height:100%;display:flex;flex-direction:column;justify-content:center;
+    align-items:flex-start;padding:80px 32px 40px;gap:36px;color:#fff}
+  .drawer-close{position:absolute;top:22px;right:22px;width:44px;height:44px;
+    border:1px solid rgba(255,255,255,.3);border-radius:50%;background:transparent;
+    color:#fff;font-size:22px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center}
+  .drawer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;
+    gap:24px;width:100%}
+  .drawer ul a{font-family:'Noto Serif JP',serif;font-size:30px;font-weight:500;
+    color:#fff;text-decoration:none;letter-spacing:.04em;display:flex;
+    align-items:baseline;gap:18px}
+  .drawer ul a .num{font-size:11px;letter-spacing:.32em;color:var(--gold);font-weight:500}
+  .drawer .drawer-cta{margin-top:8px;display:inline-flex;align-items:center;gap:10px;
+    padding:14px 26px;border:1px solid var(--gold);border-radius:999px;color:var(--gold);
+    font-size:12px;letter-spacing:.24em;text-decoration:none;font-weight:500}
+  .drawer .drawer-foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;
+    font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.45)}
+
+  /* ===== Mobile fine-tuning (≤600px) ===== */
+  @media (max-width:600px){
+    .page-head{padding:108px 0 48px}
+    .page-head h1{font-size:clamp(28px,8vw,40px);line-height:1.28;margin:14px 0 18px}
+    .page-head .lead{font-size:13px;line-height:1.95}
+    .page-head .crumbs{font-size:9.5px;letter-spacing:.2em;margin-bottom:20px;flex-wrap:wrap}
+    .page-head .en{font-size:10px;letter-spacing:.32em}
+
+    .kind-grid{grid-template-columns:1fr;gap:8px}
+
+    form{gap:22px}
+    label{font-size:13px}
+    input,textarea,select{font-size:14px;padding:14px 14px}
+
+    footer.foot{padding:64px 0 32px}
+    footer.foot .grid{gap:32px}
+    footer.foot a,footer.foot li{font-size:12.5px}
+  }
+</style>
+  <script src="assets/whd-cursor.js" defer></script>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+</head>
+<body>
+<!-- ============ NAV ============ -->
+<nav class="gnav" id="gnav">
+  <div class="container row">
+    <a href="index.html" class="brand">
+      <img src="assets/with-holdings-mark.png" alt="WITH HOLDINGS" style="width:auto;height:36px;display:block"/>
+      <span class="name">WITH HOLDINGS</span>
+    </a>
+    <ul>
+      <li><a href="index.html#top">TOP</a></li>
+      <li><a href="index.html#business">BUSINESS</a></li>
+      <li><a href="index.html#company">COMPANY</a></li>
+      <li><a href="contact.html" class="is-current">CONTACT</a></li>
+    </ul>
+    <a href="#form" class="cta">FORM <span>→</span></a>
+    <button class="burger" aria-label="menu" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ MOBILE DRAWER ============ -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="drawer-close" aria-label="close" id="drawerClose">×</button>
+  <div class="drawer-inner">
+    <ul>
+      <li><a href="index.html#top" data-drawer-link><span class="num">01</span>TOP</a></li>
+      <li><a href="index.html#business" data-drawer-link><span class="num">02</span>BUSINESS</a></li>
+      <li><a href="company.html" data-drawer-link><span class="num">03</span>COMPANY</a></li>
+      <li><a href="contact.html" data-drawer-link><span class="num">04</span>CONTACT</a></li>
+    </ul>
+    <a href="#form" class="drawer-cta" data-drawer-link>FORM <span>→</span></a>
+    <div class="drawer-foot">
+      <div>株式会社 WITH HOLDINGS</div>
+      <div>© 2026 WITH HOLDINGS, Inc.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PAGE HEAD ============ -->
+<header class="page-head" data-screen-label="Contact Header">
+  <div class="container">
+    <div class="crumbs">
+      <a href="index.html">HOME</a>
+      <span>/</span>
+      <span>CONTACT</span>
+    </div>
+    <div class="en">CONTACT</div>
+    <h1>お問い合わせ</h1>
+    <p class="lead">
+      お問い合わせいただき、誠にありがとうございます。<br/>
+      ご相談内容に応じて、当社の担当者よりご連絡を差し上げます。<br/>
+      ご返信までに <strong style="color:#fff;font-weight:500">3営業日程度</strong>（土日祝日を除く）お時間をいただく場合がございます。
+    </p>
+  </div>
+</header>
+
+<!-- ============ BODY ============ -->
+<section class="body">
+  <div class="container grid">
+
+    <!-- ============ MAIN ============ -->
+    <div>
+      <!-- form -->
+      <form id="contact-form" novalidate>
+
+        <div class="intro">
+          <p><strong style="color:var(--green);font-weight:500">必須項目をご入力</strong>のうえ、ページ末尾の<strong style="color:var(--green);font-weight:500">同意チェック</strong>を行い送信してください。</p>
+          <p style="font-size:11px;color:var(--sub)">※ お問い合わせ内容によっては、弊社グループ各社の担当者よりご連絡差し上げる場合がございます。詳細は「個人情報の取扱いについて」をご確認ください。</p>
+        </div>
+
+        <!-- 種別 -->
+        <div class="field" id="f-kind">
+          <label>
+            <span style="letter-spacing:.28em">CATEGORY</span>
+            <span class="jp">お問い合わせ種別</span>
+            <span class="req">必須</span>
+          </label>
+          <div class="kind-grid" role="radiogroup" aria-label="お問い合わせ種別">
+            <label class="kind-card"><input type="radio" name="kind" value="サービスに関するご相談・ご質問" required/><span class="dot"></span><span class="lbl">サービスのご相談<small>SERVICES</small></span></label>
+            <label class="kind-card"><input type="radio" name="kind" value="取材・メディアからのお問い合わせ"/><span class="dot"></span><span class="lbl">取材・メディア<small>PRESS</small></span></label>
+            <label class="kind-card"><input type="radio" name="kind" value="採用に関するお問い合わせ"/><span class="dot"></span><span class="lbl">採用に関する<small>CAREER</small></span></label>
+            <label class="kind-card"><input type="radio" name="kind" value="お取引・業務提携のご相談"/><span class="dot"></span><span class="lbl">取引・業務提携<small>PARTNERSHIP</small></span></label>
+            <label class="kind-card"><input type="radio" name="kind" value="その他"/><span class="dot"></span><span class="lbl">その他<small>OTHER</small></span></label>
+          </div>
+          <span class="err">お問い合わせ種別をお選びください。</span>
+        </div>
+
+        <!-- 名前 -->
+        <div class="field-row">
+          <div class="field" id="f-name">
+            <label>
+              <span>NAME</span>
+              <span class="jp">お名前</span>
+              <span class="req">必須</span>
+            </label>
+            <input type="text" name="name" autocomplete="name" required placeholder="山田 太郎"/>
+            <span class="err">お名前をご入力ください。</span>
+          </div>
+          <div class="field" id="f-kana">
+            <label>
+              <span>KANA</span>
+              <span class="jp">フリガナ</span>
+              <span class="opt">任意</span>
+            </label>
+            <input type="text" name="kana" autocomplete="off" placeholder="ヤマダ タロウ"/>
+          </div>
+        </div>
+
+        <!-- 連絡先 -->
+        <div class="field-row">
+          <div class="field" id="f-email">
+            <label>
+              <span>EMAIL</span>
+              <span class="jp">メールアドレス</span>
+              <span class="req">必須</span>
+            </label>
+            <input type="email" name="email" autocomplete="email" required placeholder="example@withhd.com"/>
+            <span class="err">有効なメールアドレスをご入力ください。</span>
+          </div>
+          <div class="field" id="f-email2">
+            <label>
+              <span>CONFIRM</span>
+              <span class="jp">メールアドレス（確認）</span>
+              <span class="req">必須</span>
+            </label>
+            <input type="email" name="email_confirm" autocomplete="off" required placeholder="example@withhd.com"/>
+            <span class="err">メールアドレスが一致しません。</span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field" id="f-tel">
+            <label>
+              <span>TEL</span>
+              <span class="jp">電話番号</span>
+              <span class="opt">任意</span>
+            </label>
+            <input type="tel" name="tel" autocomplete="tel" placeholder="03-0000-0000"/>
+            <span class="help">差し支えなければご記入ください（半角ハイフンあり／なし可）。</span>
+          </div>
+          <div class="field" id="f-company">
+            <label>
+              <span>COMPANY</span>
+              <span class="jp">会社名・団体名</span>
+              <span class="opt">任意</span>
+            </label>
+            <input type="text" name="company" autocomplete="organization" placeholder="株式会社○○"/>
+          </div>
+        </div>
+
+        <!-- 内容 -->
+        <div class="field" id="f-message">
+          <label>
+            <span>MESSAGE</span>
+            <span class="jp">お問い合わせ内容</span>
+            <span class="req">必須</span>
+          </label>
+          <textarea name="message" required placeholder="ご相談内容をなるべく具体的にご記入ください。"></textarea>
+          <span class="err">お問い合わせ内容をご入力ください。</span>
+        </div>
+
+        <!-- 個人情報の取扱い -->
+        <details class="privacy">
+          <summary>
+            <span>個人情報の取扱いについて（送信前にご確認ください）</span>
+            <span class="arr">▾</span>
+          </summary>
+          <div class="body-in">
+            <p>株式会社WITH HOLDINGS（以下「当社」といいます。）は、お問い合わせフォームを通じてお客様からご提供いただく個人情報を、以下のとおり取り扱います。</p>
+
+            <h4>取得する個人情報の項目</h4>
+            <ul>
+              <li>お名前／フリガナ</li>
+              <li>メールアドレス</li>
+              <li>電話番号、会社名・団体名（任意）</li>
+              <li>お問い合わせ内容</li>
+              <li>その他、お客様が任意でご入力いただく情報</li>
+            </ul>
+
+            <h4>利用目的</h4>
+            <ul>
+              <li>お問い合わせへのご回答およびご連絡のため</li>
+              <li>当社サービスのご案内およびご提案のため</li>
+              <li>お問い合わせ内容の記録および対応品質向上のため</li>
+            </ul>
+
+            <h4>個人情報の共同利用</h4>
+            <p>当社は、より適切なサービスをご提案するため、取得した個人情報を当社の各事業部、グループ会社および業務提携契約等を締結した関連事業者との間で共同利用することがあります。詳細は当社「<a href="privacy.html#s7">個人情報保護方針</a>」第7条をご参照ください。</p>
+
+            <h4>第三者提供</h4>
+            <p>当社は、法令に基づく場合等を除き、お客様の同意なく個人情報を第三者に提供することはありません。</p>
+
+            <h4>個人情報のご提供は任意です</h4>
+            <p>お問い合わせフォームへの個人情報のご入力は任意です。ただし、必須項目をご入力いただけない場合、お問い合わせへの対応ができない場合がございますので、あらかじめご了承ください。</p>
+
+            <h4>開示・訂正・利用停止等のご請求</h4>
+            <p>お客様ご自身の個人情報について、開示・訂正・追加・削除・利用停止等のご請求がある場合は、下記窓口までご連絡ください。</p>
+
+            <h4>お問い合わせ窓口</h4>
+            <p>
+              株式会社WITH HOLDINGS 個人情報お問い合わせ窓口<br/>
+              〒160-0022 東京都新宿区新宿1-36-2 新宿第七葉山ビル3F<br/>
+              メール：<a href="mailto:support@withhd.com">support@withhd.com</a><br/>
+              受付時間：平日 9時〜18時（土日祝日および年末年始を除く）
+            </p>
+            <p style="margin-top:14px">詳細は当社「<a href="privacy.html">個人情報保護方針</a>」をご確認ください。</p>
+          </div>
+        </details>
+
+        <!-- 同意 -->
+        <div class="consent" id="f-consent">
+          <input type="checkbox" id="agree" name="agree" required/>
+          <label for="agree">
+            <a href="privacy.html" target="_blank" rel="noopener">個人情報保護方針（プライバシーポリシー）</a>
+            および上記「個人情報の取扱いについて」に同意します。
+            <span class="req">必須</span>
+          </label>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="submit">SEND <span class="arr">→</span></button>
+          <p class="submit-note">
+            ※ 送信内容は、当社「個人情報保護方針」に基づき適切に管理いたします。<br/>
+            ※ 送信いただいた内容は、上記「個人情報の取扱いについて」に記載の目的の範囲内で利用させていただきます。
+          </p>
+        </div>
+      </form>
+
+      <!-- ============ SUCCESS ============ -->
+      <div class="success" id="success" data-screen-label="Submission Success" tabindex="-1">
+        <div class="check">✓</div>
+        <div class="en">SUBMISSION RECEIVED</div>
+        <h2>お問い合わせを受け付けました</h2>
+        <p>
+          ご記入いただいたメールアドレス宛に、自動返信メールをお送りしております。<br/>
+          万が一、自動返信メールが届かない場合は、メールアドレスのご入力に誤りがある可能性がございますので、<br/>
+          お手数ですが <a href="mailto:support@withhd.com" style="color:var(--green);text-decoration:underline">support@withhd.com</a> まで直接ご連絡ください。
+        </p>
+        <p>
+          担当者より <strong style="color:var(--green);font-weight:500">3営業日以内</strong>（土日祝日を除く）にご連絡を差し上げます。<br/>
+          引き続き、株式会社WITH HOLDINGSをよろしくお願い申し上げます。
+        </p>
+
+        <div class="info-box">
+          <dl>
+            <dt>受付番号</dt><dd id="ref-no">—</dd>
+            <dt>受付日時</dt><dd id="ref-date">—</dd>
+            <dt>お問い合わせ種別</dt><dd id="ref-kind">—</dd>
+          </dl>
+        </div>
+
+        <a href="index.html" class="back">BACK TO HOME →</a>
+      </div>
+    </div>
+
+    <!-- ============ SIDE ============ -->
+    <aside class="side">
+      <div class="panel">
+        <h3>DIRECT</h3>
+        <div class="jp">直接ご連絡をご希望の方へ</div>
+        <p>担当者宛にご連絡いただけます。お問い合わせ内容を簡潔にお書き添えください。</p>
+        <a class="mail" href="mailto:support@withhd.com">support@withhd.com</a>
+      </div>
+
+      <div class="panel">
+        <h3>OFFICE</h3>
+        <div class="row-meta">
+          <div>
+            <span>HEAD OFFICE</span>
+            <span>〒160-0022<br/>東京都新宿区新宿1-36-2<br/>新宿第七葉山ビル3F</span>
+          </div>
+          <div>
+            <span>HOURS</span>
+            <span>平日 9:00 — 18:00<br/>（土日祝日および年末年始を除く）</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>RESPONSE</h3>
+        <div class="jp">ご返信までの目安</div>
+        <p>ご返信までに3営業日程度（土日祝日を除く）お時間をいただく場合がございます。</p>
+        <ul>
+          <li>取材・メディアの方は、可能であれば締切日時を明記ください</li>
+          <li>採用に関するお問い合わせは、本ページからではなく各事業ブランドの採用ページもご参照ください</li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="container">
+    <div class="grid">
+      <div class="brand">
+        <img class="mark" src="assets/with-holdings-mark-white.png" alt="WITH HOLDINGS" style="width:auto;height:48px;display:block;margin-bottom:16px"/>
+        <div class="name">株式会社 WITH HOLDINGS</div>
+        <div class="stmt">CONNECTING PEOPLE,<br/>BUSINESSES AND<br/>THE FUTURE.</div>
+      </div>
+      <div>
+        <h4>ABOUT</h4>
+        <ul>
+          <li><a href="index.html#top">TOP</a></li>
+          <li><a href="#">PHILOSOPHY</a></li>
+          <li><a href="index.html#company">COMPANY</a></li>
+          <li><a href="#">代表メッセージ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>BUSINESS</h4>
+        <ul>
+          <li><a href="https://asset.with.withhd.com" target="_blank" rel="noopener">Finance ↗</a></li>
+          <li><a href="https://www.kaitori.lion-trading.co.jp/" target="_blank" rel="noopener">Reuse ↗</a></li>
+          <li><a href="https://gh.withhappiness.withhd.com" target="_blank" rel="noopener">Welfare ↗</a></li>
+          <li><a href="https://playbranding.withhd.com" target="_blank" rel="noopener">Branding ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MORE</h4>
+        <ul>
+          <li><a href="#">採用情報</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="#">IR（準備中）</a></li>
+          <li><a href="#">News（準備中）</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>POLICIES</h4>
+        <ul>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="cookie.html">Cookieポリシー</a></li>
+          <li><a href="terms.html">サイト利用規約</a></li>
+          <li><a href="terms.html">サイトポリシー</a></li>
+          <li><a href="security.html">情報セキュリティ基本方針</a></li>
+          <li><a href="anti-social.html">反社会的勢力排除に関する基本方針</a></li>
+          <li><a href="accessibility.html">アクセシビリティ方針</a></li>
+          <li><a href="social-media.html">ソーシャルメディアポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta">
+      <span>© 2026 WITH HOLDINGS, Inc.</span>
+      <span>JP / EN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('success');
+
+  /* ===== Mobile drawer ===== */
+  (function(){
+    const drawer = document.getElementById('drawer');
+    const burger = document.getElementById('burger');
+    const drawerClose = document.getElementById('drawerClose');
+    if(!drawer || !burger) return;
+    const open = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; };
+    const close = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+    burger.addEventListener('click', open);
+    if (drawerClose) drawerClose.addEventListener('click', close);
+    document.querySelectorAll('[data-drawer-link]').forEach(a => a.addEventListener('click', close));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
+
+  /* ===== URL ?type= でお問い合わせ種別を自動選択 ===== */
+  (function preselectKind(){
+    const map = {
+      general:    { value: 'サービスに関するご相談・ご質問',     en: 'GENERAL',     jp: 'サービスに関するご相談・ご質問' },
+      service:    { value: 'サービスに関するご相談・ご質問',     en: 'SERVICES',    jp: 'サービスのご相談' },
+      press:      { value: '取材・メディアからのお問い合わせ',   en: 'PRESS',       jp: '取材・メディアの方へ' },
+      media:      { value: '取材・メディアからのお問い合わせ',   en: 'PRESS',       jp: '取材・メディアの方へ' },
+      career:     { value: '採用に関するお問い合わせ',           en: 'CAREER',      jp: '採用に関するお問い合わせ' },
+      partnership:{ value: 'お取引・業務提携のご相談',           en: 'PARTNERSHIP', jp: '取引・業務提携をご検討の方へ' },
+      other:      { value: 'その他',                              en: 'OTHER',       jp: 'その他のお問い合わせ' }
+    };
+    const params = new URLSearchParams(location.search);
+    const t = (params.get('type') || '').toLowerCase();
+    if(!t || !map[t]) return;
+
+    const target = map[t];
+    const radios = form.querySelectorAll('input[name="kind"]');
+    radios.forEach(r => {
+      if(r.value === target.value){
+        r.checked = true;
+        r.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+
+    // ヘッダーのサブテキストに、選択された種別を控えめに反映
+    const lead = document.querySelector('.page-head .lead');
+    if(lead){
+      const tag = document.createElement('div');
+      tag.style.cssText = 'margin-top:18px;display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid rgba(212,162,74,.45);background:rgba(212,162,74,.06);font-size:11px;letter-spacing:.24em;color:#D4A24A;';
+      tag.innerHTML = '<span>FROM</span><span style="color:#fff;letter-spacing:.18em;font-size:11px">' + target.en + '</span><span style="color:rgba(255,255,255,.6);font-family:\'Noto Serif JP\',serif;letter-spacing:.06em;font-size:12px">' + target.jp + '</span>';
+      lead.parentNode.insertBefore(tag, lead.nextSibling);
+    }
+
+    // フォームトップへゆるくスクロール
+    requestAnimationFrame(() => {
+      const formEl = document.getElementById('form') || form;
+      const y = formEl.getBoundingClientRect().top + window.scrollY - 24;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  })();
+
+  function setError(fieldId, on, input){
+    const f = document.getElementById(fieldId);
+    if(!f) return;
+    f.classList.toggle('has-error', on);
+    if(input) input.setAttribute('aria-invalid', on ? 'true' : 'false');
+  }
+
+  function validate(){
+    let ok = true;
+    const fd = new FormData(form);
+
+    // kind
+    if(!fd.get('kind')){ setError('f-kind', true); ok = false; } else setError('f-kind', false);
+
+    const name = form.elements['name'];
+    if(!name.value.trim()){ setError('f-name', true, name); ok = false; } else setError('f-name', false, name);
+
+    const email = form.elements['email'];
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailRe.test(email.value.trim())){ setError('f-email', true, email); ok = false; } else setError('f-email', false, email);
+
+    const email2 = form.elements['email_confirm'];
+    if(email.value.trim() !== email2.value.trim() || !email2.value.trim()){
+      setError('f-email2', true, email2); ok = false;
+    } else setError('f-email2', false, email2);
+
+    const msg = form.elements['message'];
+    if(!msg.value.trim()){ setError('f-message', true, msg); ok = false; } else setError('f-message', false, msg);
+
+    const agree = form.elements['agree'];
+    if(!agree.checked){ document.getElementById('f-consent').classList.add('has-error'); ok = false; }
+    else document.getElementById('f-consent').classList.remove('has-error');
+
+    return ok;
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(!validate()){
+      // scroll to first error
+      const first = form.querySelector('.has-error');
+      if(first) first.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    // generate a fake reference number for the demo
+    const now = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    const refNo = 'WH-' + now.getFullYear().toString().slice(-2) + pad(now.getMonth()+1) + pad(now.getDate()) + '-' + pad(Math.floor(Math.random()*9000)+1000);
+    document.getElementById('ref-no').textContent = refNo;
+    document.getElementById('ref-date').textContent = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 ' + pad(now.getHours()) + ':' + pad(now.getMinutes());
+    document.getElementById('ref-kind').textContent = form.elements['kind'].value || '—';
+
+    form.style.display = 'none';
+    success.classList.add('is-on');
+    success.focus();
+    window.scrollTo({top: success.getBoundingClientRect().top + window.scrollY - 120, behavior:'smooth'});
+  });
+
+  // live re-validate so errors clear as user fixes them
+  form.addEventListener('input', (e) => {
+    const t = e.target;
+    if(t.name === 'kind') setError('f-kind', false);
+    if(t.name === 'name') setError('f-name', false, t);
+    if(t.name === 'email' || t.name === 'email_confirm'){
+      const email = form.elements['email'].value.trim();
+      const conf = form.elements['email_confirm'].value.trim();
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(re.test(email)) setError('f-email', false, form.elements['email']);
+      if(conf && email === conf) setError('f-email2', false, form.elements['email_confirm']);
+    }
+    if(t.name === 'message') setError('f-message', false, t);
+    if(t.name === 'agree' && t.checked) document.getElementById('f-consent').classList.remove('has-error');
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>個人情報保護方針 | WITH HOLDINGS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#0F3D34;
+    --green-deep:#0a2a24;
+    --green-mist:#e8efe9;
+    --gold:#D4A24A;
+    --gold-soft:#E8C988;
+    --paper:#F7F4ED;
+    --paper-2:#fbfaf6;
+    --ink:#1a2421;
+    --sub:#5a665f;
+    --line:#dfd9cb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
+  body{
+    font-family:'Noto Sans JP','Hiragino Sans',sans-serif;
+    color:var(--ink);background:var(--paper);
+    -webkit-font-smoothing:antialiased;font-feature-settings:"palt";
+    line-height:1.85;
+  }
+  .serif{font-family:'Noto Serif JP',serif}
+  .container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+  a{color:inherit;text-decoration:none}
+
+  /* ===== NAV (paper variant — no hero) ===== */
+  nav.gnav{position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(247,244,237,.88);backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    border-bottom:1px solid rgba(223,217,203,.7);transition:all .3s ease}
+  nav.gnav .row{display:flex;align-items:center;justify-content:space-between;
+    height:72px;gap:32px}
+  nav.gnav .brand{display:flex;align-items:center;gap:14px;color:var(--ink)}
+  nav.gnav .brand .name{font-family:'Noto Serif JP',serif;font-size:14px;
+    font-weight:500;letter-spacing:.2em}
+  nav.gnav ul{list-style:none;display:flex;gap:40px;margin-left:auto}
+  nav.gnav ul a{font-size:11px;letter-spacing:.32em;font-weight:500;color:var(--ink);
+    transition:color .25s;position:relative;padding:8px 0}
+  nav.gnav ul a:hover{color:var(--gold)}
+  nav.gnav .cta{display:inline-flex;align-items:center;gap:10px;
+    padding:10px 20px;border:1px solid var(--green);color:var(--green);
+    font-size:11px;letter-spacing:.28em;font-weight:600;border-radius:2px;
+    transition:all .3s ease}
+  nav.gnav .cta:hover{background:var(--green);color:#fff}
+  nav.gnav .burger{display:none;background:none;border:none;cursor:pointer;
+    flex-direction:column;gap:5px;padding:8px}
+  nav.gnav .burger span{width:22px;height:1.5px;background:var(--ink);
+    border-radius:1px;transition:all .3s}
+  @media (max-width:900px){
+    nav.gnav ul,nav.gnav .cta{display:none}
+    nav.gnav .burger{display:flex}
+  }
+
+  /* ===== PAGE HEAD ===== */
+  .page-head{
+    position:relative;padding:140px 0 64px;color:#fff;
+    background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
+    overflow:hidden;
+  }
+  .page-head::before{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 78% 18%,rgba(212,162,74,.15) 0%,transparent 50%),
+      radial-gradient(ellipse at 12% 90%,rgba(212,162,74,.08) 0%,transparent 50%);
+    pointer-events:none;
+  }
+  .page-head .crumbs{position:relative;z-index:1;display:flex;align-items:center;
+    gap:10px;font-size:10px;letter-spacing:.3em;color:rgba(232,201,136,.85);
+    margin-bottom:28px}
+  .page-head .crumbs span{opacity:.5}
+  .page-head .crumbs a:hover{color:var(--gold)}
+  .page-head h1{position:relative;z-index:1;font-family:'Noto Serif JP',serif;
+    font-weight:500;font-size:clamp(34px,5vw,56px);line-height:1.3;letter-spacing:.04em;
+    margin:0 0 18px}
+  .page-head .en{position:relative;z-index:1;font-size:11px;letter-spacing:.42em;
+    color:var(--gold);font-weight:500}
+  .page-head .meta-row{position:relative;z-index:1;display:flex;gap:32px;
+    margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.12);
+    flex-wrap:wrap;font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.6)}
+  .page-head .meta-row strong{color:#fff;font-weight:500;margin-right:8px}
+
+  /* ===== LAYOUT ===== */
+  .doc{padding:96px 0 120px;position:relative}
+  .doc::before{
+    content:'';position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);
+    opacity:.5;
+  }
+  .doc-grid{
+    display:grid;grid-template-columns:240px 1fr;gap:72px;
+    align-items:start;
+  }
+  @media (max-width:900px){
+    .doc-grid{grid-template-columns:1fr;gap:32px}
+  }
+
+  /* ===== TOC (sticky) ===== */
+  .toc{
+    position:sticky;top:104px;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .toc h3{font-size:10px;letter-spacing:.36em;color:var(--gold);
+    font-weight:600;margin:0 0 18px}
+  .toc ol{list-style:none;counter-reset:toc;display:flex;flex-direction:column;gap:8px}
+  .toc ol li{counter-increment:toc;position:relative;padding-left:32px;
+    font-size:12px;line-height:1.55}
+  .toc ol li::before{
+    content:counter(toc,decimal-leading-zero);
+    position:absolute;left:0;top:1px;
+    font-family:'Noto Serif JP',serif;font-size:10px;
+    letter-spacing:.1em;color:var(--gold);
+  }
+  .toc a{color:var(--sub);transition:color .2s}
+  .toc a:hover,.toc a.is-active{color:var(--green);font-weight:500}
+  @media (max-width:900px){
+    .toc{position:static;display:none}
+  }
+
+  /* ===== ARTICLE ===== */
+  article{max-width:780px}
+  article .lead{
+    font-family:'Noto Serif JP',serif;font-weight:300;
+    font-size:16px;line-height:2.05;color:var(--ink);
+    padding-bottom:48px;border-bottom:1px solid var(--line);margin-bottom:56px;
+  }
+  article .lead strong{color:var(--green);font-weight:500}
+
+  article h2{
+    font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:22px;line-height:1.5;letter-spacing:.04em;
+    color:var(--green);
+    margin:64px 0 24px;padding-top:32px;
+    display:flex;align-items:baseline;gap:18px;
+    border-top:1px solid var(--line);
+  }
+  article h2:first-of-type{margin-top:0;border-top:none;padding-top:0}
+  article h2 .num{
+    font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:.3em;
+    color:var(--gold);font-weight:500;flex-shrink:0;
+  }
+  article h3{
+    font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:15px;color:var(--green);
+    margin:32px 0 12px;
+  }
+  article p{font-size:14px;line-height:2;color:var(--ink);margin:0 0 16px}
+  article ol,article ul{padding-left:24px;margin:0 0 20px;font-size:14px;line-height:2}
+  article ol li,article ul li{margin-bottom:6px;padding-left:6px}
+  article ol li::marker{color:var(--gold);font-family:'Noto Serif JP',serif}
+  article ul li::marker{color:var(--gold)}
+  article strong{color:var(--green);font-weight:600}
+
+  article table{
+    width:100%;border-collapse:collapse;
+    margin:8px 0 24px;font-size:13px;
+    border:1px solid var(--line);
+  }
+  article table th,article table td{
+    padding:14px 18px;text-align:left;
+    border-bottom:1px solid var(--line);vertical-align:top;
+  }
+  article table th{
+    background:var(--paper-2);color:var(--green);font-weight:500;
+    font-family:'Noto Serif JP',serif;letter-spacing:.04em;
+    width:30%;border-right:1px solid var(--line);
+  }
+  article table tr:last-child th,article table tr:last-child td{border-bottom:none}
+
+  /* nested numbered (4.1 4.2) within sections */
+  article .sub-list{counter-reset:sub;list-style:none;padding:0}
+  article .sub-list li{counter-increment:sub;position:relative;padding-left:32px;margin-bottom:6px}
+  article .sub-list li::before{
+    content:counter(sub) ".";
+    position:absolute;left:0;top:0;
+    color:var(--gold);font-family:'Noto Serif JP',serif;font-weight:500;
+  }
+
+  article hr{border:none;height:1px;background:var(--line);margin:48px 0}
+
+  /* signature block */
+  .sign{
+    margin-top:72px;padding:32px 32px;
+    background:var(--paper-2);border-left:2px solid var(--gold);
+    font-family:'Noto Serif JP',serif;
+  }
+  .sign .co{font-size:14px;letter-spacing:.06em;color:var(--green);margin-bottom:6px}
+  .sign .ceo{font-size:13px;color:var(--sub)}
+
+  /* back link */
+  .back{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:48px;font-size:12px;letter-spacing:.28em;font-weight:500;
+    color:var(--green);transition:gap .25s;
+  }
+  .back::before{content:'←';font-size:14px;transition:transform .25s}
+  .back:hover{color:var(--gold)}
+  .back:hover::before{transform:translateX(-4px)}
+
+  /* ===== FOOTER ===== */
+  footer.foot{background:var(--green-deep);color:rgba(255,255,255,.78);padding:80px 0 32px}
+  footer.foot .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.3fr;gap:48px;
+    margin-bottom:64px}
+  footer.foot .brand .mark{width:64px;height:auto;margin-bottom:16px}
+  footer.foot .brand .name{font-family:'Noto Serif JP',serif;font-size:15px;
+    font-weight:500;letter-spacing:.16em;color:#fff;margin-bottom:14px}
+  footer.foot .brand .stmt{font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.5);
+    line-height:1.8}
+  footer.foot h4{font-size:11px;letter-spacing:.28em;color:var(--gold);
+    font-weight:600;margin:0 0 18px;text-transform:uppercase}
+  footer.foot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  footer.foot ul a{font-size:12px;color:rgba(255,255,255,.78);transition:color .25s}
+  footer.foot ul a:hover{color:var(--gold)}
+  footer.foot .meta{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.45)}
+  @media (max-width:1100px){footer.foot .grid{grid-template-columns:1.5fr 1fr 1fr;gap:40px}}
+  @media (max-width:900px){footer.foot .grid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media (max-width:600px){footer.foot .grid{grid-template-columns:1fr}}
+
+  @media print{
+    nav.gnav,footer.foot,.toc,.back,.page-head .meta-row{display:none}
+    .page-head{background:none;color:#000;padding:0 0 32px}
+    .page-head .crumbs,.page-head .en{color:#666}
+    .page-head h1{color:#000}
+    .doc-grid{grid-template-columns:1fr}
+    body{background:#fff}
+    article{max-width:none}
+    article h2{break-after:avoid}
+  }
+</style>
+  <script src="assets/whd-cursor.js" defer></script>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+</head>
+<body>
+<!-- ============ NAV ============ -->
+<nav class="gnav" id="gnav">
+  <div class="container row">
+    <a href="index.html" class="brand">
+      <img src="assets/with-holdings-mark.png" alt="WITH HOLDINGS" style="width:auto;height:36px;display:block"/>
+      <span class="name">WITH HOLDINGS</span>
+    </a>
+    <ul>
+      <li><a href="index.html#top">TOP</a></li>
+      <li><a href="index.html#business">BUSINESS</a></li>
+      <li><a href="index.html#company">COMPANY</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+    <a href="index.html#contact" class="cta">CONTACT <span>→</span></a>
+    <button class="burger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ PAGE HEAD ============ -->
+<header class="page-head" data-screen-label="Privacy Policy Header">
+  <div class="container">
+    <div class="crumbs">
+      <a href="index.html">HOME</a>
+      <span>/</span>
+      <span>PRIVACY POLICY</span>
+    </div>
+    <div class="en">PRIVACY POLICY</div>
+    <h1>個人情報保護方針</h1>
+    <div class="meta-row">
+      <span><strong>制定日</strong>2020年5月25日</span>
+      <span><strong>最終改訂</strong>2026年5月1日</span>
+      <span><strong>事業者</strong>株式会社WITH HOLDINGS</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DOC ============ -->
+<section class="doc">
+  <div class="container doc-grid">
+
+    <!-- TOC -->
+    <aside class="toc" aria-label="目次">
+      <h3>CONTENTS</h3>
+      <ol>
+        <li><a href="#s1">事業者の名称</a></li>
+        <li><a href="#s2">個人情報の定義</a></li>
+        <li><a href="#s3">個人情報の取得</a></li>
+        <li><a href="#s4">利用目的</a></li>
+        <li><a href="#s5">利用目的の変更</a></li>
+        <li><a href="#s6">第三者提供</a></li>
+        <li><a href="#s7">共同利用</a></li>
+        <li><a href="#s8">取扱いの委託</a></li>
+        <li><a href="#s9">安全管理措置</a></li>
+        <li><a href="#s10">開示・訂正等</a></li>
+        <li><a href="#s11">Cookie等の利用</a></li>
+        <li><a href="#s12">未成年者の個人情報</a></li>
+        <li><a href="#s13">お問い合わせ窓口</a></li>
+        <li><a href="#s14">本方針の変更</a></li>
+      </ol>
+    </aside>
+
+    <!-- ARTICLE -->
+    <article>
+      <p class="lead">
+        株式会社WITH HOLDINGS（以下「<strong>当社</strong>」といいます。）は、当社が提供するすべてのサービスにおいて、お客様の個人情報を適切に取り扱うことが社会的責務であると認識し、個人情報の保護に関する法律（以下「個人情報保護法」といいます。）その他の関連法令およびガイドラインを遵守するとともに、以下の方針に基づき、個人情報の適切な取得、利用および管理を行います。
+      </p>
+
+      <h2 id="s1"><span class="num">第 1 条</span><span>事業者の名称および個人情報保護管理者</span></h2>
+      <table>
+        <tr><th>事業者の名称</th><td>株式会社WITH HOLDINGS</td></tr>
+        <tr><th>所在地</th><td>〒160-0022 東京都新宿区新宿1-36-2 新宿第七葉山ビル3F</td></tr>
+        <tr><th>代表者</th><td>代表取締役 遠藤 啓太</td></tr>
+        <tr><th>個人情報保護管理者</th><td>代表取締役 遠藤 啓太</td></tr>
+      </table>
+
+      <h2 id="s2"><span class="num">第 2 条</span><span>個人情報の定義</span></h2>
+      <p>本方針における「個人情報」とは、個人情報保護法第2条第1項に定める個人情報、すなわち、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日その他の記述等により特定の個人を識別することができるもの、または個人識別符号が含まれるものをいいます。</p>
+
+      <h2 id="s3"><span class="num">第 3 条</span><span>個人情報の取得</span></h2>
+      <p>当社は、適法かつ公正な手段により、お客様の個人情報を取得します。当社が取得する個人情報には、以下の情報が含まれます。</p>
+      <ol>
+        <li>氏名、住所、電話番号、メールアドレス、生年月日、性別等の基本情報</li>
+        <li>当社のサービスをご利用いただくにあたってお客様からご提供いただく情報（ご相談内容、ご家族構成、資産・収入に関する情報、健康状態に関する情報等）</li>
+        <li>当社のウェブサイトのご利用にあたって自動的に取得される情報（IPアドレス、Cookie情報、アクセスログ、利用環境に関する情報等）</li>
+        <li>その他、当社のサービス提供に必要な情報</li>
+      </ol>
+
+      <h2 id="s4"><span class="num">第 4 条</span><span>個人情報の利用目的</span></h2>
+      <p>当社は、取得した個人情報を以下の目的のために利用いたします。</p>
+      <ol>
+        <li>当社のサービス（ファイナンシャルプランニング、障害福祉サービス、買取事業、ブランディング支援事業等）の提供および運営のため</li>
+        <li>お客様からのお問い合わせ、ご相談への対応のため</li>
+        <li>お客様への当社サービスに関するご案内、情報提供のため</li>
+        <li>当社のサービスの改善および新サービスの開発のため</li>
+        <li>利用規約等に違反する行為への対応のため</li>
+        <li>当社のサービスに関する各種お知らせの配信のため</li>
+        <li>統計的データの作成および分析のため（個人を特定できない形に加工した上で利用します）</li>
+        <li>その他、上記利用目的に付随する目的のため</li>
+      </ol>
+
+      <h2 id="s5"><span class="num">第 5 条</span><span>利用目的の変更</span></h2>
+      <p>当社は、利用目的が変更前の利用目的と関連性を有すると合理的に認められる範囲においてのみ、個人情報の利用目的を変更するものとします。利用目的の変更を行った場合には、変更後の目的について、当社所定の方法によりお客様に通知し、または当社のウェブサイト上に公表します。</p>
+
+      <h2 id="s6"><span class="num">第 6 条</span><span>個人情報の第三者提供</span></h2>
+      <p>当社は、次に掲げる場合を除き、あらかじめお客様の同意を得ることなく、第三者に個人情報を提供することはいたしません。</p>
+      <ol>
+        <li>法令に基づく場合</li>
+        <li>人の生命、身体または財産の保護のために必要がある場合であって、お客様の同意を得ることが困難であるとき</li>
+        <li>公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合であって、お客様の同意を得ることが困難であるとき</li>
+        <li>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、お客様の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき</li>
+        <li>その他、個人情報保護法その他の関連法令で認められる場合</li>
+      </ol>
+
+      <h2 id="s7"><span class="num">第 7 条</span><span>個人情報の共同利用</span></h2>
+      <p>当社は、より適切なサービスをお客様にご提案するため、取得した個人情報を以下の範囲で共同利用することがあります。</p>
+
+      <h3>1. 共同利用する者の範囲</h3>
+      <p>当社（株式会社WITH HOLDINGS）の各事業部、当社のグループ会社、および当社と業務提携契約等を締結した関連事業者。</p>
+      <p style="font-size:12px;color:var(--sub);background:var(--paper-2);padding:14px 18px;border-left:2px solid var(--gold);margin-top:8px">
+        ※「グループ会社」とは、当社が議決権の過半数を保有する会社、または当社と資本的・人的関係にある会社をいいます。「関連事業者」とは、当社と業務提携契約その他これに準ずる契約を締結した事業者をいいます。
+      </p>
+
+      <h3>2. 共同利用される個人情報の項目</h3>
+      <ul>
+        <li>氏名、住所、電話番号、メールアドレス、生年月日、性別</li>
+        <li>ご相談内容、お客様のご要望に関する情報</li>
+        <li>その他、お客様にサービスをご提供するうえで必要な情報</li>
+      </ul>
+
+      <h3>3. 共同利用の目的</h3>
+      <ul>
+        <li>お客様により適切なサービスをご提案するため</li>
+        <li>ある事業でご相談いただいた内容を踏まえ、グループ内または関連事業者の他のサービスを必要に応じてご案内するため</li>
+        <li>グループ全体としてお客様に一貫したサポートをご提供するため</li>
+      </ul>
+
+      <h3>4. 共同利用される個人情報の管理について責任を有する者</h3>
+      <p>株式会社WITH HOLDINGS（代表取締役 遠藤 啓太）</p>
+
+      <h3>5. 共同利用における倫理規範</h3>
+      <p>当社は、共同利用にあたり、お客様のプライバシーを最大限尊重し、当社グループおよび関連事業者の業務遂行に必要な範囲を超えた利用は一切行いません。共同利用された情報がインターネット上に公開されること、または共同利用の範囲外の第三者に提供されることはございません。</p>
+
+      <h2 id="s8"><span class="num">第 8 条</span><span>個人情報の取扱いの委託</span></h2>
+      <p>当社は、利用目的の達成に必要な範囲において、個人情報の取扱いの全部または一部を第三者に委託する場合があります。この場合、当社は、委託先について十分な調査を行ったうえで委託契約を締結し、適切な監督を行います。</p>
+
+      <h2 id="s9"><span class="num">第 9 条</span><span>個人情報の安全管理措置</span></h2>
+      <p>当社は、個人情報の漏えい、滅失または毀損の防止その他個人情報の安全管理のため、以下の措置を講じます。</p>
+      <ol>
+        <li><strong>組織的安全管理措置</strong>：個人情報保護管理者の選任、従業者に対する監督体制の整備</li>
+        <li><strong>人的安全管理措置</strong>：従業者への教育・研修の実施、秘密保持義務の徹底</li>
+        <li><strong>物理的安全管理措置</strong>：個人情報を取り扱う区域の管理、機器・媒体の盗難・紛失等の防止</li>
+        <li><strong>技術的安全管理措置</strong>：アクセス制御、不正アクセス対策、情報システムへの監視</li>
+      </ol>
+
+      <h2 id="s10"><span class="num">第 10 条</span><span>個人情報の開示・訂正・利用停止等</span></h2>
+      <p>お客様は、当社に対して、個人情報保護法その他の関連法令に基づき、ご自身の個人情報について以下の請求を行うことができます。</p>
+      <ol>
+        <li>利用目的の通知の求め</li>
+        <li>個人情報の開示請求</li>
+        <li>個人情報の訂正、追加または削除の請求</li>
+        <li>個人情報の利用停止または消去の請求</li>
+        <li>個人情報の第三者提供の停止の請求</li>
+      </ol>
+      <p>これらの請求を行う場合は、第13条記載のお問い合わせ窓口までご連絡ください。当社は、ご本人確認を行った後、合理的な期間および範囲で対応いたします。なお、開示請求に際しては、当社所定の手数料をお客様にご負担いただく場合があります。</p>
+
+      <h2 id="s11"><span class="num">第 11 条</span><span>Cookie等の利用について</span></h2>
+      <p>当社のウェブサイトでは、お客様の利便性向上、サービスの改善、アクセス解析等の目的で、Cookieおよびこれに類する技術を利用することがあります。</p>
+      <ol>
+        <li><strong>Cookieの利用目的</strong>：お客様のウェブサイト利用状況の分析、利便性の向上、サービスの改善</li>
+        <li><strong>アクセス解析ツール</strong>：当社は、Google Analytics等のアクセス解析ツールを利用する場合があります。これらのツールは、Cookieを利用してお客様のウェブサイト利用状況に関する情報を収集しますが、個人を特定する情報は含まれません。</li>
+        <li><strong>Cookieの無効化</strong>：お客様はブラウザの設定により、Cookieの受け入れを拒否することができます。ただし、Cookieを拒否した場合、当社のウェブサイトの一部機能がご利用いただけない場合があります。</li>
+      </ol>
+
+      <h2 id="s12"><span class="num">第 12 条</span><span>未成年者の個人情報</span></h2>
+      <p>当社は、未成年者の個人情報を取得する場合、原則として保護者の同意を得たうえで取得いたします。未成年者ご本人から個人情報をご提供いただいた場合には、保護者の同意があったものとみなします。</p>
+
+      <h2 id="s13"><span class="num">第 13 条</span><span>お問い合わせ窓口</span></h2>
+      <p>個人情報の取扱いに関するお問い合わせ、ご相談、苦情、開示請求等は、以下の窓口までご連絡ください。</p>
+      <table>
+        <tr><th>窓口名称</th><td>株式会社WITH HOLDINGS 個人情報お問い合わせ窓口</td></tr>
+        <tr><th>所在地</th><td>〒160-0022 東京都新宿区新宿1-36-2 新宿第七葉山ビル3F</td></tr>
+        <tr><th>メールアドレス</th><td><a href="mailto:support@withhd.com" style="color:var(--green);text-decoration:underline">support@withhd.com</a></td></tr>
+        <tr><th>受付時間</th><td>平日 9時〜18時（土日祝日および年末年始を除く）</td></tr>
+        <tr><th>受付方法</th><td>恐れ入りますが、お問い合わせは原則として上記メールアドレスまたは<a href="index.html#contact" style="color:var(--green);text-decoration:underline">お問い合わせフォーム</a>よりお願いいたします。</td></tr>
+      </table>
+
+      <h2 id="s14"><span class="num">第 14 条</span><span>本方針の変更</span></h2>
+      <p>当社は、法令の改正、社会情勢の変化、当社の事業内容の変更等に応じて、本方針を変更することがあります。本方針を変更した場合には、変更後の本方針を当社のウェブサイト上に掲載し、掲載日から効力を生じるものとします。</p>
+
+      <hr/>
+
+      <h3 style="margin-top:0">改訂履歴</h3>
+      <table>
+        <tr><th style="width:35%">制定・改訂日</th><th style="width:auto;border-right:none">内容</th></tr>
+        <tr><td>2020年5月25日</td><td>制定</td></tr>
+        <tr><td>2026年5月1日</td><td>株式会社WITH HOLDINGSへの体制変更にともなう全面改訂</td></tr>
+      </table>
+
+      <div class="sign">
+        <div class="co">株式会社WITH HOLDINGS</div>
+        <div class="ceo">代表取締役 遠藤 啓太</div>
+      </div>
+
+      <a href="index.html" class="back">BACK TO HOME</a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="container">
+    <div class="grid">
+      <div class="brand">
+        <img class="mark" src="assets/with-holdings-mark-white.png" alt="WITH HOLDINGS" style="width:auto;height:48px;display:block;margin-bottom:16px"/>
+        <div class="name">株式会社 WITH HOLDINGS</div>
+        <div class="stmt">CONNECTING PEOPLE,<br/>BUSINESSES AND<br/>THE FUTURE.</div>
+      </div>
+      <div>
+        <h4>ABOUT</h4>
+        <ul>
+          <li><a href="index.html#top">TOP</a></li>
+          <li><a href="#">PHILOSOPHY</a></li>
+          <li><a href="index.html#company">COMPANY</a></li>
+          <li><a href="#">代表メッセージ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>BUSINESS</h4>
+        <ul>
+          <li><a href="https://asset.with.withhd.com" target="_blank" rel="noopener">Finance ↗</a></li>
+          <li><a href="https://www.kaitori.lion-trading.co.jp/" target="_blank" rel="noopener">Reuse ↗</a></li>
+          <li><a href="https://gh.withhappiness.withhd.com" target="_blank" rel="noopener">Welfare ↗</a></li>
+          <li><a href="https://playbranding.withhd.com" target="_blank" rel="noopener">Branding ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MORE</h4>
+        <ul>
+          <li><a href="#">採用情報</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="#">IR（準備中）</a></li>
+          <li><a href="#">News（準備中）</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>POLICIES</h4>
+        <ul>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="cookie.html">Cookieポリシー</a></li>
+          <li><a href="terms.html">サイト利用規約</a></li>
+          <li><a href="terms.html">サイトポリシー</a></li>
+          <li><a href="security.html">情報セキュリティ基本方針</a></li>
+          <li><a href="anti-social.html">反社会的勢力排除に関する基本方針</a></li>
+          <li><a href="accessibility.html">アクセシビリティ方針</a></li>
+          <li><a href="social-media.html">ソーシャルメディアポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta">
+      <span>© 2026 WITH HOLDINGS, Inc.</span>
+      <span>JP / EN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // TOC active-section highlight
+  const links = document.querySelectorAll('.toc a');
+  const sections = [...document.querySelectorAll('article h2[id]')];
+  const byId = Object.fromEntries([...links].map(a => [a.getAttribute('href').slice(1), a]));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const id = e.target.id;
+      if(!byId[id]) return;
+      if(e.isIntersecting && e.intersectionRatio > 0){
+        links.forEach(a=>a.classList.remove('is-active'));
+        byId[id].classList.add('is-active');
+      }
+    });
+  },{rootMargin:'-104px 0px -70% 0px',threshold:[0,1]});
+  sections.forEach(s=>io.observe(s));
+</script>
+
+</body>
+</html>

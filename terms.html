@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>サイトポリシー | WITH HOLDINGS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#0F3D34;
+    --green-deep:#0a2a24;
+    --green-mist:#e8efe9;
+    --gold:#D4A24A;
+    --gold-soft:#E8C988;
+    --paper:#F7F4ED;
+    --paper-2:#fbfaf6;
+    --ink:#1a2421;
+    --sub:#5a665f;
+    --line:#dfd9cb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
+  body{
+    font-family:'Noto Sans JP','Hiragino Sans',sans-serif;
+    color:var(--ink);background:var(--paper);
+    -webkit-font-smoothing:antialiased;font-feature-settings:"palt";
+    line-height:1.85;
+  }
+  .serif{font-family:'Noto Serif JP',serif}
+  .container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+  a{color:inherit;text-decoration:none}
+
+  /* ===== NAV (paper variant — no hero) ===== */
+  nav.gnav{position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(247,244,237,.88);backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    border-bottom:1px solid rgba(223,217,203,.7);transition:all .3s ease}
+  nav.gnav .row{display:flex;align-items:center;justify-content:space-between;
+    height:72px;gap:32px}
+  nav.gnav .brand{display:flex;align-items:center;gap:14px;color:var(--ink)}
+  nav.gnav .brand .name{font-family:'Noto Serif JP',serif;font-size:14px;
+    font-weight:500;letter-spacing:.2em}
+  nav.gnav ul{list-style:none;display:flex;gap:40px;margin-left:auto}
+  nav.gnav ul a{font-size:11px;letter-spacing:.32em;font-weight:500;color:var(--ink);
+    transition:color .25s;position:relative;padding:8px 0}
+  nav.gnav ul a:hover{color:var(--gold)}
+  nav.gnav .cta{display:inline-flex;align-items:center;gap:10px;
+    padding:10px 20px;border:1px solid var(--green);color:var(--green);
+    font-size:11px;letter-spacing:.28em;font-weight:600;border-radius:2px;
+    transition:all .3s ease}
+  nav.gnav .cta:hover{background:var(--green);color:#fff}
+  nav.gnav .burger{display:none;background:none;border:none;cursor:pointer;
+    flex-direction:column;gap:5px;padding:8px}
+  nav.gnav .burger span{width:22px;height:1.5px;background:var(--ink);
+    border-radius:1px;transition:all .3s}
+  @media (max-width:900px){
+    nav.gnav ul,nav.gnav .cta{display:none}
+    nav.gnav .burger{display:flex}
+  }
+
+  /* ===== PAGE HEAD ===== */
+  .page-head{
+    position:relative;padding:140px 0 64px;color:#fff;
+    background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
+    overflow:hidden;
+  }
+  .page-head::before{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 78% 18%,rgba(212,162,74,.15) 0%,transparent 50%),
+      radial-gradient(ellipse at 12% 90%,rgba(212,162,74,.08) 0%,transparent 50%);
+    pointer-events:none;
+  }
+  .page-head .crumbs{position:relative;z-index:1;display:flex;align-items:center;
+    gap:10px;font-size:10px;letter-spacing:.3em;color:rgba(232,201,136,.85);
+    margin-bottom:28px}
+  .page-head .crumbs span{opacity:.5}
+  .page-head .crumbs a:hover{color:var(--gold)}
+  .page-head h1{position:relative;z-index:1;font-family:'Noto Serif JP',serif;
+    font-weight:500;font-size:clamp(34px,5vw,56px);line-height:1.3;letter-spacing:.04em;
+    margin:0 0 18px}
+  .page-head .en{position:relative;z-index:1;font-size:11px;letter-spacing:.42em;
+    color:var(--gold);font-weight:500}
+  .page-head .meta-row{position:relative;z-index:1;display:flex;gap:32px;
+    margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.12);
+    flex-wrap:wrap;font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.6)}
+  .page-head .meta-row strong{color:#fff;font-weight:500;margin-right:8px}
+
+  /* ===== LAYOUT ===== */
+  .doc{padding:96px 0 120px;position:relative}
+  .doc::before{
+    content:'';position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);
+    opacity:.5;
+  }
+  .doc-grid{
+    display:grid;grid-template-columns:240px 1fr;gap:72px;
+    align-items:start;
+  }
+  @media (max-width:900px){
+    .doc-grid{grid-template-columns:1fr;gap:32px}
+  }
+
+  /* ===== TOC (sticky) ===== */
+  .toc{
+    position:sticky;top:104px;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .toc h3{font-size:10px;letter-spacing:.36em;color:var(--gold);
+    font-weight:600;margin:0 0 18px}
+  .toc ol{list-style:none;counter-reset:toc;display:flex;flex-direction:column;gap:8px}
+  .toc ol li{counter-increment:toc;position:relative;padding-left:32px;
+    font-size:12px;line-height:1.55}
+  .toc ol li::before{
+    content:counter(toc,decimal-leading-zero);
+    position:absolute;left:0;top:1px;
+    font-family:'Noto Serif JP',serif;font-size:10px;
+    letter-spacing:.1em;color:var(--gold);
+  }
+  .toc a{color:var(--sub);transition:color .2s}
+  .toc a:hover,.toc a.is-active{color:var(--green);font-weight:500}
+  @media (max-width:900px){
+    .toc{position:static;display:none}
+  }
+
+  /* ===== ARTICLE ===== */
+  article{max-width:780px}
+  article .lead{
+    font-family:'Noto Serif JP',serif;font-weight:300;
+    font-size:16px;line-height:2.05;color:var(--ink);
+    padding-bottom:48px;border-bottom:1px solid var(--line);margin-bottom:56px;
+  }
+  article .lead strong{color:var(--green);font-weight:500}
+
+  article h2{
+    font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:22px;line-height:1.5;letter-spacing:.04em;
+    color:var(--green);
+    margin:64px 0 24px;padding-top:32px;
+    display:flex;align-items:baseline;gap:18px;
+    border-top:1px solid var(--line);
+  }
+  article h2:first-of-type{margin-top:0;border-top:none;padding-top:0}
+  article h2 .num{
+    font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:.3em;
+    color:var(--gold);font-weight:500;flex-shrink:0;
+  }
+  article h3{
+    font-family:'Noto Serif JP',serif;font-weight:500;
+    font-size:15px;color:var(--green);
+    margin:32px 0 12px;
+  }
+  article p{font-size:14px;line-height:2;color:var(--ink);margin:0 0 16px}
+  article ol,article ul{padding-left:24px;margin:0 0 20px;font-size:14px;line-height:2}
+  article ol li,article ul li{margin-bottom:6px;padding-left:6px}
+  article ol li::marker{color:var(--gold);font-family:'Noto Serif JP',serif}
+  article ul li::marker{color:var(--gold)}
+  article strong{color:var(--green);font-weight:600}
+
+  article table{
+    width:100%;border-collapse:collapse;
+    margin:8px 0 24px;font-size:13px;
+    border:1px solid var(--line);
+  }
+  article table th,article table td{
+    padding:14px 18px;text-align:left;
+    border-bottom:1px solid var(--line);vertical-align:top;
+  }
+  article table th{
+    background:var(--paper-2);color:var(--green);font-weight:500;
+    font-family:'Noto Serif JP',serif;letter-spacing:.04em;
+    width:30%;border-right:1px solid var(--line);
+  }
+  article table tr:last-child th,article table tr:last-child td{border-bottom:none}
+
+  /* nested numbered (4.1 4.2) within sections */
+  article .sub-list{counter-reset:sub;list-style:none;padding:0}
+  article .sub-list li{counter-increment:sub;position:relative;padding-left:32px;margin-bottom:6px}
+  article .sub-list li::before{
+    content:counter(sub) ".";
+    position:absolute;left:0;top:0;
+    color:var(--gold);font-family:'Noto Serif JP',serif;font-weight:500;
+  }
+
+  article hr{border:none;height:1px;background:var(--line);margin:48px 0}
+
+  /* signature block */
+  .sign{
+    margin-top:72px;padding:32px 32px;
+    background:var(--paper-2);border-left:2px solid var(--gold);
+    font-family:'Noto Serif JP',serif;
+  }
+  .sign .co{font-size:14px;letter-spacing:.06em;color:var(--green);margin-bottom:6px}
+  .sign .ceo{font-size:13px;color:var(--sub)}
+
+  /* back link */
+  .back{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:48px;font-size:12px;letter-spacing:.28em;font-weight:500;
+    color:var(--green);transition:gap .25s;
+  }
+  .back::before{content:'←';font-size:14px;transition:transform .25s}
+  .back:hover{color:var(--gold)}
+  .back:hover::before{transform:translateX(-4px)}
+
+  /* ===== FOOTER ===== */
+  footer.foot{background:var(--green-deep);color:rgba(255,255,255,.78);padding:80px 0 32px}
+  footer.foot .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.3fr;gap:48px;
+    margin-bottom:64px}
+  footer.foot .brand .mark{width:64px;height:auto;margin-bottom:16px}
+  footer.foot .brand .name{font-family:'Noto Serif JP',serif;font-size:15px;
+    font-weight:500;letter-spacing:.16em;color:#fff;margin-bottom:14px}
+  footer.foot .brand .stmt{font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.5);
+    line-height:1.8}
+  footer.foot h4{font-size:11px;letter-spacing:.28em;color:var(--gold);
+    font-weight:600;margin:0 0 18px;text-transform:uppercase}
+  footer.foot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  footer.foot ul a{font-size:12px;color:rgba(255,255,255,.78);transition:color .25s}
+  footer.foot ul a:hover{color:var(--gold)}
+  footer.foot .meta{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.45)}
+  @media (max-width:1100px){footer.foot .grid{grid-template-columns:1.5fr 1fr 1fr;gap:40px}}
+  @media (max-width:900px){footer.foot .grid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media (max-width:600px){footer.foot .grid{grid-template-columns:1fr}}
+
+  @media print{
+    nav.gnav,footer.foot,.toc,.back,.page-head .meta-row{display:none}
+    .page-head{background:none;color:#000;padding:0 0 32px}
+    .page-head .crumbs,.page-head .en{color:#666}
+    .page-head h1{color:#000}
+    .doc-grid{grid-template-columns:1fr}
+    body{background:#fff}
+    article{max-width:none}
+    article h2{break-after:avoid}
+  }
+</style>
+  <script src="assets/whd-cursor.js" defer></script>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+</head>
+<body>
+<!-- ============ NAV ============ -->
+<nav class="gnav" id="gnav">
+  <div class="container row">
+    <a href="index.html" class="brand">
+      <img src="assets/with-holdings-mark.png" alt="WITH HOLDINGS" style="width:auto;height:36px;display:block"/>
+      <span class="name">WITH HOLDINGS</span>
+    </a>
+    <ul>
+      <li><a href="index.html#top">TOP</a></li>
+      <li><a href="index.html#business">BUSINESS</a></li>
+      <li><a href="index.html#company">COMPANY</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+    <a href="index.html#contact" class="cta">CONTACT <span>→</span></a>
+    <button class="burger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ PAGE HEAD ============ -->
+<header class="page-head" data-screen-label="Site Terms Header">
+  <div class="container">
+    <div class="crumbs">
+      <a href="index.html">HOME</a>
+      <span>/</span>
+      <span>SITE TERMS</span>
+    </div>
+    <div class="en">SITE TERMS</div>
+    <h1>サイトポリシー</h1>
+    <div class="meta-row">
+      <span><strong>制定日</strong>2020年5月25日</span>
+      <span><strong>最終改訂</strong>2026年5月1日</span>
+      <span><strong>事業者</strong>株式会社WITH HOLDINGS</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DOC ============ -->
+<section class="doc">
+  <div class="container doc-grid">
+
+    <!-- TOC -->
+    <aside class="toc" aria-label="目次">
+      <h3>CONTENTS</h3>
+      <ol>
+        <li><a href="#s1">本サイトの運営者</a></li>
+        <li><a href="#s2">著作権・知的財産権</a></li>
+        <li><a href="#s3">商標</a></li>
+        <li><a href="#s4">免責事項</a></li>
+        <li><a href="#s5">リンクについて</a></li>
+        <li><a href="#s6">推奨環境</a></li>
+        <li><a href="#s7">個人情報の取扱い</a></li>
+        <li><a href="#s8">禁止事項</a></li>
+        <li><a href="#s9">準拠法および管轄裁判所</a></li>
+        <li><a href="#s10">本ポリシーの変更</a></li>
+      </ol>
+    </aside>
+
+    <!-- ARTICLE -->
+    <article>
+      <p class="lead">
+        株式会社WITH HOLDINGS（以下「<strong>当社</strong>」といいます。）が運営するウェブサイト（<strong>https://withhd.com/</strong> 以下「本サイト」といいます。）をご利用いただくにあたり、以下の事項についてあらかじめご了承いただきますようお願い申し上げます。本サイトをご利用いただいた時点で、本ポリシーにご同意いただいたものとみなします。
+      </p>
+
+      <h2 id="s1"><span class="num">第 1 条</span><span>本サイトの運営者</span></h2>
+      <table>
+        <tr><th>運営者</th><td>株式会社WITH HOLDINGS</td></tr>
+        <tr><th>所在地</th><td>〒160-0022 東京都新宿区新宿1-36-2 新宿第七葉山ビル3F</td></tr>
+        <tr><th>代表者</th><td>代表取締役 遠藤 啓太</td></tr>
+        <tr><th>メール</th><td><a href="mailto:support@withhd.com" style="color:var(--green);text-decoration:underline">support@withhd.com</a></td></tr>
+      </table>
+
+      <h2 id="s2"><span class="num">第 2 条</span><span>著作権・知的財産権</span></h2>
+      <ol>
+        <li>本サイトに掲載されている文章、写真、イラスト、動画、音声、ロゴ、デザイン、その他一切のコンテンツ（以下「本コンテンツ」といいます。）に関する著作権、商標権、意匠権その他の知的財産権は、当社または正当な権利を有する第三者に帰属します。</li>
+        <li>本コンテンツの全部または一部を、当社の事前の書面による許諾なく、複製、転載、転送、公衆送信、翻訳、改変、販売、出版、放送、その他著作権法等で認められる範囲を超えて利用することを禁じます。</li>
+        <li>本コンテンツの引用は、著作権法上認められる範囲（出所の明示、引用の必然性、主従関係の明確化等の要件を満たす場合）に限ります。</li>
+      </ol>
+
+      <h2 id="s3"><span class="num">第 3 条</span><span>商標</span></h2>
+      <ol>
+        <li>本サイトに掲載されている当社の商号、サービス名、ロゴ、その他の標章は、当社の商標または登録商標です。</li>
+        <li>これらの商標を、当社の事前の書面による許諾なく使用することを禁じます。</li>
+      </ol>
+
+      <h2 id="s4"><span class="num">第 4 条</span><span>免責事項</span></h2>
+      <ol>
+        <li>当社は、本サイトに掲載される情報の正確性、完全性、有用性、最新性、特定目的への適合性等について、可能な限り正確な情報を掲載するよう努めますが、いかなる保証も行うものではありません。</li>
+        <li>お客様が本サイトの情報を利用したことにより生じた損害（直接的、間接的を問わず）について、当社は一切の責任を負いません。</li>
+        <li>本サイトに掲載される情報は、予告なく変更、追加、削除されることがあります。</li>
+        <li>当社は、本サイトのシステム障害、通信回線の障害、その他の事由により、本サイトの運営を中断または停止することがあります。これによりお客様または第三者に生じた損害について、当社は一切の責任を負いません。</li>
+        <li>当社は、お客様が本サイトを利用するために使用する機器、ソフトウェア、通信環境等に起因する損害について、一切の責任を負いません。</li>
+      </ol>
+
+      <h2 id="s5"><span class="num">第 5 条</span><span>リンクについて</span></h2>
+
+      <h3>1. 本サイトへのリンク</h3>
+      <p>本サイトへのリンクは、原則として自由です。ただし、以下に該当する場合、または該当するおそれがある場合は、リンクをお断りすることがあります。</p>
+      <ul>
+        <li>当社、当社の役員、従業員またはお客様を誹謗中傷する内容を含むウェブサイトからのリンク</li>
+        <li>公序良俗に反する内容、違法な内容、またはそのおそれのある内容を含むウェブサイトからのリンク</li>
+        <li>当社の信用または名誉を毀損するおそれのあるウェブサイトからのリンク</li>
+        <li>フレーム内表示等、当社のコンテンツであることが不明瞭となる形式でのリンク</li>
+        <li>その他、当社が不適切と判断するウェブサイトからのリンク</li>
+      </ul>
+      <p>リンクを設定される場合は、リンク元が本サイトと別のサイトであることを明示してください。</p>
+
+      <h3>2. 本サイトからのリンク</h3>
+      <ol>
+        <li>本サイトには、当社以外の第三者が運営するウェブサイトへのリンクが含まれる場合があります。これらのリンク先のウェブサイトは、当社の管理下にあるものではなく、当社はリンク先のウェブサイトの内容、安全性、信頼性等について一切の責任を負いません。</li>
+        <li>リンク先のウェブサイトのご利用については、各ウェブサイトの利用規約等をご確認ください。</li>
+      </ol>
+
+      <h2 id="s6"><span class="num">第 6 条</span><span>推奨環境</span></h2>
+      <ol>
+        <li>本サイトは、以下の環境でのご利用を推奨します。
+          <ul style="margin-top:8px">
+            <li><strong>PC</strong>：最新版のGoogle Chrome、Mozilla Firefox、Microsoft Edge、Safari</li>
+            <li><strong>スマートフォン・タブレット</strong>：iOS最新版のSafari、Android最新版のGoogle Chrome</li>
+          </ul>
+        </li>
+        <li>推奨環境以外でご利用された場合、本サイトの一部または全部が正常に動作しない場合があります。</li>
+        <li>ブラウザの設定でJavaScriptおよびCookieを有効にしてご利用ください。</li>
+      </ol>
+
+      <h2 id="s7"><span class="num">第 7 条</span><span>個人情報の取扱い</span></h2>
+      <p>本サイトにおける個人情報の取扱いについては、別途定める<a href="privacy.html" style="color:var(--green);text-decoration:underline">「個人情報保護方針（プライバシーポリシー）」</a>をご参照ください。</p>
+
+      <h2 id="s8"><span class="num">第 8 条</span><span>禁止事項</span></h2>
+      <p>お客様は、本サイトのご利用にあたり、以下の行為を行ってはなりません。</p>
+      <ol>
+        <li>法令または公序良俗に違反する行為</li>
+        <li>当社、他のお客様、または第三者の権利、利益、名誉等を侵害する行為</li>
+        <li>本サイトの運営を妨害する行為、または妨害するおそれのある行為</li>
+        <li>本サイトのサーバーまたはネットワークに過度な負荷をかける行為</li>
+        <li>本サイトに不正アクセスする行為、または不正アクセスを試みる行為</li>
+        <li>本サイトに掲載されている情報を、当社の許諾なく商業目的で利用する行為</li>
+        <li>コンピュータウイルス等の有害なプログラムを送信する行為</li>
+        <li>その他、当社が不適切と判断する行為</li>
+      </ol>
+
+      <h2 id="s9"><span class="num">第 9 条</span><span>準拠法および管轄裁判所</span></h2>
+      <ol>
+        <li>本ポリシーの解釈および適用は、日本法に準拠します。</li>
+        <li>本サイトのご利用に関連して当社とお客様との間に生じた紛争については、東京地方裁判所を第一審の専属的合意管轄裁判所とします。</li>
+      </ol>
+
+      <h2 id="s10"><span class="num">第 10 条</span><span>本ポリシーの変更</span></h2>
+      <ol>
+        <li>当社は、必要に応じて本ポリシーを変更することがあります。本ポリシーを変更した場合、変更後の本ポリシーを本サイト上に掲載した時点で効力を生じるものとします。</li>
+        <li>お客様は、本サイトをご利用いただく前に、必ず最新の本ポリシーをご確認ください。</li>
+      </ol>
+
+      <hr/>
+
+      <h3 style="margin-top:0">お問い合わせ窓口</h3>
+      <p>本ポリシーに関するお問い合わせは、下記までご連絡ください。</p>
+      <table>
+        <tr><th>窓口名称</th><td>株式会社WITH HOLDINGS お問い合わせ窓口</td></tr>
+        <tr><th>所在地</th><td>〒160-0022 東京都新宿区新宿1-36-2 新宿第七葉山ビル3F</td></tr>
+        <tr><th>メールアドレス</th><td><a href="mailto:support@withhd.com" style="color:var(--green);text-decoration:underline">support@withhd.com</a></td></tr>
+        <tr><th>受付時間</th><td>平日 9時〜18時（土日祝日および年末年始を除く）</td></tr>
+        <tr><th>受付方法</th><td>恐れ入りますが、お問い合わせは原則として上記メールアドレスまたは<a href="index.html#contact" style="color:var(--green);text-decoration:underline">お問い合わせフォーム</a>よりお願いいたします。</td></tr>
+      </table>
+
+      <hr/>
+
+      <h3 style="margin-top:0">改訂履歴</h3>
+      <table>
+        <tr><th style="width:35%">制定・改訂日</th><th style="width:auto;border-right:none">内容</th></tr>
+        <tr><td>2020年5月25日</td><td>制定</td></tr>
+        <tr><td>2026年5月1日</td><td>株式会社WITH HOLDINGSへの体制変更にともなう全面改訂</td></tr>
+      </table>
+
+      <div class="sign">
+        <div class="co">株式会社WITH HOLDINGS</div>
+        <div class="ceo">代表取締役 遠藤 啓太</div>
+      </div>
+
+      <a href="index.html" class="back">BACK TO HOME</a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="container">
+    <div class="grid">
+      <div class="brand">
+        <img class="mark" src="assets/with-holdings-mark-white.png" alt="WITH HOLDINGS" style="width:auto;height:48px;display:block;margin-bottom:16px"/>
+        <div class="name">株式会社 WITH HOLDINGS</div>
+        <div class="stmt">CONNECTING PEOPLE,<br/>BUSINESSES AND<br/>THE FUTURE.</div>
+      </div>
+      <div>
+        <h4>ABOUT</h4>
+        <ul>
+          <li><a href="index.html#top">TOP</a></li>
+          <li><a href="#">PHILOSOPHY</a></li>
+          <li><a href="index.html#company">COMPANY</a></li>
+          <li><a href="#">代表メッセージ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>BUSINESS</h4>
+        <ul>
+          <li><a href="https://asset.with.withhd.com" target="_blank" rel="noopener">Finance ↗</a></li>
+          <li><a href="https://www.kaitori.lion-trading.co.jp/" target="_blank" rel="noopener">Reuse ↗</a></li>
+          <li><a href="https://gh.withhappiness.withhd.com" target="_blank" rel="noopener">Welfare ↗</a></li>
+          <li><a href="https://playbranding.withhd.com" target="_blank" rel="noopener">Branding ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MORE</h4>
+        <ul>
+          <li><a href="#">採用情報</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="#">IR（準備中）</a></li>
+          <li><a href="#">News（準備中）</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>POLICIES</h4>
+        <ul>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="cookie.html">Cookieポリシー</a></li>
+          <li><a href="terms.html">サイト利用規約</a></li>
+          <li><a href="terms.html">サイトポリシー</a></li>
+          <li><a href="security.html">情報セキュリティ基本方針</a></li>
+          <li><a href="anti-social.html">反社会的勢力排除に関する基本方針</a></li>
+          <li><a href="accessibility.html">アクセシビリティ方針</a></li>
+          <li><a href="social-media.html">ソーシャルメディアポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta">
+      <span>© 2026 WITH HOLDINGS, Inc.</span>
+      <span>JP / EN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // TOC active-section highlight
+  const links = document.querySelectorAll('.toc a');
+  const sections = [...document.querySelectorAll('article h2[id]')];
+  const byId = Object.fromEntries([...links].map(a => [a.getAttribute('href').slice(1), a]));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const id = e.target.id;
+      if(!byId[id]) return;
+      if(e.isIntersecting && e.intersectionRatio > 0){
+        links.forEach(a=>a.classList.remove('is-active'));
+        byId[id].classList.add('is-active');
+      }
+    });
+  },{rootMargin:'-104px 0px -70% 0px',threshold:[0,1]});
+  sections.forEach(s=>io.observe(s));
+</script>
+
+</body>
+</html>
